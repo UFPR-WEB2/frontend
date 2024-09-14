@@ -36,10 +36,17 @@ main {
     margin-top: 13.5dvh;
 }
 
-main .tabela {
+main .main-content {
     margin-left: 1%;
     width: 83%;
     padding-top: 2%;
+}
+
+main .main-content h3 {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 4dvh;
+    padding-bottom: 0.5dvh;
 }
 
 main .tabela #table-user {
@@ -48,7 +55,6 @@ main .tabela #table-user {
 
     font-weight: 600;
     font-family: "Poppins", sans-serif;
-    text-transform: uppercase;
     padding: 0.2rem;
     cursor: pointer;
 
