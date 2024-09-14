@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abrir Manuntecao</title>
+    <link rel="stylesheet" href="../pattern.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <div id="icon"></div>
+    </header>
+    <main>
+        <div id="container">
+            <h1>Solicitação de Manutenção</h1>
+            <form action="#" method="post">
+                <label for="equipment-description">Descrição do equipamento</label>
+                <input type="text" id="equipment-description" name="equipment-description" required placeholder="Descrição">
+
+                <label for="equipment-category">Categoria do equipamento</label>
+                <select id="categoria" class="dropdown">
+                    <option value="" disabled selected>Selecione uma categoria</option>
+                    <option value="eletrico">Equipamento Elétrico</option>
+                    <option value="hidraulico">Equipamento Hidráulico</option>
+                    <option value="mecanico">Equipamento Mecânico</option>
+                    <option value="outros">Outros</option>
+                </select>
+
+                <label for="defect-description">Descrição do defeito </label>
+                <textarea id="defect-description" name="defect-description" required placeholder="Defeito"></textarea>
+
+                <input type="hidden" id="request-date" name="request-date" value="">
+                <input type="hidden" id="request-status" name="request-status" value="ABERTA">
+
+                <button>Enviar</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div id="developers">Desenvolvido por <span>Nome da Equipe</span>.</div>
+    </footer>
+</body>
+</html>
