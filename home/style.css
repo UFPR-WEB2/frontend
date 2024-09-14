@@ -1,0 +1,160 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
+
+    background: var(--bg-color);
+    width: 100vw;
+    min-height: 100dvh;
+}
+
+main {
+    --bg-color: transparent;
+    --main-height: 100dvh; 
+
+    height: 100dvh;
+    background: var(--bg-color);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#title-container {
+    color: white;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    word-spacing: -1%;
+}
+
+#sub-container {
+    display: flex;
+    align-items: center;
+    margin: -0.5rem;
+}
+
+#manutencao{
+    font-size: 5.2rem;
+}
+
+#de{
+    font-size: 3rem;
+    font-family: "Rubik", sans-serif;
+    rotate: 270deg;
+    width: auto;
+}
+
+#equipamentos{
+    font-size: 4rem;
+}
+
+header, footer {
+    background: var(--bg-color);
+    height: var(--height);
+    max-height: var(--max-height);
+
+    width: 100%;
+    padding: 0.5rem 5dvw;
+    display: flex;
+    align-items: center;
+    position: fixed;
+}
+
+header {
+    --bg-color: transparent;
+    --height: 4rem;
+    --max-height: 4rem;
+
+    top: 0;
+    justify-content: space-between;
+    color: white;
+
+}
+
+footer {
+    --bg-color: transparent;
+    --height: 4rem;
+    --max-height: 4rem;
+
+    bottom: 0;
+    justify-content: center;
+}
+
+header #icon {
+    --bg-color: linear-gradient(135deg, orange, red);
+
+    background: var(--bg-color);
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+footer #developers {
+    --font-color: var(--white);
+    --font-height: 1.15rem;
+
+    font-family: Arial, Helvetica, sans-serif;
+    word-spacing: -0.5%;
+    color: var(--font-color);
+    font-size: var(--font-height);
+    font-weight: 600;
+    font-variant: small-caps;
+}
+
+footer #developers span {
+    --font-color: var(--blue2);
+
+    color: var(--font-color);
+}
+
+#login-container {
+    display: flex;
+    gap: 1rem;
+    height: 100%;
+}
+
+#register, #login {
+    height: 100%;
+    aspect-ratio: 3/1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    padding: 0.2rem;
+    cursor: pointer;
+}
+
+#register {
+    background-color: var(--black);
+    font-size: 0.9rem;
+}
+
+#login {
+    background: transparent;
+    color: black;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+#register::after, #login::after {
+    content: "";
+    height: calc(100% - 0.8rem);
+    aspect-ratio: 3/1.5;
+    position: absolute;
+    background: linear-gradient(135deg, orange, red);
+    z-index: -2;
+    border-radius: 0.8rem;
+}
