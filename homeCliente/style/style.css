@@ -1,0 +1,100 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
+    background: var(--bg-color);
+}
+
+header {
+    --bg-color: transparent;
+    --height: 5dvh;
+    --max-height: 4dvh;
+
+    top: 0;
+    justify-content: space-between;
+    color: white;
+
+    width: 98%;
+    margin-left: 1%;
+    align-items: center;
+    position: fixed;
+}
+
+main {
+    --bg-color: transparent;
+    --main-height: 83.5dvh;
+    height: 85.5dvh;
+    background: var(--bg-color);
+    width: 98%;
+    display: flex;
+    margin-left: 1%;
+    margin-top: 13.5dvh;
+}
+
+main .tabela {
+    margin-left: 1%;
+    width: 83%;
+    padding-top: 2%;
+}
+
+main .tabela #table-user {
+    width: 100%;
+    border-radius: 0.75rem;
+
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    padding: 0.2rem;
+    cursor: pointer;
+
+    border-collapse: collapse;
+    background-color: white;
+    width: 100%;
+
+    position: relative;
+    z-index: 1;
+}
+
+main .tabela #table-user {
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    z-index: 1;
+}
+
+main .tabela #table-user::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 0.05rem;
+    background: linear-gradient(45deg, orange, red);
+    z-index: -1;
+}
+
+main .tabela #table-user th,
+#table-user td {
+    border-bottom: 1px solid orange;
+    padding: 10px;
+    text-align: left;
+}
+
+main .tabela #table-user th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+main .tabela #table-user tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+main .tabela #table-user tr:hover {
+    background-color: #ffe4b5;
+}
