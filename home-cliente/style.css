@@ -1,0 +1,58 @@
+#solicitacoes-container {
+    width: 80%;
+    margin: 2rem auto;
+    background-color: var(--gray);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center; 
+}
+
+#solicitacoes-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.solicitacao {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+    padding: 1rem;
+    background-color: var(--gray);
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.solicitacao span, .solicitacao button {
+    flex: 1;
+    text-align: center; 
+    color: var(--white);
+    font-family: "Poppins", sans-serif;
+}
+
+.solicitacao .data-hora, .solicitacao .equipamento, .solicitacao .estado {
+    text-align: center;
+}
+
+.solicitacao button {
+    padding: 0.5rem 1rem;
+    background-color: var(--blue3);
+    color: var(--black);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.solicitacao button a {
+    color: var(--black); 
+    text-decoration: none;
+    display: block;
+}
+
+.solicitacao button:hover {
+    background-color: var(--blue2);
+}
+
+.solicitacao button:active {
+    background-color: var(--blue1);
+}
