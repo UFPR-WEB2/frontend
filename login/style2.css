@@ -15,7 +15,7 @@ body {
 
 main {
     --bg-color: transparent;
-    --main-height: 100dvh; 
+    --main-height: 100dvh;
 
     height: 100dvh;
     background: var(--bg-color);
@@ -40,22 +40,23 @@ main {
     margin: -0.5rem;
 }
 
-#manutencao{
+#manutencao {
     font-size: 5.2rem;
 }
 
-#de{
+#de {
     font-size: 3rem;
     font-family: "Rubik", sans-serif;
     rotate: 270deg;
     width: auto;
 }
 
-#equipamentos{
+#equipamentos {
     font-size: 4rem;
 }
 
-header, footer {
+header,
+footer {
     background: var(--bg-color);
     height: var(--height);
     max-height: var(--max-height);
@@ -121,7 +122,8 @@ footer #developers span {
     height: 100%;
 }
 
-#register, #login {
+#register,
+#login {
     height: 100%;
     aspect-ratio: 3/1.5;
     display: flex;
@@ -131,7 +133,7 @@ footer #developers span {
 
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
-    
+
     font-family: "Poppins", sans-serif;
     text-transform: uppercase;
     padding: 0.2rem;
@@ -150,7 +152,8 @@ footer #developers span {
     font-size: 1rem;
 }
 
-#register::after, #login::after {
+#register::after,
+#login::after {
     content: "";
     height: calc(100% - 0.8rem);
     aspect-ratio: 3/1.5;
@@ -160,7 +163,8 @@ footer #developers span {
     border-radius: 0.8rem;
 }
 
-#register::before, #login::before {
+#register::before,
+#login::before {
     content: "";
     height: calc(100% - 0.8rem);
     aspect-ratio: 3/1.5;
@@ -170,11 +174,13 @@ footer #developers span {
     border-radius: 0.8rem;
 }
 
-#register:hover::before, #login:hover::before {
+#register:hover::before,
+#login:hover::before {
     background: linear-gradient(135deg, orange, red);
 }
 
-#register:hover::after, #login:hover::after {
+#register:hover::after,
+#login:hover::after {
     background: var(--bg-color);
 }
 
@@ -193,7 +199,7 @@ footer #developers span {
 h1 {
     font-size: 2.5rem;
     font-family: "Rubik", sans-serif;
-    font-weight: 700;
+    font-weight: 750;
     color: white;
     margin-bottom: 1rem;
 }
@@ -207,11 +213,13 @@ form {
 
 form input {
     height: 2.5rem;
-    padding: 0.5rem;
+    padding: 8px;
     border-radius: 0.5rem;
     border: 1px solid var(--gray);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
+    margin: 5px;
+
 }
 
 form input:focus {
@@ -227,6 +235,7 @@ form button {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 form button:hover {
@@ -239,4 +248,75 @@ form button:active {
 
 form button:focus {
     outline: none;
+}
+
+#login-form {
+
+    padding-top: 20px;
+    padding-bottom: 25px;
+    justify-content: center;
+    text-align: center;
+    height: auto;
+    width: 350px;
+
+}
+
+#register-form {
+    padding-top: 20px;
+    padding-bottom: 25px;
+    justify-content: center;
+    text-align: center;
+    height: auto;
+    width: 350px;
+
+}
+
+#container {
+    flex-direction: column;
+    margin: 10px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1%;
+    border-radius: 10px;
+    width: 365px;
+
+}
+
+#grid-2 {
+    display: flex;
+}
+
+#teste-teste {
+    display: flex;
+}
+
+
+
+p {
+    text-align: left;
+    display: inline-block;
+    font-size: 18px;
+    color: #fff;
+    margin: 0;
+    margin-bottom: -15px;
+    margin-left: 15px;
+
+}
+
+#Fpassowrd {
+
+    text-align: left;
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
+    margin-top: -15px;
+    margin-left: 15px;
+    text-decoration: underline;
+    cursor: pointer;
+    border: color(black);
+}
+
+#Fpassowrd:hover {
+    color: orange;
 }
