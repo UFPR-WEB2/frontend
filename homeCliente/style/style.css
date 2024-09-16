@@ -104,3 +104,10 @@ main .tabela #table-user tr:nth-child(even) {
 main .tabela #table-user tr:hover {
     background-color: #ffe4b5;
 }
+button{
+    background-color: black;
+    color: white;
+    width: 10dvh;
+    height: 4dvh;
+    border-radius: 1dvh;
+}
