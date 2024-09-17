@@ -227,3 +227,9 @@ form button:focus {
     display: flex;
     gap: 1rem;
 }
+
+form input:focus{
+    outline: none;
+    border-color: #3282B8;
+    box-shadow: 0 0 8px rgba(50, 130, 184, 0.6);
+}
