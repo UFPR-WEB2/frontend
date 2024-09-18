@@ -19,24 +19,10 @@ class NavBarPadrao extends HTMLElement {
 
         const funcionalidade1 = document.createElement("li");
         const link1 = document.createElement("a");
-        link1.href = "#"; 
-        link1.textContent = "Funcionalidade 1";
+        link1.href = "../maintenance/index.html"; 
+        link1.textContent = "Solicitar Manutenção";
         funcionalidade1.appendChild(link1);
         funcionalidadesList.appendChild(funcionalidade1);
-
-        const funcionalidade2 = document.createElement("li");
-        const link2 = document.createElement("a");
-        link2.href = "#"; 
-        link2.textContent = "Funcionalidade 2";
-        funcionalidade2.appendChild(link2);
-        funcionalidadesList.appendChild(funcionalidade2);
-
-        const funcionalidade3 = document.createElement("li");
-        const link3 = document.createElement("a");
-        link3.href = "#"; 
-        link3.textContent = "Funcionalidade 3";
-        funcionalidade3.appendChild(link3);
-        funcionalidadesList.appendChild(funcionalidade3);
         
         componentRoot.appendChild(funcionalidadesList);
 
