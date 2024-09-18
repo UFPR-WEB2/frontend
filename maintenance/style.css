@@ -181,7 +181,7 @@ form input:focus {
     border: 1px solid var(--blue2);
 }
 
-form button {
+button {
     height: 2.5rem;
     border-radius: 0.5rem;
     background: linear-gradient(135deg, orange, red);
@@ -190,6 +190,7 @@ form button {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 form button:hover {
