@@ -140,6 +140,7 @@ footer #developers span {
 #register {
     background-color: var(--black);
     font-size: 0.9rem;
+    color: white;
 }
 
 #login {
@@ -157,4 +158,11 @@ footer #developers span {
     background: linear-gradient(135deg, orange, red);
     z-index: -2;
     border-radius: 0.8rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    width: auto;
+    height: auto;
 }

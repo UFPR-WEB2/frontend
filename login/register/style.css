@@ -208,6 +208,7 @@ form button {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    width: 100%;
 }
 
 form button:hover {
@@ -232,4 +233,9 @@ form input:focus{
     outline: none;
     border-color: #3282B8;
     box-shadow: 0 0 8px rgba(50, 130, 184, 0.6);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
