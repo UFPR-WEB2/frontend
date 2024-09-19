@@ -284,6 +284,14 @@ form button:focus {
 	outline: none;
 }
 
+form p {
+	font-size: 1rem;
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+	font-style: bold;
+	font-weight: 750;
+}
+
 label {
 	text-align: left;
 	font-size: 18px;
