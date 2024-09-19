@@ -216,6 +216,6 @@ const addressUtils = {
 const registerButton = document.getElementById("register-button");
 registerButton.addEventListener("click", () => {
 	if (validateAll()) {
-		alert("Success");
+		
 	}
 });
