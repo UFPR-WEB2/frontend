@@ -226,9 +226,7 @@ h1 {
 	position: relative;
 }
 
-.container:first-of-type {
-	border: 1px solid orange;
-}
+
 
 form {
 	display: flex;
