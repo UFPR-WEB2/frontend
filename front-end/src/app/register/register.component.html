@@ -26,27 +26,67 @@
 
         <div id="register-form">
             <h1>Registrar</h1>
-            <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-                <input type="text" name="name" id="name" placeholder="Nome">
-                <input type="text" name="email" id="email" placeholder="E-mail">
-                <div class="form-line">
-                    <input type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf" (blur)="formatarCPF()"> 
-                    <input type="text" name="phone" id="phone" placeholder="Telefone" formControlName="phone" (blur)="formataTel()">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <input type="text" name="name" id="name" placeholder="Nome" formControlName="name">
+                <div *ngIf="name?.touched || name?.dirty" class="div-errors">
+                    <small class="text-danger" *ngIf="name?.hasError('required')">
+                        Nome é obrigatório.
+                    </small>
+                    <small class="text-danger" *ngIf="name?.hasError('minlength')">
+                        Nome deve ter pelo menos 3 caracteres.
+                    </small>
+                    <small class="text-danger" *ngIf="name?.hasError('maxlength')">
+                        Nome deve ter no máximo 150 caracteres.
+                    </small>
+                </div>
+                <input type="text" name="email" id="email" placeholder="E-mail" formControlName="email">
+                <div *ngIf="email?.touched || email?.dirty" class="div-errors">
+                    <small class="text-danger" *ngIf="email?.hasError('required')">
+                        E-mail é obrigatório.
+                    </small>
+                    <small class="text-danger" *ngIf="email?.hasError('email')">
+                        Digite um E-mail válido.
+                    </small>
                 </div>
                 <div class="form-line">
-                    <input id="cep" formControlName="cep" (blur)="fetchCepData()" placeholder="CEP" />
-                    <input type="text" name="country" id="country" formControlName="country" placeholder="País">
+                    <div class="form-item">
+                        <input type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf">
+                        <div *ngIf="cpf?.touched || cpf?.dirty" class="div-errors">
+                            <small class="text-danger" *ngIf="cpf?.hasError('required')">
+                                CPF é obrigatório.
+                            </small>
+                            <small class="text-danger" *ngIf="cpf?.hasError('invalidCpf')">
+                                CPF com formato inválido.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <input type="text" name="phone" id="phone" placeholder="Telefone" formControlName="phone">
+                        <div *ngIf="phone?.touched || phone?.dirty" class="div-errors">
+                            <small class="text-danger" *ngIf="phone?.hasError('required')">
+                                Telefone é obrigatório.
+                            </small>
+                            <small class="text-danger" *ngIf="phone?.hasError('invalidCpf')">
+                                Telefone com formato inválido.
+                            </small>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="form-line">
-                    <input id="state" formControlName="state" placeholder="Estado" />
-                    <input id="city" formControlName="city" placeholder="Cidade" />
+                    <input id="cep" placeholder="CEP" formControlName="cep" (blur)="fetchCepData()" />
+                    <input type="text" name="country" id="country" placeholder="País" formControlName="country">
                 </div>
                 <div class="form-line">
-                    <input id="street" formControlName="street" placeholder="Rua" />
-                    <input id="complemento" formControlName="complemento" placeholder="Complemento" />
+                    <input id="state" placeholder="Estado" formControlName="state" />
+                    <input id="city" placeholder="Cidade" formControlName="city" />
+                </div>
+                <div class="form-line">
+                    <input id="street" placeholder="Rua" formControlName="street" />
+                    <input id="complemento" placeholder="Complemento" formControlName="complemento" />
                 </div>
 
-                <button type="submit" [disabled]="addressForm.invalid">Enviar</button>
+                <button type="submit">Enviar</button>
             </form>
         </div>
 
