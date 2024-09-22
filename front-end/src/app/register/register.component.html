@@ -10,41 +10,44 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../../pattern.css">
-    <link rel="stylesheet" href="./style.css">
-    <script src="./script.js" defer></script> 
+    <link rel="stylesheet" href="./register.component.css">
 </head>
 
 <body>
     <header>
         <div id="icon"></div>
         <div id="login-container">
-            <a href="../"><div id="register">Entrar</div></a>
+            <a (click)="goToLogin()">
+                <div id="register">Entrar</div>
+            </a>
         </div>
     </header>
     <main>
 
         <div id="register-form">
             <h1>Registrar</h1>
-            <form action="">
+            <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
                 <input type="text" name="name" id="name" placeholder="Nome">
                 <input type="text" name="email" id="email" placeholder="E-mail">
                 <div class="form-line">
-                    <input type="text" name="cpf" id="cpf" placeholder="CPF">
-                    <input type="text" name="phone" id="phone" placeholder="Telefone">
+                    <input type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf" (blur)="formatarCPF()"> 
+                    <input type="text" name="phone" id="phone" placeholder="Telefone" formControlName="phone" (blur)="formataTel()">
                 </div>
                 <div class="form-line">
-                    <input type="text" name="zip" id="zip" placeholder="CEP">
-                    <input type="text" name="country" id="country" placeholder="País">
+                    <input id="cep" formControlName="cep" (blur)="fetchCepData()" placeholder="CEP" />
+                    <input type="text" name="country" id="country" formControlName="country" placeholder="País">
                 </div>
                 <div class="form-line">
-                    <input type="text" name="state" id="state" placeholder="Estado">
-                    <input type="text" name="city" id="city" placeholder="Cidade">
+                    <input id="state" formControlName="state" placeholder="Estado" />
+                    <input id="city" formControlName="city" placeholder="Cidade" />
                 </div>
-                <input type="text" name="address" id="address" placeholder="Endereço">
-                <a href="../../homeCliente/"><button type="button" id="register-button">Registrar</button></a>
-            </form>
+                <div class="form-line">
+                    <input id="street" formControlName="street" placeholder="Rua" />
+                    <input id="complemento" formControlName="complemento" placeholder="Complemento" />
+                </div>
 
+                <button type="submit" [disabled]="addressForm.invalid">Enviar</button>
+            </form>
         </div>
 
     </main>
