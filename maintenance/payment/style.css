@@ -1,0 +1,52 @@
+#container {
+    width: 80vw;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.header-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #1e90ff;
+    border-radius: 10px 10px 0 0;
+}
+
+.dropdown-plus {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f0f8ff;
+    border-radius: 0 0 10px 10px;
+}
+
+#full-payment {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 100%;
+}
+
+#full-payment > div {
+    display: flex;
+    flex-direction: row;
+    min-width: 15%;
+    justify-content: space-between;
+}
+
+#header-full {
+    color: white;
+}
+
+#pay-full {
+    width: 70px;
+}
