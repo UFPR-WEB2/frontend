@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Solicitação</title>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+    <header>
+        <cabeca-padrao></cabeca-padrao>
+    </header>
+    <main>
+        <div class="main-content">
+            <h2>Detalhes da Solicitação</h2>
+            <p><strong>Descrição do Equipamento:</strong> <span id="descricaoEquipamento"></span></p>
+            <p><strong>Categoria:</strong> <span id="categoriaEquipamento"></span></p>
+            <p><strong>Defeito:</strong> <span id="descricaoDefeito"></span></p>
+            <h3><strong>Preço Orçado:</strong> <span id="precoOrcamento"></span></h3>
+            <button onclick="aprovarServico()">Aprovar Serviço</button>
+            <button onclick="rejeitarServico()">Rejeitar Serviço</button>
+        </div>
+    </main>
+
+    <script>
+        function carregarDetalhes() {
+            const solicitacao = JSON.parse(localStorage.getItem('solicitacao'));
+
+            document.getElementById('descricaoEquipamento').textContent = solicitacao.descricaoEquipamento;
+            document.getElementById('categoriaEquipamento').textContent = solicitacao.categoriaEquipamento;
+            document.getElementById('descricaoDefeito').textContent = solicitacao.descricaoDefeito;
+            document.getElementById('precoOrcamento').textContent = solicitacao.precoOrcamento;
+        }
+
+        window.onload = carregarDetalhes;
+
+        function aprovarServico() {
+            const solicitacao = JSON.parse(localStorage.getItem('solicitacao'));
+            const precoOrcamento = solicitacao.precoOrcamento;
+
+            alert(`Serviço Aprovado no Valor R$ ${precoOrcamento}`);
+            localStorage.setItem('solicitacao', JSON.stringify(solicitacao));
+
+            window.location.href = "../index.html";
+        }
+
+
+        function rejeitarServico() {
+            const motivoRejeicao = prompt("Motivo da rejeição:");
+            const solicitacao = JSON.parse(localStorage.getItem('solicitacao'));
+
+            solicitacao.motivoRejeicao = motivoRejeicao; 
+            localStorage.setItem('solicitacao', JSON.stringify(solicitacao));
+            alert('Serviço Rejeitado!');
+
+            window.location.href = "../index.html";
+        }
+    </script>
+</body>
+
+</html>
