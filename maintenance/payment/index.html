@@ -17,6 +17,8 @@
     <main>
         <div id="container">
 
+            <h1>Pagamento de serviços</h1>
+
             <div id="product-list">
                 <div class="product">
                     <div class="header-info">
@@ -135,13 +137,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $('.dropdown-plus').hide();
-        $('.open-dropdown').click(function() {
-            $(this).parent().parent().find('.dropdown-plus').slideToggle();
+        $('.open-dropdown').click(function () {
+            var dropdown = $(this).parent().parent().find('.dropdown-plus');
+            dropdown.slideToggle(function () {
+                if (dropdown.is(':visible')) {
+                    dropdown.css('display', 'flex');
+                }
+            });
             $(this).text($(this).text() == 'Fechar' ? 'Abrir' : 'Fechar');
-            if($(this).text() == 'Fechar')
-            $(this).parent().css("border-radius", "10px 10px 0px 0px");
+            if ($(this).text() == 'Fechar')
+                $(this).parent().css("border-radius", "10px 10px 0px 0px");
             else
-            $(this).parent().css("border-radius", "10px 10px 10px 10px");
+                $(this).parent().css("border-radius", "10px 10px 10px 10px");
         });
     </script>
 </body>
