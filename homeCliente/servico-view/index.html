@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Serviço</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/pattern.css">
+    <link rel="stylesheet" href="style.css">
+    <script src=".script.js"></script>
+</head>
+
+<body>
+    <header>
+        <div id="icon" ></div>
+    </header>
+
+    <main>
+        <div class="main-content">
+            <h1>Detalhes do Serviço</h1>
+            <p><strong>ID da Solicitação:</strong> 0000034 <span id="idSolicitacao"></span></p>
+            <p><strong>Descrição do Equipamento:</strong> Celular <span id="descricaoEquipamento"></span></p>
+            <p><strong>Categoria:</strong> Celular <span id="categoriaEquipamento"></span></p>
+            <p><strong>Defeito:</strong> Tela <span id="descricaoDefeito"></span></p>
+            <h2><strong>Preço Orçado:</strong> R$1200,00 <span id="precoOrcamento"></span></h2>
+            
+            <h1>Histórico de Passos</h1>
+            <table id="historicoPassos">
+                <tr>
+                    <td>Data/Hora</td>
+                    <td>Funcionário</td>
+                    <td>Descricao</td>
+                </tr>
+
+                <tr>
+                    <td>01/01/2021 12:00</td>
+                    <td>Gabriel</td>
+                    <td>Explodiu o celular</td>
+                </tr>
+
+                <tr>
+                    <td>01/01/2021 12:00</td>
+                    <td>Guerios</td>
+                    <td>Viu o celular explodido e ficou puto</td>
+                </tr>
+
+                <tr>
+                    <td>01/01/2021 12:00</td>
+                    <td>Bruno</td>
+                    <td>Brincou</td>
+                </tr>
+            </table>
+           
+        <td id="buttons">
+            <button onclick="aprovarServico()">Aprovar Serviço</button>
+            <button onclick="rejeitarServico()">Rejeitar Serviço</button>
+        </td>
+        </div>
+    </main>
+
+    <footer>
+        <div id="developers">Desenvolvido por <span>Nome da Equipe</span>.</div>
+    </footer>
+</body>
+
+</html>
