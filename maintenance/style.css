@@ -7,7 +7,6 @@
 
 body {
     --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
-
     background: var(--bg-color);
     width: 100vw;
     min-height: 100dvh;
@@ -16,7 +15,6 @@ body {
 main {
     --bg-color: transparent;
     --main-height: 100dvh; 
-
     height: 100dvh;
     background: var(--bg-color);
     width: 100%;
@@ -208,7 +206,7 @@ form button:focus {
 
 .dropdown:focus, form input:focus, form textarea:focus {
     outline: none;
-    border-color: #3282B8; /* Cor de foco */
+    border-color: #3282B8;
     box-shadow: 0 0 8px rgba(50, 130, 184, 0.6);
 }
 
