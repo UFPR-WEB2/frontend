@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar-se</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./register.component.css">
+</head>
+
+<body>
+    <header>
+        <div id="icon"></div>
+        <div id="login-container">
+            <a (click)="goToLogin()">
+                <div id="register">Entrar</div>
+            </a>
+        </div>
+    </header>
+    <main>
+
+        <div id="register-form">
+            <h1>Registrar</h1>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <input type="text" name="name" id="name" placeholder="Nome" formControlName="name">
+                <div *ngIf="name?.touched || name?.dirty" class="div-errors">
+                    <small class="text-danger" *ngIf="name?.hasError('required')">
+                        Nome é obrigatório.
+                    </small>
+                    <small class="text-danger" *ngIf="name?.hasError('minlength')">
+                        Nome deve ter pelo menos 3 caracteres.
+                    </small>
+                    <small class="text-danger" *ngIf="name?.hasError('maxlength')">
+                        Nome deve ter no máximo 150 caracteres.
+                    </small>
+                </div>
+                <input type="text" name="email" id="email" placeholder="E-mail" formControlName="email">
+                <div *ngIf="email?.touched || email?.dirty" class="div-errors">
+                    <small class="text-danger" *ngIf="email?.hasError('required')">
+                        E-mail é obrigatório.
+                    </small>
+                    <small class="text-danger" *ngIf="email?.hasError('email')">
+                        Digite um E-mail válido.
+                    </small>
+                </div>
+                <div class="form-line">
+                    <div class="form-item">
+                        <input type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf">
+                        <div *ngIf="cpf?.touched || cpf?.dirty" class="div-errors">
+                            <small class="text-danger" *ngIf="cpf?.hasError('required')">
+                                CPF é obrigatório.
+                            </small>
+                            <small class="text-danger" *ngIf="cpf?.hasError('invalidCpf')">
+                                CPF com formato inválido.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <input type="text" name="phone" id="phone" placeholder="Telefone" formControlName="phone">
+                        <div *ngIf="phone?.touched || phone?.dirty" class="div-errors">
+                            <small class="text-danger" *ngIf="phone?.hasError('required')">
+                                Telefone é obrigatório.
+                            </small>
+                            <small class="text-danger" *ngIf="phone?.hasError('invalidCpf')">
+                                Telefone com formato inválido.
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-line">
+                    <input id="cep" placeholder="CEP" formControlName="cep" (blur)="fetchCepData()" />
+                    <input type="text" name="country" id="country" placeholder="País" formControlName="country">
+                </div>
+                <div class="form-line">
+                    <input id="state" placeholder="Estado" formControlName="state" />
+                    <input id="city" placeholder="Cidade" formControlName="city" />
+                </div>
+                <div class="form-line">
+                    <input id="street" placeholder="Rua" formControlName="street" />
+                    <input id="complemento" placeholder="Complemento" formControlName="complemento" />
+                </div>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+
+    </main>
+    <footer>
+        <div id="developers">Desenvolvido por <span>Nome da Equipe</span>.</div>
+    </footer>
+
+</body>
+
+</html>
