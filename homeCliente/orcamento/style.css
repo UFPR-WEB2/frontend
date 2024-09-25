@@ -34,107 +34,60 @@ main {
     display: flex;
     margin-left: 1%;
     margin-top: 13.5dvh;
+    color: white;
 }
 
 main .main-content {
     margin-left: 1%;
-    width: 83%;
+    width: 98%;
     padding-top: 2%;
 }
 
-main .main-content h3 {
+main .main-content h2,h3 {
     color: white;
     font-family: "Poppins", sans-serif;
     font-size: 4dvh;
     padding-bottom: 0.5dvh;
 }
 
-main .tabela {
-    width: 100%;
-    margin: 0 auto;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+main .main-content h2{
+    text-align: center;
+    font-size: 7dvh;
+    margin-bottom: 3dvh;
 }
 
-main .tabela #table-user {
-    width: 100%;
-    border-radius: 0.75rem;
-
-    font-weight: 600;
-    font-family: "Poppins", sans-serif;
-    padding: 0.5rem;
-    cursor: pointer;
-
-    border-collapse: collapse;
-    background-color: white;
-    
-    border-collapse: collapse;
-
-    position: relative;
-    z-index: 1;
+main .main-content .item-detail{
+    height: 15dvh;
+    width: 50%;
+    margin: auto;
 }
 
-main .tabela #table-user {
-    width: 100%;
-    border-radius: 0.75rem;
-    border: 2px solid transparent;
-    font-weight: 600;
-    padding: 0.5rem;
-    background-clip: padding-box;
-    position: relative;
-    z-index: 1;
-    table-layout: fixed;
-}
-
-main .tabela #table-user td {
-    
-    color: #333;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-main .tabela #table-user th {
-    background-color: rgb(255, 123, 0); 
+main .main-content .item-detail p {
     color: white;
-    font-weight: bold;
-    padding: 12px;
-    cursor: default;
+    font-family: "Poppins", sans-serif;
+    font-size: 3.5dvh;
+    padding-bottom: 0.5dvh;
+    height: 15dvh;
 }
 
-main .tabela #table-user tr {
-    min-height: 50px;
+main .main-content .item-detail p span {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 2dvh;
+    padding-bottom: 0.5dvh;
+    height: 5dvh;
+    padding-left: 3dvh;
 }
 
-main .tabela #table-user::before {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border-radius: 0.05rem;
-    z-index: -1;
+main .main-content #div-orcamento{
+    text-align: end;
 }
 
-main .tabela #table-user th,
-#table-user td {
-    border-bottom: 1px solid orange;
-    padding: 1rem;
-    text-align: left;
-    width: 20%;
-    height: 50px;
-    min-height: 50px;
-
-}
-
-
-main .tabela #table-user tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-main .tabela #table-user tr:hover {
-    background-color: #cfc7c7;
+main .main-content .buttons{
+    text-align: center;
+    width: 50%;
+    height: 5dvh;
+    margin: auto;
 }
 
 button {
