@@ -14,7 +14,8 @@ body {
     color: white;
 }
 
-header, footer {
+header,
+footer {
     background: transparent;
     height: 4rem;
     width: 100%;
@@ -81,9 +82,18 @@ h2 {
     margin-top: 1rem;
 }
 
+h3 {
+    font-family: "Rubik", sans-serif;
+    margin-bottom: -15px;
+    text-align: left;
+    margin-top: 15px;
+}
+
+
 p {
     font-size: 1.2rem;
     margin: 0.5rem 0;
+    text-align: left;
 }
 
 table {
@@ -92,11 +102,14 @@ table {
     border-collapse: collapse;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid var(--blue2);
 }
 
-th, td {
+th,
+td {
     padding: 0.5rem;
     text-align: left;
 }
@@ -113,8 +126,25 @@ button {
     font-weight: 600;
     cursor: pointer;
     margin: 0 0.5rem;
+    padding: 8px;
+    margin: 12px;
 }
 
 button:hover {
     background: linear-gradient(135deg, red, orange);
+}
+
+header {
+    --bg-color: transparent;
+    --height: 5dvh;
+    --max-height: 4dvh;
+
+    top: 0;
+    justify-content: space-between;
+    color: white;
+
+    width: 98%;
+    margin-left: 1%;
+    align-items: center;
+    position: fixed;
 }
