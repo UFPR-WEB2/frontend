@@ -210,3 +210,46 @@ form button:focus {
     box-shadow: 0 0 8px rgba(50, 130, 184, 0.6);
 }
 
+.product {
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #1e90ff;
+    border-radius: 10px;
+}
+
+.state-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.state {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.red {
+    background-color: red;
+}
+
+.dropdown-plus {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: lightgray;
+    border-radius: 0 0 10px 10px;
+}
