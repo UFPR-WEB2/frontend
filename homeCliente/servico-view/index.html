@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Serviço</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/pattern.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script src="../src/components/Header.js" defer></script>
+
+</head>
+
+<body>
+    <header>
+        <!-- <cabeca-padrao></cabeca-padrao> -->
+    </header>
+
+    <main>
+        <div class="main-content">
+            <h1>Detalhes do Serviço</h1>
+            <p><strong>ID da Solicitação:</strong> <span id="idSolicitacao"></span></p>
+            <p><strong>Descrição do Equipamento:</strong> <span id="descricaoEquipamento"></span></p>
+            <p><strong>Categoria:</strong> <span id="categoriaEquipamento"></span></p>
+            <p><strong>Defeito:</strong> <span id="descricaoDefeito"></span></p>
+            <h2><strong>Preço Orçado:</strong> <span id="precoOrcamento"></span></h2>
+
+            <h3>Histórico de Passos</h3>
+            <table id="historicoPassos">
+                <tr>
+                    <td>Data/Hora</td>
+                    <td>Funcionário</td>
+                    <td>Descricao</td>
+                </tr>
+
+            </table>
+
+            <td id="buttons">
+                <button onclick="aprovarServico()">Aprovar Serviço</button>
+                <button onclick="rejeitarServico()">Rejeitar Serviço</button>
+            </td>
+        </div>
+    </main>
+
+    <footer>
+        <div id="developers">Desenvolvido por <span>Nome da Equipe</span>.</div>
+    </footer>
+
+
+
+    <script>
+        function carregarDetalhes() {
+            const solicitacaos = JSON.parse(localStorage.getItem('solicitacao'));
+
+            if (solicitacaos) {
+                document.getElementById('idSolicitacao').textContent = solicitacaos.idSolicitacao;
+                document.getElementById('descricaoEquipamento').textContent = solicitacaos.descricaoEquipamento;
+                document.getElementById('categoriaEquipamento').textContent = solicitacaos.categoriaEquipamento;
+                document.getElementById('descricaoDefeito').textContent = solicitacaos.descricaoDefeito;
+                document.getElementById('precoOrcamento').textContent = solicitacaos.precoOrcamento;
+            } else {
+                console.error("Nenhuma solicitação encontrada no localStorage.");
+            }
+        }
+
+
+        window.onload = carregarDetalhes;
+
+
+
+
+
+        adicionarLinhaHistorico('02/02/2022 10:00', 'Ana', 'Revisou o celular após reparo');
+        adicionarLinhaHistorico('03/03/2022 14:30', 'Lucas', 'Realizou teste de inicio');
+        adicionarLinhaHistorico('03/03/2022 14:30', 'claudia', 'Realizou teste de meio ');
+
+
+
+
+        function aprovarServico() {
+            const solicitacaos = JSON.parse(localStorage.getItem('solicitacao'));
+            const precoOrcamento = solicitacaos.precoOrcamento;
+
+            alert(`Serviço Aprovado no Valor R$ ${precoOrcamento}`);
+            localStorage.setItem('solicitacao', JSON.stringify(solicitacaos));
+
+            window.location.href = "../index.html";
+        }
+
+
+        function rejeitarServico() {
+            const motivoRejeicao = prompt("Motivo da rejeição:");
+            const solicitacaos = JSON.parse(localStorage.getItem('solicitacao'));
+
+            solicitacaos.motivoRejeicao = motivoRejeicao;
+            localStorage.setItem('solicitacao', JSON.stringify(solicitacaos));
+            alert('Serviço Rejeitado!');
+
+            window.location.href = "../index.html";
+        }
+
+
+    </script>
+</body>
+
+</html>

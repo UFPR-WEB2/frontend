@@ -1,0 +1,150 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
+    background: var(--bg-color);
+    width: 100vw;
+    min-height: 100dvh;
+    font-family: "Poppins", sans-serif;
+    color: white;
+}
+
+header,
+footer {
+    background: transparent;
+    height: 4rem;
+    width: 100%;
+    padding: 0.5rem 5dvw;
+    display: flex;
+    align-items: center;
+    position: fixed;
+}
+
+header {
+    top: 0;
+    justify-content: space-between;
+}
+
+footer {
+    bottom: 0;
+    justify-content: center;
+}
+
+header #icon {
+    background: linear-gradient(135deg, orange, red);
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+footer #developers {
+    font-family: Arial, Helvetica, sans-serif;
+    word-spacing: -0.5%;
+    color: var(--white);
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-variant: small-caps;
+}
+
+footer #developers span {
+    color: var(--blue2);
+}
+
+main {
+    background: transparent;
+    height: 100dvh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+h3 {
+    font-family: "Rubik", sans-serif;
+    margin-bottom: -15px;
+    text-align: left;
+    margin-top: 15px;
+}
+
+
+p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    text-align: left;
+}
+
+table {
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid var(--blue2);
+}
+
+th,
+td {
+    padding: 0.5rem;
+    text-align: left;
+}
+
+#buttons {
+    margin-top: 1rem;
+}
+
+button {
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, orange, red);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    padding: 8px;
+    margin: 12px;
+}
+
+button:hover {
+    background: linear-gradient(135deg, red, orange);
+}
+
+header {
+    --bg-color: transparent;
+    --height: 5dvh;
+    --max-height: 4dvh;
+
+    top: 0;
+    justify-content: space-between;
+    color: white;
+
+    width: 98%;
+    margin-left: 1%;
+    align-items: center;
+    position: fixed;
+}

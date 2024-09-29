@@ -1,4 +1,4 @@
-.vscode# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
 /dist
@@ -10,8 +10,6 @@
 /node_modules
 npm-debug.log
 yarn-error.log
-package-lock.json
-package.json
 
 # IDEs and editors
 .idea/

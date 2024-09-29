@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./style/style.css">
     <script src="./src/components/Header.js" defer></script>
     <script src="./src/components/NavBar.js" defer></script>
+    <script src="./orcamento/sript.js"></script>
+    <script src="./servico-view/script.js"></script>
 </head>
 
 <body>
@@ -41,7 +43,7 @@
                         <td class="item">Equipamento A com falha...</td>
                         <td class="item">ORÇADA</td>
                         <td class="item">
-                            <button onclick="mostrarOrcamento()">Aprovar/Rejeitar Serviço</button>
+                            <button onclick="mostrarOrcamento(1)">Aprovar/Rejeitar Serviço</button>
                         </td>
                     </tr>
                     <tr>
@@ -49,7 +51,9 @@
                         <td class="item">14/09/24 09:30</td>
                         <td class="item">Equipamento B com defeito...</td>
                         <td class="item">APROVADA</td>
-                        <td class="item"></td>
+                        <td class="item">
+                            <button onclick="mostrarDetalhes(1)">Visualizar Serviço</button>
+                        </td>
                     </tr>
                     <tr>
                         <td class="item">003</td>
@@ -70,7 +74,7 @@
                         </td>
                     </tr>
                 </table>
-                
+
             </div>
         </div>
     </main>
