@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Solicitacao</title>
+    <link rel="stylesheet" href="../../pattern.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <div id="icon"></div>
+    </header>
+    <main>
+        <div id="container">
+            <div id="header-container">
+                <h1>Visualizar Solicitacoes</h1>
+                <div id="filters">
+                    <button id="today">Hoje</button>
+                    <input type="date" name="start" id="start-date">
+                    <input type="date" name="end" id="end-data">
+                    <button id="filter">Filtrar</button>
+                    <button id="all">Todos</button>
+                </div>
+            </div>
+            <div id="maintenance-list">
+                    <div class="product">
+                        <div class="header-info">
+                            <div>
+                                <div class="state red"></div>
+                                <p class="state-description">Rejeitado</p>
+                            </div>
+                            <div class="category">
+                                <h3>
+                                    Categoria
+                                </h3>
+                                <p>
+                                    Notebook
+                                </p>
+                            </div>
+                            <div class="date">
+                                <h3>
+                                    Data da solicitacao
+                                </h3>
+                                <p>
+                                    12/12/2023
+                                </p>
+                            </div>
+                            <button class="open-dropdown">
+                                Abrir
+                            </button>
+                        </div>
+                        <div class="dropdown-plus">
+                            <div class="description">
+                                <h3>
+                                    Descrição
+                                </h3>
+                                <p>
+                                    Baixei um vírus sem querer
+                                </p>
+                                <button class="redirect-state">Rejeitado</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
