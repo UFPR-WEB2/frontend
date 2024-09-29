@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./login.component.css">
+</head>
+
+<body>
+    <header>
+        <div id="icon" ></div>
+
+        <div id="login-container">
+            <a (click)="goToRegister()">
+                <div id="register">Registrar</div>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div id="grid-2">
+            <div class="container">
+                <h1>Entrar</h1>
+                <form action="">
+                    <div class="field"><label>Digite seu email:</label>
+                        <input type="text" name="email" id="email" placeholder="E-mail">
+                    </div>
+                    <div class="field">
+                        <label>Digite sua senha:</label>
+                        <input type="password" name="password" id="password" placeholder="Senha">
+                    </div>
+                    <label id="Fpassowrd">Esqueci minha senha</label>
+                    <a (click)="goToHomeCliente()"><button type="button">Entrar</button></a>
+                </form>
+            </div>
+            <div class="container">
+                <h1>Registrar</h1>
+                <form action="">
+                    <p>Se você ainda não tem uma conta, clique no botão abaixo para se registrar.</p>
+                    <a (click)="goToRegister()"><button type="button">Registrar</button></a>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div id="developers">Desenvolvido por <span>Nome da Equipe</span>.</div>
+    </footer>
+</body>
+
+</html>

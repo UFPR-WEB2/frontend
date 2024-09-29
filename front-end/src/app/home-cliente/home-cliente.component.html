@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home-cliente.component.css">
+</head>
+<body>
+<div class="home-cliente">
+  <header>
+    <h1>Bem-vindo ao Portal do Cliente</h1>
+  </header>
+  <section class="solicitacoes">
+    <h2>Minhas Solicitações</h2>
+    <table id="table-user">
+      <tr>
+        <th class="item-title">ID</th>
+        <th class="item-title">Data/Hora</th>
+        <th class="item-title">Descricao</th>
+        <th class="item-title">Estado</th>
+        <th class="item-title">Ação</th>
+      </tr>
+      <tr>
+        <td class="item">001</td>
+        <td class="item">15/09/24 10:00</td>
+        <td class="item">Equipamento A com falha...</td>
+        <td class="item">ORÇADA</td>
+        <td class="item">
+          <button onclick="mostrarOrcamento(1)">Aprovar/Rejeitar Serviço</button>
+        </td>
+      </tr>
+      <tr>
+        <td class="item">002</td>
+        <td class="item">14/09/24 09:30</td>
+        <td class="item">Equipamento B com defeito...</td>
+        <td class="item">APROVADA</td>
+        <td class="item"></td>
+      </tr>
+      <tr>
+        <td class="item">003</td>
+        <td class="item">13/09/24 08:45</td>
+        <td class="item">Equipamento C reiniciando...</td>
+        <td class="item">REJEITADA</td>
+        <td class="item">
+          <button onclick="resgatarServico()">Resgatar Serviço</button>
+        </td>
+      </tr>
+      <tr>
+        <td class="item">004</td>
+        <td class="item">12/09/24 11:15</td>
+        <td class="item">Equipamento D sem energia...</td>
+        <td class="item">ARRUMADA</td>
+        <td class="item">
+          <button onclick="pagarServico()">Pagar Serviço</button>
+        </td>
+      </tr>
+    </table>
+  </section>
+</div>
+</body>
+</html>

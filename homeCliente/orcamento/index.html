@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Solicitação</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../../pattern.css">
+    <script src="../src/components/Header.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <cabeca-padrao></cabeca-padrao>
+    </header>
+    <main>
+        <div class="main-content">
+            <h2>Detalhes da Solicitação</h2>
+            <div class="item-detail">
+                <p><strong>Descrição do Equipamento:</strong><br> <span id="descricaoEquipamento"></span></p>
+            </div>
+            <div class="item-detail">
+                <p><strong>Categoria:</strong><br> <span id="categoriaEquipamento"></span></p>
+            </div>
+            <div class="item-detail">
+                <p><strong>Defeito:</strong><br> <span id="descricaoDefeito"></span></p>
+            </div>
+            <div class="item-detail" id="div-orcamento">
+                <h3><strong>Preço Orçado:</strong><br> <span id="precoOrcamento"></span></h3>
+            </div>
+            <div class="buttons">
+                <button onclick="aprovarServico()">Aprovar Serviço</button>
+                <button onclick="rejeitarServico()">Rejeitar Serviço</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function carregarDetalhes() {
+            const solicitacao = JSON.parse(localStorage.getItem('solicitacao'));
+
+            document.getElementById('descricaoEquipamento').textContent = solicitacao.descricaoEquipamento;
+            document.getElementById('categoriaEquipamento').textContent = solicitacao.categoriaEquipamento;
+            document.getElementById('descricaoDefeito').textContent = solicitacao.descricaoDefeito;
+            document.getElementById('precoOrcamento').textContent = solicitacao.precoOrcamento;
+        }
+
+        window.onload = carregarDetalhes;
+
+        function aprovarServico() {
+            const solicitacao = JSON.parse(localStorage.getItem('solicitacao'));
+            const precoOrcamento = solicitacao.precoOrcamento;
+
+            alert(`Serviço Aprovado no Valor R$ ${precoOrcamento}`);
+            localStorage.setItem('solicitacao', JSON.stringify(solicitacao));
+
+            window.location.href = "../index.html";
+        }
+
+
+        function rejeitarServico() {
+            const motivoRejeicao = prompt("Motivo da rejeição:");
+            const solicitacao = JSON.parse(localStorage.getItem('solicitacao'));
+
+            solicitacao.motivoRejeicao = motivoRejeicao;
+            localStorage.setItem('solicitacao', JSON.stringify(solicitacao));
+            alert('Serviço Rejeitado!');
+
+            window.location.href = "../index.html";
+        }
+    </script>
+</body>
+
+</html>
