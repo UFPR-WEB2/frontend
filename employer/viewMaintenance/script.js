@@ -35,20 +35,14 @@ function createProductElement(
 
 	const categoryDiv = document.createElement("div");
 	categoryDiv.className = "category";
-	const categoryH3 = document.createElement("h3");
-	categoryH3.textContent = "Categoria";
 	const categoryP = document.createElement("p");
 	categoryP.textContent = category;
-	categoryDiv.appendChild(categoryH3);
 	categoryDiv.appendChild(categoryP);
 
 	const dateDiv = document.createElement("div");
 	dateDiv.className = "date";
-	const dateH3 = document.createElement("h3");
-	dateH3.textContent = "Data da solicitação";
 	const dateP = document.createElement("p");
 	dateP.textContent = date;
-	dateDiv.appendChild(dateH3);
 	dateDiv.appendChild(dateP);
 
 	const openDropdownButton = document.createElement("button");
@@ -85,3 +79,67 @@ function createProductElement(
 	const maintenanceList = document.getElementById("maintenance-list");
 	maintenanceList.appendChild(productDiv);
 }
+
+// Exemplo 1: Estado ABERTA (Cinza)
+createProductElement(
+    "Notebook",
+    "12/12/2023",
+    "A tela está quebrada",
+    "ABERTA"
+);
+
+// Exemplo 2: Estado ORÇADA (Marrom)
+createProductElement(
+    "Impressora",
+    "10/10/2023",
+    "Problema no cartucho",
+    "ORÇADA"
+);
+
+// Exemplo 3: Estado REJEITADA (Vermelho)
+createProductElement(
+    "Monitor",
+    "08/09/2023",
+    "Monitor não liga",
+    "REJEITADA"
+);
+
+// Exemplo 4: Estado APROVADA (Amarelo)
+createProductElement(
+    "Celular",
+    "14/11/2023",
+    "Troca de bateria",
+    "APROVADA"
+);
+
+// Exemplo 5: Estado REDIRECIONADA (Roxo)
+createProductElement(
+    "Tablet",
+    "01/09/2023",
+    "Tela com defeito",
+    "REDIRECIONADA"
+);
+
+// Exemplo 6: Estado AGUARDANDO PAGAMENTO (Azul)
+createProductElement(
+    "Computador",
+    "23/08/2023",
+    "Problema na fonte de alimentação",
+    "AGUARDANDO PAGAMENTO"
+);
+
+// Exemplo 7: Estado PAGA (Alaranjado)
+createProductElement(
+    "Teclado",
+    "18/08/2023",
+    "Teclas não funcionam",
+    "PAGA"
+);
+
+// Exemplo 8: Estado FINALIZADA (Verde)
+createProductElement(
+    "Mouse",
+    "05/07/2023",
+    "Botão não responde",
+    "FINALIZADA"
+);
