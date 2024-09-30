@@ -1,0 +1,7 @@
+<ng-container *ngIf="navigateUrl; else buttonTemplate">
+    <button mat-raised-button (click)="goToUrl($event)" color="primary">{{ text }}</button>
+</ng-container>
+
+<ng-template #buttonTemplate>
+    <button mat-raised-button color="primary">{{ text }}</button>
+</ng-template>
