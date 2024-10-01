@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Solicitação</title>
     <link rel="stylesheet" href="../../pattern.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./novo.css">
     <script src="./script.js" defer></script>
 </head>
 
@@ -45,8 +45,18 @@
         <div id="budget-info">
         <h2>Orçamento</h2>
         <label for="budget-value">Valor do Orçamento:</label>
-        <input type="number" id="budget-value" name="budget-value" step="0.01" placeholder="R$ 0,00">
+        <input type="text" id="budget-value" name="budget-value" placeholder="R$ 0,00">
         <button id="submit-budget">Registrar Orçamento</button>
+
+        <script>
+        document.getElementById('budget-value').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = (value / 100).toFixed(2) + '';
+            value = value.replace(".", ",");
+            value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            e.target.value = 'R$ ' + value;
+        });
+        </script>
         </div>
     </div>
 
