@@ -80,7 +80,6 @@ function createProductElement(
 	maintenanceList.appendChild(productDiv);
 }
 
-// Exemplo 1: Estado ABERTA (Cinza)
 createProductElement(
     "Notebook",
     "12/12/2023",
@@ -88,7 +87,6 @@ createProductElement(
     "ABERTA"
 );
 
-// Exemplo 2: Estado ORÇADA (Marrom)
 createProductElement(
     "Impressora",
     "10/10/2023",
@@ -96,15 +94,6 @@ createProductElement(
     "ORÇADA"
 );
 
-// Exemplo 3: Estado REJEITADA (Vermelho)
-createProductElement(
-    "Monitor",
-    "08/09/2023",
-    "Monitor não liga",
-    "REJEITADA"
-);
-
-// Exemplo 4: Estado APROVADA (Amarelo)
 createProductElement(
     "Celular",
     "14/11/2023",
@@ -112,7 +101,6 @@ createProductElement(
     "APROVADA"
 );
 
-// Exemplo 5: Estado REDIRECIONADA (Roxo)
 createProductElement(
     "Tablet",
     "01/09/2023",
@@ -120,7 +108,6 @@ createProductElement(
     "REDIRECIONADA"
 );
 
-// Exemplo 6: Estado AGUARDANDO PAGAMENTO (Azul)
 createProductElement(
     "Computador",
     "23/08/2023",
@@ -128,7 +115,6 @@ createProductElement(
     "AGUARDANDO PAGAMENTO"
 );
 
-// Exemplo 7: Estado PAGA (Alaranjado)
 createProductElement(
     "Teclado",
     "18/08/2023",
@@ -136,7 +122,7 @@ createProductElement(
     "PAGA"
 );
 
-// Exemplo 8: Estado FINALIZADA (Verde)
+
 createProductElement(
     "Mouse",
     "05/07/2023",

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../pattern.css">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
+    
 </head>
 
 <body>
@@ -32,7 +33,7 @@
                     <div class="header-info">
                         <div class="state-info">
                             <div class="state red"></div>
-                            <p class="state-description">Rejeitado</p>
+                            <p class="state-description">REJEITADA</p>
                         </div>
                         <div class="category">
                             <p>
@@ -57,13 +58,38 @@
                                 Baixei um vírus sem querer
                             </p>
                         </div>
-                        <button class="redirect-state">Rejeitado</button>
+                        <button class="redirect-state">REJEITADA</button>
                     </div>
                 </div>
             </div>
 
         </div>
     </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script defer>
+        $(document).ready(function () {
+            $('#maintenance-list').on('click', '.open-dropdown', function () {
+                let dropdown = $(this).parent().siblings('.dropdown-plus');
+
+                dropdown.slideToggle(function () {
+                    if (dropdown.is(':visible')) {
+                        dropdown.css('display', 'flex');
+                    }
+                });
+            
+                $(this).text($(this).text() === 'Fechar' ? 'Abrir' : 'Fechar');
+                
+                if ($(this).text() === 'Fechar') {
+                    $(this).parent().css("border-radius", "10px 10px 0px 0px");
+                } else {
+                    $(this).parent().css("border-radius", "10px 10px 10px 10px");
+                }
+            });
+    
+            $('.dropdown-plus').hide();
+        });
+    </script>
 </body>
 
 </html>
