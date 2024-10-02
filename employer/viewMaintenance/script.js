@@ -81,10 +81,32 @@ function createProductElement(
 }
 
 createProductElement(
-    "Notebook",
-    "12/12/2023",
-    "A tela está quebrada",
-    "ABERTA"
+	"Mouse",
+	"05/07/2023",
+	"Botão não responde",
+	"FINALIZADA"
+);
+
+
+createProductElement(
+    "Teclado",
+    "18/08/2023",
+    "Teclas não funcionam",
+    "PAGA"
+);
+
+createProductElement(
+    "Computador",
+    "23/08/2023",
+    "Problema na fonte de alimentação",
+    "AGUARDANDO PAGAMENTO"
+);
+
+createProductElement(
+    "Tablet",
+    "01/09/2023",
+    "Tela com defeito",
+    "REDIRECIONADA"
 );
 
 createProductElement(
@@ -102,30 +124,8 @@ createProductElement(
 );
 
 createProductElement(
-    "Tablet",
-    "01/09/2023",
-    "Tela com defeito",
-    "REDIRECIONADA"
-);
-
-createProductElement(
-    "Computador",
-    "23/08/2023",
-    "Problema na fonte de alimentação",
-    "AGUARDANDO PAGAMENTO"
-);
-
-createProductElement(
-    "Teclado",
-    "18/08/2023",
-    "Teclas não funcionam",
-    "PAGA"
-);
-
-
-createProductElement(
-    "Mouse",
-    "05/07/2023",
-    "Botão não responde",
-    "FINALIZADA"
+    "Notebook",
+    "12/12/2023",
+    "A tela está quebrada",
+    "ABERTA"
 );

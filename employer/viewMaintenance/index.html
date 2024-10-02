@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../pattern.css">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
-    
+
 </head>
 
 <body>
@@ -19,12 +19,16 @@
         <div id="container">
             <div id="header-container">
                 <h1>Visualizar Solicitações</h1>
+                <button id="show-filter">Filtrar</button>
                 <div id="filters">
+                    <h3>Filtrar por:</h3>
                     <button id="today">Hoje</button>
-                    <input type="date" name="start" id="start-date">
-                    <input type="date" name="end" id="end-data">
-                    <button id="filter">Filtrar</button>
-                    <button id="all">Todos</button>
+                    <div id="interval">
+                        <input type="date" name="start" id="start-date">
+                        <input type="date" name="end" id="end-date">
+                        <button id="filter">Filtrar</button>
+                    </div>
+                    <button id="all" class="">Todos</button>
                 </div>
             </div>
 
@@ -42,7 +46,7 @@
                         </div>
                         <div class="date">
                             <p>
-                                12/12/2023
+                                12/12/2022
                             </p>
                         </div>
                         <button class="open-dropdown">
@@ -77,17 +81,75 @@
                         dropdown.css('display', 'flex');
                     }
                 });
-            
+
                 $(this).text($(this).text() === 'Fechar' ? 'Abrir' : 'Fechar');
-                
+
                 if ($(this).text() === 'Fechar') {
                     $(this).parent().css("border-radius", "10px 10px 0px 0px");
                 } else {
                     $(this).parent().css("border-radius", "10px 10px 10px 10px");
                 }
             });
-    
+
             $('.dropdown-plus').hide();
+
+            $(document).ready(function () {
+                $('#show-filter').click(function () {
+                    $(this).css('display', 'none');
+                    $('#filters').css('display', 'flex');
+                });
+
+                $('#today, #filter, #all').click(function () {
+                    $('#filters').css('display', 'none');
+                    $('#show-filter').css('display', 'block');
+                });
+
+                function convertDate(dateStr) {
+                    if (!dateStr) {
+                        console.error('Data não definida:', dateStr);
+                        return null;
+                    }
+                    const [day, month, year] = dateStr.split('/');
+                    if (!day || !month || !year) {
+                        console.error('Formato de data inválido:', dateStr);
+                        return null;
+                    }
+                    return `${year}-${month}-${day}`;
+                }
+
+                function filterByDate(startDate, endDate) {
+                $('#maintenance-list .product').each(function () {
+                    const productDateStr = $(this).find('.date p').text().trim();
+                    const productDate = convertDate(productDateStr);
+                    if (!productDate) {
+                        $(this).hide();
+                        return;
+                    }
+                    if (productDate >= startDate && productDate <= endDate) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+                $('#today').click(function () {
+                    const today = new Date().toISOString().split('T')[0];
+                    filterByDate(today, today);
+                });
+
+                $('#filter').click(function () {
+                    const startDate = $('#start-date').val();
+                    const endDate = $('#end-date').val();
+                    if (startDate && endDate) {
+                        filterByDate(startDate, endDate);
+                    }
+                });
+
+                $('#all').click(function () {
+                    $('#maintenance-list .product').show();
+                });
+            });
         });
     </script>
 </body>
