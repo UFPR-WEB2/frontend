@@ -6,11 +6,9 @@
 }
 
 body {
-	--bg-color: radial-gradient(
-		circle at center,
-		var(--gray),
-		var(--black) 60%
-	);
+	--bg-color: radial-gradient(circle at center,
+			var(--gray),
+			var(--black) 60%);
 	background: var(--bg-color);
 	width: 100vw;
 	min-height: 100dvh;
@@ -34,7 +32,7 @@ main {
 	background: rgba(255, 255, 255, 0.05);
 	padding: 1%;
 	border-radius: 10px;
-    height: 100%;
+	height: 100%;
 
 }
 
@@ -42,7 +40,7 @@ header {
 	background: var(--bg-color);
 	height: var(--height);
 	max-height: var(--max-height);
-    width: 100%;
+	width: 100%;
 	padding: 0.5rem 5dvw;
 	display: flex;
 	align-items: center;
@@ -90,11 +88,12 @@ h1 {
 	color: #1b262c;
 }
 
-.date, .category {
-    width: 30%;
-    font: "Arial", sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
+.date,
+.category {
+	width: 30%;
+	font: "Arial", sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
 }
 
 button {
@@ -106,7 +105,8 @@ button {
 	font-size: 1rem;
 	font-weight: 600;
 	cursor: pointer;
-    padding: 10px;
+	padding: 10px;
+	margin: 10px;
 }
 
 .dropdown:focus {
@@ -118,7 +118,7 @@ button {
 .product {
 	display: flex;
 	flex-direction: column;
-	background-color: aliceblue; 
+	background-color: aliceblue;
 	border-radius: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 }
@@ -203,9 +203,9 @@ button {
 }
 
 #maintenance-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-    overflow: auto;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 0.5rem;
+	overflow: auto;
 }
