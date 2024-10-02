@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="../pattern.css">
     <link rel="stylesheet" href="./style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -19,7 +20,7 @@
         <div id="icon" ></div>
 
         <div id="login-container">
-            <a href="./register/">
+            <a href="./register/index.html">
                 <div id="register" href="./register/index.html">Registrar</div>
             </a>
         </div>
@@ -38,14 +39,26 @@
                         <input type="password" name="password" id="password" placeholder="Senha">
                     </div>
                     <label id="Fpassowrd">Esqueci minha senha</label>
-                    <a href="../homeCliente/"><button type="button">Entrar</button></a>
+                    <button type="button" id="submitButton">Entrar</button>
+                    <script>
+                        $(document).ready(function() {
+                            $('#submitButton').click(function() {
+                                var emailValue = $('#email').val();
+                                if (emailValue === 'func') {
+                                    window.location.href = '../employee/index.html';
+                                } else {
+                                    window.location.href = '../homeCliente/index.html';
+                                }
+                            });
+                        });
+                    </script>
                 </form>
             </div>
             <div class="container">
                 <h1>Registrar</h1>
                 <form action="">
                     <p>Se você ainda não tem uma conta, clique no botão abaixo para se registrar.</p>
-                    <a href="./register/"><button type="button">Registrar</button></a>
+                    <a href="./register/index.html"><button type="button">Registrar</button></a>
                 </form>
             </div>
         </div>

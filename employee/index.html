@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nome do Site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../pattern.css">
+    <link rel="stylesheet" href="./style/style.css">
+    <script src="./src/components/Header.js" defer></script>
+    <script src="./src/components/NavBar.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <cabeca-padrao></cabeca-padrao>
+    </header>
+    <main>
+        <div style="width: 15%; padding-top: 2%;">
+            <lateral-padrao></lateral-padrao>
+        </div>
+        <div class="main-content">
+            <h3>Minhas solicitações</h3>
+            <div class="tabela">
+                <table id="table-user">
+                    <tr>
+                        <th class="item-title">ID</th>
+                        <th class="item-title">Data/Hora de Abertura</th>
+                        <th class="item-title">Nome do Cliente</th>
+                        <th class="item-title">Descricao</th>
+                        <th class="item-title">Ação</th>
+                    </tr>
+                    <tr>
+                        <td class="item">001</td>
+                        <td class="item">15/09/24 10:00</td>
+                        <td class="item">João da Silva</td>
+                        <td class="item">Equipamento A com falha...</td>
+                        <td class="item">
+                            <button onclick="mostrarOrcamento(1)">Efetuar orçamento</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="item">002</td>
+                        <td class="item">14/09/24 09:30</td>
+                        <td class="item">João da Silva</td>
+                        <td class="item">Equipamento B com defeito...</td>
+                        <td class="item">
+                            <button onclick="mostrarDetalhes(1)">Efetuar orçamento</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="item">003</td>
+                        <td class="item">13/09/24 08:45</td>
+                        <td class="item">João da Silva</td>
+                        <td class="item">Equipamento C reiniciando...</td>
+                        <td class="item">
+                            <button onclick="resgatarServico()">Efetuar orçamento</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="item">004</td>
+                        <td class="item">12/09/24 11:15</td>
+                        <td class="item">João da Silva</td>
+                        <td class="item">Equipamento D sem energia...</td>
+                        <td class="item">
+                            <button onclick="pagarServico()">Efetuar orçamento</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
