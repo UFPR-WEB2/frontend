@@ -1,0 +1,40 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+header {
+    --bg-color: transparent;
+    --height: 5dvh;
+    --max-height: 4dvh;
+
+    top: 0;
+    justify-content: space-between;
+    color: white;
+
+    width: 98%;
+    margin-left: 1%;
+    align-items: center;
+    position: fixed;
+}
+
+main {
+    --bg-color: transparent;
+    --main-height: 83.5dvh;
+    height: 85.5dvh;
+    background: var(--bg-color);
+    width: 98%;
+    display: flex;
+    margin-left: 1%;
+    margin-top: 13.5dvh;
+}
+
+main .main-content {
+    margin-left: 1%;
+    width: 83%;
+    padding-top: 2%;
+}
+
