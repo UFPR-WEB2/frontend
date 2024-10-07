@@ -6,11 +6,9 @@
 }
 
 body {
-	--bg-color: radial-gradient(
-		circle at center,
-		var(--gray),
-		var(--black) 60%
-	);
+	--bg-color: radial-gradient(circle at center,
+			var(--gray),
+			var(--black) 60%);
 	background: var(--bg-color);
 	width: 100vw;
 	min-height: 100dvh;
