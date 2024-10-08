@@ -9,5 +9,6 @@ export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
   { path: 'login/register', loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent) },
   { path: 'home-cliente', loadComponent: () => import('./pages/home-cliente/home-cliente.component').then(m => m.HomeClienteComponent) },
+  { path: 'view-maintenance', loadComponent: () => import('./pages/employer/view-maintenance/view-maintenance.component').then(m => m.ViewMaintenanceComponent) },
   { path: '**', redirectTo: '' }
 ];
