@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarClienteComponent {
   funcionalidades = [
-    { nome: 'Solicitar Manutenção', link: 'view-maintenance' }
+    { nome: 'Solicitar Manutenção', link: '../view-maintenance' }
   ];
 
   estados = ['Orçada', 'Aprovada', 'Rejeitada', 'Arrumada', 'Outros estados'];
