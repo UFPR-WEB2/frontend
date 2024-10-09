@@ -42,6 +42,7 @@
                 <p><strong>Categoria:</strong> Desktop</p>
                 <p><strong>Defeito:</strong> A tela não mostra imagem</p>
                 <p><strong>Estado:</strong> ORÇADA</p>
+                <p><strong>Histórico:</strong></p>
             </div>
 
             <div id="budget-info">
@@ -51,6 +52,15 @@
                     <button id="btn-manunt">Efetuar Manutenção</button>
                     <button id="submit-budget">Redirecionar</button>
                 </div>
+
+                <div id="redirect-info" style="display: none;">
+                    <label for="select-employee">Redirecionar para:</label>
+                    <select id="select-employee" name="select-employee">
+                        <option value="">Selecione um funcionário</option>
+                    </select>
+                    <button id="btn-confirm-redirect">Confirmar Redirecionamento</button>
+                </div>
+
             </div>
             <div id="infos-efetuar-manunt" style="display: none;">
                 <label for="desc-manunt">Efetuar manutenção:</label>
