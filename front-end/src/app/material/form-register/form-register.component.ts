@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
+  selector: 'app-form-register',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  templateUrl: './form-register.component.html',
+  styleUrl: './form-register.component.css'
 })
-export class RegisterComponent {
-
+export class FormRegisterComponent {
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router) {
@@ -20,12 +19,13 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, this.cpfValidatorAndFormatter()]],
       phone: ['', [Validators.required, this.phoneValidatorAndFormatter()]],
-      cep: ['', Validators.required],
+      cep: ['', [Validators.required, this.cepValidatorAndFormatter()]],
       country: ['', Validators.required],
       state: ['', Validators.required],
       street: ['', Validators.required],
       city: ['', Validators.required],
-      complemento: ['', Validators.required]
+      numero : ['',Validators.required],
+      complemento: ['',]
     });
   }
 
@@ -43,6 +43,10 @@ export class RegisterComponent {
 
   get phone() {
     return this.registerForm.get('phone');
+  }
+
+  get cep() {
+    return this.registerForm.get('cep');
   }
 
   goToLogin() {
@@ -81,10 +85,22 @@ export class RegisterComponent {
     };
   }
 
+
+  clearAddressFields() {
+    this.registerForm.patchValue({
+      country: '',
+      state: '',
+      city: '',
+      street: '',
+      complemento: '',
+    });
+  }
+
   fetchCepData() {
     const cep = this.registerForm.get('cep')?.value.replace(/[^0-9]/g, "");
     const cepFormatado = `${cep.substr(0, 5)}-${cep.substr(5, 3)}`;
-    if (cep && this.registerForm.get('cep')?.valid) {
+    
+    if (cep && cep.length === 8) {
       fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then(response => response.json())
         .then(data => {
@@ -96,12 +112,43 @@ export class RegisterComponent {
               state: data.uf,
               cep: cepFormatado
             });
+          } else {
+            console.log('CEP não encontrado');
+            this.clearAddressFields();
           }
+        })
+        .catch(() => {
+          console.log('Erro na requisição do CEP');
+          this.clearAddressFields();
         });
+    } else {
+      console.log('CEP inválido');
+      this.clearAddressFields();
     }
   }
 
+  cepValidatorAndFormatter(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const cep = control.value ? control.value.replace(/[^0-9]/g, "") : "";
+      if (cep.length === 8) {
+        const cepFormatado = `${cep.substr(0, 5)}-${cep.substr(5, 3)}`;
+        if (control.value !== cepFormatado) {
+          control.setValue(cepFormatado, { emitEvent: false });
+        }
+      }
+      if (cep.length !== 8) {
+        return { invalidCep: true };
+      }
+      return null;
+    };
+  }
+
   onSubmit() {
-    console.log(this.registerForm.get('name')?.errors);
+    if (this.registerForm.valid) {
+      console.log('Formulário válido:', this.registerForm.value);
+    } else {
+      console.log('Formulário inválido');
+      this.registerForm.markAllAsTouched();
+    }
   }
 }

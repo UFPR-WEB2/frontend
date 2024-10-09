@@ -1,0 +1,191 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
+    background: var(--bg-color);
+}
+
+header {
+    --bg-color: transparent;
+    --height: 5dvh;
+    --max-height: 4dvh;
+
+    top: 0;
+    justify-content: space-between;
+    color: white;
+
+    width: 98%;
+    margin-left: 1%;
+    align-items: center;
+    position: fixed;
+}
+
+main {
+    --bg-color: transparent;
+    --main-height: 83.5dvh;
+    height: 85.5dvh;
+    background: var(--bg-color);
+    width: 98%;
+    display: flex;
+    margin-left: 1%;
+    margin-top: 13.5dvh;
+}
+
+main .main-content {
+    margin-left: 1%;
+    width: 83%;
+    padding-top: 2%;
+}
+
+main .main-content h3 {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 4dvh;
+    padding-bottom: 0.5dvh;
+}
+
+main .tabela {
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+main .tabela #table-user {
+    width: 100%;
+    border-radius: 0.75rem;
+
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    border-collapse: collapse;
+    background-color: white;
+
+    border-collapse: collapse;
+
+    position: relative;
+    z-index: 1;
+}
+
+main .tabela #table-user {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 2px solid transparent;
+    font-weight: 600;
+    padding: 0.5rem;
+    background-clip: padding-box;
+    position: relative;
+    z-index: 1;
+    table-layout: fixed;
+}
+
+main .tabela #table-user td {
+
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+main .tabela #table-user th {
+    background-color: rgb(255, 123, 0);
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    cursor: default;
+}
+
+main .tabela #table-user tr {
+    min-height: 50px;
+}
+
+main .tabela #table-user::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 0.05rem;
+    z-index: -1;
+}
+
+main .tabela #table-user th,
+#table-user td {
+    border-bottom: 1px solid orange;
+    padding: 1rem;
+    text-align: left;
+    width: 20%;
+    height: 50px;
+    min-height: 50px;
+
+}
+
+
+main .tabela #table-user tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+main .tabela #table-user tr:hover {
+    background-color: #cfc7c7;
+}
+
+button {
+    align-items: center;
+    background-clip: padding-box;
+    background: linear-gradient(135deg, orange, red);
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: 150px;
+    height: 20px;
+
+}
+
+button:hover,
+button:focus {
+    background-color: #fb8332;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+button:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+    transform: translateY(0);
+}
+
+
+#btnfooter {
+
+
+    margin-top: 12px;
+}

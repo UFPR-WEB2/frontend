@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Solicitação</title>
+    <link rel="stylesheet" href="../../pattern.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+
+</head>
+
+<body>
+    <header>
+        <div id="icon"></div>
+    </header>
+    <main>
+        <div id="container">
+            <div id="header-container">
+                <h1>Visualizar Solicitações</h1>
+                <button id="show-filter">Filtrar</button>
+                <div id="filters">
+                    <h3>Filtrar por:</h3>
+                    <button id="today">Hoje</button>
+                    <div id="interval">
+                        <input type="date" name="start" id="start-date">
+                        <input type="date" name="end" id="end-date">
+                        <button id="filter">Filtrar</button>
+                    </div>
+                    <button id="all" class="">Todos</button>
+                </div>
+            </div>
+
+            <div id="maintenance-list">
+                <div class="product">
+                    <div class="header-info">
+                        <div class="state-info">
+                            <div class="state red"></div>
+                            <p class="state-description">REJEITADA</p>
+                        </div>
+                        <div class="category">
+                            <p>
+                                Notebook
+                            </p>
+                        </div>
+                        <div class="date">
+                            <p>
+                                12/12/2022
+                            </p>
+                        </div>
+                        <!-- <button class="open-dropdown"> Abrir</button> -->
+                        <a href="../viewClient/index.html"> <button>Abrir</button></a>
+                    </div>
+                    <div class="dropdown-plus">
+                        <div class="description">
+                            <h3>
+                                Descrição
+                            </h3>
+                            <p>
+                                Baixei um vírus sem querer
+                            </p>
+                        </div>
+                        <button class="redirect-state">REJEITADA</button>
+                    </div>
+                </div>
+            </div>
+            <button onclick="window.history.back();">Voltar</button>            <a href="../index.html"> <button>Voltar</button></a>
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script defer>
+        $(document).ready(function () {
+            $('#maintenance-list').on('click', '.open-dropdown', function () {
+                let dropdown = $(this).parent().siblings('.dropdown-plus');
+
+                dropdown.slideToggle(function () {
+                    if (dropdown.is(':visible')) {
+                        dropdown.css('display', 'flex');
+                    }
+                });
+
+                $(this).text($(this).text() === 'Fechar' ? 'Abrir' : 'Fechar');
+
+                if ($(this).text() === 'Fechar') {
+                    $(this).parent().css("border-radius", "10px 10px 0px 0px");
+                } else {
+                    $(this).parent().css("border-radius", "10px 10px 10px 10px");
+                }
+            });
+
+            $('.dropdown-plus').hide();
+
+            $(document).ready(function () {
+                $('#show-filter').click(function () {
+                    $(this).css('display', 'none');
+                    $('#filters').css('display', 'flex');
+                });
+
+                $('#today, #filter, #all').click(function () {
+                    $('#filters').css('display', 'none');
+                    $('#show-filter').css('display', 'block');
+                });
+
+                function convertDate(dateStr) {
+                    if (!dateStr) {
+                        console.error('Data não definida:', dateStr);
+                        return null;
+                    }
+                    const [day, month, year] = dateStr.split('/');
+                    if (!day || !month || !year) {
+                        console.error('Formato de data inválido:', dateStr);
+                        return null;
+                    }
+                    return `${year}-${month}-${day}`;
+                }
+
+                function filterByDate(startDate, endDate) {
+                $('#maintenance-list .product').each(function () {
+                    const productDateStr = $(this).find('.date p').text().trim();
+                    const productDate = convertDate(productDateStr);
+                    if (!productDate) {
+                        $(this).hide();
+                        return;
+                    }
+                    if (productDate >= startDate && productDate <= endDate) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+                $('#today').click(function () {
+                    const today = new Date().toISOString().split('T')[0];
+                    filterByDate(today, today);
+                });
+
+                $('#filter').click(function () {
+                    const startDate = $('#start-date').val();
+                    const endDate = $('#end-date').val();
+                    if (startDate && endDate) {
+                        filterByDate(startDate, endDate);
+                    }
+                });
+
+                $('#all').click(function () {
+                    $('#maintenance-list .product').show();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

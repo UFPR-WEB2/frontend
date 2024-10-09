@@ -1,0 +1,24 @@
+button {
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, orange, red);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+}
+
+form button:hover {
+    background: linear-gradient(135deg, red, orange);
+}
+
+form button:active {
+    background: linear-gradient(135deg, orange, red);
+    transform: scale(0.98);
+}
+
+form button:focus {
+    outline: none;
+}
