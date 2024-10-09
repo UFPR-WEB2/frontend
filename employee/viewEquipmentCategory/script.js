@@ -1,94 +1,85 @@
-const categoryInput = document.getElementById("category-input");
-const addCategoryButton = document.getElementById("add-category");
-const categoriesList = document.getElementById("categories");
-const editModal = document.getElementById("edit-modal");
-const editCategoryInput = document.getElementById("edit-category-input");
-const saveEditButton = document.getElementById("save-edit");
-const closeButton = document.querySelector(".close-button");
+$(document).ready(function () {
+    const $categoryInput = $("#category-input");
+    const $addCategoryButton = $("#add-category");
+    const $categoriesList = $("#categories");
+    const $editModal = $("#edit-modal");
+    const $editCategoryInput = $("#edit-category-input");
+    const $saveEditButton = $("#save-edit");
+    const $closeButton = $(".close-button");
 
-let categories = ["Notebook", "Impressora", "Desktop", "Microfone"];
-let currentEditIndex = null;
+    let categories = ["Notebook", "Impressora", "Desktop", "Microfone"];
+    let currentEditIndex = null;
 
-function renderCategories() {
-    categoriesList.innerHTML = "";
-    categories.forEach((category, index) => {
-        const li = document.createElement("li");
-        li.className = "category-item";
+    function renderCategories() {
+        $categoriesList.empty();
+        categories.forEach((category, index) => {
+            const $li = $("<li>").addClass("category-item");
 
-        const span = document.createElement("span");
-        span.textContent = category;
+            const $span = $("<span>").text(category);
 
-        const div = document.createElement("div");
+            const $div = $("<div>");
 
-        const editButton = document.createElement("button");
-        editButton.textContent = "Editar";
-        editButton.addEventListener("click", () => openEditModal(index));
+            const $editButton = $("<button>").text("Editar");
+            $editButton.on("click", () => openEditModal(index));
 
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Excluir";
-        deleteButton.addEventListener("click", () => deleteCategory(index));
+            const $deleteButton = $("<button>").text("Excluir");
+            $deleteButton.on("click", () => deleteCategory(index));
 
-        div.appendChild(editButton);
-        div.appendChild(deleteButton);
+            $div.append($editButton, $deleteButton);
+            $li.append($span, $div);
+            $categoriesList.append($li);
+        });
+    }
 
-        li.appendChild(span);
-        li.appendChild(div);
+    function addCategory() {
+        const category = $categoryInput.val().trim();
+        if (category) {
+            categories.push(category);
+            $categoryInput.val("");
+            renderCategories();
+        }
+    }
 
-        categoriesList.appendChild(li);
+    function openEditModal(index) {
+        currentEditIndex = index;
+        $editCategoryInput.val(categories[index]);
+        $editModal.show();
+        $editCategoryInput.focus();
+    }
+
+    function closeEditModal() {
+        $editModal.hide();
+    }
+
+    function saveEdit() {
+        const newCategory = $editCategoryInput.val().trim();
+        if (newCategory) {
+            categories[currentEditIndex] = newCategory;
+            renderCategories();
+            closeEditModal();
+        }
+    }
+
+    function deleteCategory(index) {
+        categories.splice(index, 1);
+        renderCategories();
+    }
+
+    $addCategoryButton.on("click", addCategory);
+
+    $categoryInput.on("keypress", e => {
+        if (e.key === "Enter") {
+            addCategory();
+        }
     });
-}
 
-function addCategory() {
-    const category = categoryInput.value.trim();
-    if (category) {
-        categories.push(category);
-        categoryInput.value = "";
-        renderCategories();
-    }
-}
+    $saveEditButton.on("click", saveEdit);
+    $closeButton.on("click", closeEditModal);
+    $(window).on("click", e => {
+        if ($(e.target).is($editModal)) {
+            closeEditModal();
+        }
+    });
 
-function openEditModal(index) {
-    currentEditIndex = index;
-    editCategoryInput.value = categories[index];
-    editModal.style.display = "block";
-}
-
-function closeEditModal() {
-    editModal.style.display = "none";
-}
-
-function saveEdit() {
-    const newCategory = editCategoryInput.value.trim();
-    if (newCategory) {
-        categories[currentEditIndex] = newCategory;
-        renderCategories();
-        closeEditModal();
-    }
-}
-
-function deleteCategory(index) {
-    categories.splice(index, 1);
     renderCategories();
-}
-
-// Evento para adicionar categoria ao clicar no botão
-addCategoryButton.addEventListener("click", addCategory);
-
-// Evento para adicionar categoria ao pressionar Enter
-categoryInput.addEventListener("keypress", e => {
-    if (e.key === "Enter") {
-        addCategory();
-    }
 });
-
-// Eventos para o modal de edição
-saveEditButton.addEventListener("click", saveEdit);
-closeButton.addEventListener("click", closeEditModal);
-window.addEventListener("click", e => {
-    if (e.target === editModal) {
-        closeEditModal();
-    }
-});
-
-// Renderiza as categorias iniciais
-renderCategories();
