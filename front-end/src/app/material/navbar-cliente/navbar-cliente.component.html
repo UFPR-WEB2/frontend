@@ -1,0 +1,14 @@
+<div class="container-lateral">
+    <h2>Funcionalidades</h2>
+    <ul id="funcionalidades">
+      <li *ngFor="let funcionalidade of funcionalidades">
+        <a [href]="funcionalidade.link">{{ funcionalidade.nome }}</a>
+      </li>
+    </ul>
+  
+    <h2>Filtros</h2>
+    <select id="estado">
+      <option *ngFor="let estado of estados" [value]="estado.toLowerCase()">{{ estado }}</option>
+    </select>
+  </div>
+  
