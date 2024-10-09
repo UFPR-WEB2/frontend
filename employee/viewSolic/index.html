@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Solicitação</title>
+    <link rel="stylesheet" href="../../pattern.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+
+<body>
+    <header>
+        <div id="icon"></div>
+    </header>
+    <main>
+        <div id="container">
+            <div id="header-container">
+                <h1>Detalhes da Solicitação</h1>
+            </div>
+
+            <div id="client-info">
+                <h2>Informações do Cliente</h2>
+                <p><strong>Nome:</strong> João da Silva</p>
+                <p><strong>Email:</strong> joao.silva@example.com</p>
+                <p><strong>Telefone:</strong> (11) 98765-4321</p>
+                <p><strong>CPF:</strong> 11111111111</p>
+                <p><strong>CEP:</strong> 1111111111</p>
+                <p><strong>País:</strong> Brasil</p>
+                <p><strong>Estado:</strong> Paraná</p>
+                <p><strong>Cidade:</strong> Curitiba</p>
+            </div>
+
+            <div id="request-info">
+                <h2>Informações da Solicitação</h2>
+                <p><strong>ID:</strong> 001</p>
+                <p><strong>Data/Hora:</strong> 15/09/24 10:00</p>
+                <p><strong>Descrição:</strong> Equipamento A com falha...</p>
+                <p><strong>Categoria:</strong> Desktop</p>
+                <p><strong>Defeito:</strong> A tela não mostra imagem</p>
+                <p><strong>Estado:</strong> ORÇADA</p>
+                <p><strong>Histórico:</strong></p>
+            </div>
+
+            <div id="budget-info">
+                <h2>Orçamento</h2>
+                <p><strong>Valor:</strong> R$200,00</p>
+                <div id="divButton">
+                    <button id="btn-manunt">Efetuar Manutenção</button>
+                    <button id="submit-budget">Redirecionar</button>
+                </div>
+
+                <div id="redirect-info" style="display: none;">
+                    <label for="select-employee">Redirecionar para:</label>
+                    <select id="select-employee" name="select-employee">
+                        <option value="">Selecione um funcionário</option>
+                    </select>
+                    <button id="btn-confirm-redirect">Confirmar Redirecionamento</button>
+                </div>
+
+            </div>
+            <div id="infos-efetuar-manunt" style="display: none;">
+                <label for="desc-manunt">Efetuar manutenção:</label>
+                <input type="text" id="desc-manunt" name="desc-manunt" placeholder="Descrição para manutenção">
+                <label for="orien-client">Orientações para o cliente:</label>
+                <input type="text" id="orien-client" name="orien-client" placeholder="Orientações para o cliente">
+                <button id="btn-desfazer">Desfazer</button>
+            </div>
+        </div>
+
+    </main>
+    <script>
+        $(document).ready(function() {
+            $("#btn-manunt").click(function() {
+                $("#infos-efetuar-manunt").show();
+            });
+            $("#btn-desfazer").click(function() {
+                $("#desc-manunt").val('');
+                $("#orien-client").val('');
+                $("#infos-efetuar-manunt").hide();
+            });
+        });
+    </script>
+</body>
+
+</html>
