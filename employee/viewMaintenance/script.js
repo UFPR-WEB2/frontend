@@ -1,83 +1,142 @@
 function createProductElement(
-	category,
-	date,
-	description,
-	stateDescription
+    category,
+    date,
+    description,
+    stateDescription
 ) {
-	const stateColors = {
-		"ABERTA": "gray",
-		"ORÇADA": "brown",
-		"REJEITADA": "red",
-		"APROVADA": "yellow",
-		"REDIRECIONADA": "purple",
-		"AGUARDANDO PAGAMENTO": "blue",
-		"PAGA": "orange",
-		"FINALIZADA": "green"
-	};
+    const stateColors = {
+        "ABERTA": "gray",
+        "ORÇADA": "brown",
+        "REJEITADA": "red",
+        "APROVADA": "yellow",
+        "REDIRECIONADA": "purple",
+        "AGUARDANDO PAGAMENTO": "blue",
+        "PAGA": "orange",
+        "FINALIZADA": "green"
+    };
 
-	const stateClass = stateColors[stateDescription] || "default-state-color";
+    let currentState = stateDescription; // Variável para manter o estado atual
 
-	const productDiv = document.createElement("div");
-	productDiv.className = "product";
+    const stateClass = stateColors[currentState] || "default-state-color";
 
-	const headerInfoDiv = document.createElement("div");
-	headerInfoDiv.className = "header-info";
+    const productDiv = document.createElement("div");
+    productDiv.className = "product";
 
-	const stateInfoDiv = document.createElement("div");
-	stateInfoDiv.className = "state-info";
-	const stateIndicatorDiv = document.createElement("div");
-	stateIndicatorDiv.className = `state ${stateClass}`; 
-	const stateDescriptionP = document.createElement("p");
-	stateDescriptionP.className = "state-description";
-	stateDescriptionP.textContent = stateDescription;
-	stateInfoDiv.appendChild(stateIndicatorDiv);
-	stateInfoDiv.appendChild(stateDescriptionP);
+    const headerInfoDiv = document.createElement("div");
+    headerInfoDiv.className = "header-info";
 
-	const categoryDiv = document.createElement("div");
-	categoryDiv.className = "category";
-	const categoryP = document.createElement("p");
-	categoryP.textContent = category;
-	categoryDiv.appendChild(categoryP);
+    const stateInfoDiv = document.createElement("div");
+    stateInfoDiv.className = "state-info";
+    const stateIndicatorDiv = document.createElement("div");
+    stateIndicatorDiv.className = `state ${stateClass}`; 
+    const stateDescriptionP = document.createElement("p");
+    stateDescriptionP.className = "state-description";
+    stateDescriptionP.textContent = currentState;
+    stateInfoDiv.appendChild(stateIndicatorDiv);
+    stateInfoDiv.appendChild(stateDescriptionP);
 
-	const dateDiv = document.createElement("div");
-	dateDiv.className = "date";
-	const dateP = document.createElement("p");
-	dateP.textContent = date;
-	dateDiv.appendChild(dateP);
+    const categoryDiv = document.createElement("div");
+    categoryDiv.className = "category";
+    const categoryP = document.createElement("p");
+    categoryP.textContent = category;
+    categoryDiv.appendChild(categoryP);
 
-	const openDropdownButton = document.createElement("button");
-	openDropdownButton.className = "open-dropdown";
-	openDropdownButton.textContent = "Abrir";
+    const dateDiv = document.createElement("div");
+    dateDiv.className = "date";
+    const dateP = document.createElement("p");
+    dateP.textContent = date;
+    dateDiv.appendChild(dateP);
 
-	headerInfoDiv.appendChild(stateInfoDiv);
-	headerInfoDiv.appendChild(categoryDiv);
-	headerInfoDiv.appendChild(dateDiv);
-	headerInfoDiv.appendChild(openDropdownButton);
+    const openDropdownButton = document.createElement("button");
+    openDropdownButton.className = "open-dropdown";
+    openDropdownButton.textContent = "Abrir";
 
-	const dropdownPlusDiv = document.createElement("div");
-	dropdownPlusDiv.className = "dropdown-plus";
+    headerInfoDiv.appendChild(stateInfoDiv);
+    headerInfoDiv.appendChild(categoryDiv);
+    headerInfoDiv.appendChild(dateDiv);
+    headerInfoDiv.appendChild(openDropdownButton);
 
-	const descriptionDiv = document.createElement("div");
-	descriptionDiv.className = "description";
-	const descriptionH3 = document.createElement("h3");
-	descriptionH3.textContent = "Descrição";
-	const descriptionP = document.createElement("p");
-	descriptionP.textContent = description;
-	descriptionDiv.appendChild(descriptionH3);
-	descriptionDiv.appendChild(descriptionP);
+    const dropdownPlusDiv = document.createElement("div");
+    dropdownPlusDiv.className = "dropdown-plus";
 
-	const redirectStateButton = document.createElement("button");
-	redirectStateButton.className = "redirect-state";
-	redirectStateButton.textContent = stateDescription;
+    const descriptionDiv = document.createElement("div");
+    descriptionDiv.className = "description";
+    const descriptionH3 = document.createElement("h3");
+    descriptionH3.textContent = "Descrição";
+    const descriptionP = document.createElement("p");
+    descriptionP.textContent = description;
+    descriptionDiv.appendChild(descriptionH3);
+    descriptionDiv.appendChild(descriptionP);
 
-	dropdownPlusDiv.appendChild(descriptionDiv);
-	dropdownPlusDiv.appendChild(redirectStateButton);
+    const redirectStateButton = document.createElement("button");
 
-	productDiv.appendChild(headerInfoDiv);
-	productDiv.appendChild(dropdownPlusDiv);
+    dropdownPlusDiv.appendChild(descriptionDiv);
 
-	const maintenanceList = document.getElementById("maintenance-list");
-	maintenanceList.appendChild(productDiv);
+    const actionButtons = {
+        "ABERTA": { text: "Efetuar Orçamento", link: "RF012.html" },
+        "APROVADA": { text: "Efetuar Manutenção", link: "RF014.html" },
+        "REDIRECIONADA": { text: "Efetuar Manutenção", link: "RF014.html" },
+        "PAGA": { text: "Finalizar Solicitação", link: "RF016.html" }
+    };
+
+    const action = actionButtons[currentState];
+
+    if (action) {
+        const actionButtonLink = document.createElement("a");
+        actionButtonLink.href = action.link;
+        const actionButton = document.createElement("button");
+        actionButton.textContent = action.text;
+
+
+        if (currentState === "PAGA" && action.text === "Finalizar Solicitação") {
+            actionButton.addEventListener('click', function(event) {
+                event.preventDefault(); 
+
+                currentState = "FINALIZADA";
+                stateDescriptionP.textContent = currentState;
+
+                const newStateClass = stateColors[currentState];
+                stateIndicatorDiv.className = `state ${newStateClass}`;
+
+                const finalizationDate = new Date();
+                const options = { day: '2-digit', month: '2-digit', year: 'numeric', 
+                                  hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                const finalizationDateStr = finalizationDate.toLocaleDateString('pt-BR', options);
+
+                const finalizationDateDiv = document.createElement("div");
+                finalizationDateDiv.className = "finalization-date";
+                const finalizationDateP = document.createElement("p");
+                finalizationDateP.textContent = `Finalizado em: ${finalizationDateStr}`;
+                finalizationDateDiv.appendChild(finalizationDateP);
+
+                const employeeName = "Funcionário Responsável";
+
+                const employeeDiv = document.createElement("div");
+                employeeDiv.className = "employee";
+                const employeeP = document.createElement("p");
+                employeeP.textContent = `Finalizado por: ${employeeName}`;
+                employeeDiv.appendChild(employeeP);
+
+                dropdownPlusDiv.appendChild(finalizationDateDiv);
+                dropdownPlusDiv.appendChild(employeeDiv);
+
+                actionButtonLink.remove();
+
+                redirectStateButton.textContent = currentState;
+
+                dropdownPlusDiv.slideUp();
+            });
+        }
+
+        actionButtonLink.appendChild(actionButton);
+        dropdownPlusDiv.appendChild(actionButtonLink);
+    }
+
+    productDiv.appendChild(headerInfoDiv);
+    productDiv.appendChild(dropdownPlusDiv);
+
+    const maintenanceList = document.getElementById("maintenance-list");
+    maintenanceList.appendChild(productDiv);
 }
 
 // Exemplo 1: Estado ABERTA (Cinza)
