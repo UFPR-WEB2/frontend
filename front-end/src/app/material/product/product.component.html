@@ -1,0 +1,31 @@
+<div class="product">
+    <div class="header-info" (click)="toggleDropdown()">
+      <div class="state-info">
+        <div class="state {{ product.stateClass }}"></div>
+        <p class="state-description">{{ product.state }}</p>
+      </div>
+      <div class="category">
+        <p>{{ product.category }}</p>
+      </div>
+      <div class="date">
+        <p>{{ product.date }}</p>
+      </div>
+      <button class="open-dropdown">
+        Abrir
+      </button>
+    </div>
+    <div class="dropdown-plus" [@toggleContent]="isDropdownOpen ? 'open' : 'closed'">
+        <div class="description">
+        <h3>Descrição</h3>
+        <p>{{ product.description }}</p>
+        </div>
+        <button
+        class="redirect-state"
+        *ngIf="product.link"
+        (click)="redirectToLink()"
+        >
+        {{ product.state }}
+        </button>
+    </div>
+  </div>
+  
