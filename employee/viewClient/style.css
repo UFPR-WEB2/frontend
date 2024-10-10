@@ -24,6 +24,7 @@ input[type="text"] {
     font-family: "Poppins", sans-serif;
     color: black;
     background-color: white;
+    margin-top: 20px;
 }
 
 header {
@@ -132,4 +133,8 @@ button:active {
     background-color: #c85000;
     box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
     transform: translateY(0);
+}
+
+#infos-tab p {
+    margin-bottom: 0.1rem;
 }

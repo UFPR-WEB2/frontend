@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../pattern.css">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
+
 </head>
 
 <body>
@@ -18,12 +19,16 @@
         <div id="container">
             <div id="header-container">
                 <h1>Visualizar Solicitações</h1>
+                <button id="show-filter">Filtrar</button>
                 <div id="filters">
+                    <h3>Filtrar por:</h3>
                     <button id="today">Hoje</button>
-                    <input type="date" name="start" id="start-date">
-                    <input type="date" name="end" id="end-data">
-                    <button id="filter">Filtrar</button>
-                    <button id="all">Todos</button>
+                    <div id="interval">
+                        <input type="date" name="start" id="start-date">
+                        <input type="date" name="end" id="end-date">
+                        <button id="filter">Filtrar</button>
+                    </div>
+                    <button id="all" class="">Todos</button>
                 </div>
             </div>
 
@@ -32,7 +37,7 @@
                     <div class="header-info">
                         <div class="state-info">
                             <div class="state red"></div>
-                            <p class="state-description">Rejeitado</p>
+                            <p class="state-description">REJEITADA</p>
                         </div>
                         <div class="category">
                             <p>
@@ -41,12 +46,11 @@
                         </div>
                         <div class="date">
                             <p>
-                                12/12/2023
+                                12/12/2022
                             </p>
                         </div>
-                        <button class="open-dropdown">
-                            Abrir
-                        </button>
+                        <!-- <button class="open-dropdown"> Abrir</button> -->
+                        <a href="../viewClient/index.html"> <button>Abrir</button></a>
                     </div>
                     <div class="dropdown-plus">
                         <div class="description">
@@ -57,13 +61,14 @@
                                 Baixei um vírus sem querer
                             </p>
                         </div>
-                        <button class="redirect-state">Rejeitado</button>
+                        <button class="redirect-state">REJEITADA</button>
                     </div>
                 </div>
             </div>
-
+            <button onclick="window.history.back();">Voltar</button>
         </div>
     </main>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script defer>
         $(document).ready(function () {

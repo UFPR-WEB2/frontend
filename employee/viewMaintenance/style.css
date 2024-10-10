@@ -6,11 +6,9 @@
 }
 
 body {
-	--bg-color: radial-gradient(
-		circle at center,
-		var(--gray),
-		var(--black) 60%
-	);
+	--bg-color: radial-gradient(circle at center,
+			var(--gray),
+			var(--black) 60%);
 	background: var(--bg-color);
 	width: 100vw;
 	min-height: 100dvh;
@@ -34,15 +32,15 @@ main {
 	background: rgba(255, 255, 255, 0.05);
 	padding: 1%;
 	border-radius: 10px;
-    height: 100%;
-
+	max-height: 100%;
+	gap: 1rem;
 }
 
 header {
 	background: var(--bg-color);
 	height: var(--height);
 	max-height: var(--max-height);
-    width: 100%;
+	width: 100%;
 	padding: 0.5rem 5dvw;
 	display: flex;
 	align-items: center;
@@ -90,11 +88,12 @@ h1 {
 	color: #1b262c;
 }
 
-.date, .category {
-    width: 30%;
-    font: "Arial", sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
+.date,
+.category {
+	width: 30%;
+	font: "Arial", sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
 }
 
 button {
@@ -106,7 +105,7 @@ button {
 	font-size: 1rem;
 	font-weight: 600;
 	cursor: pointer;
-    padding: 10px;
+	padding: 10px;
 }
 
 .dropdown:focus {
@@ -118,7 +117,7 @@ button {
 .product {
 	display: flex;
 	flex-direction: column;
-	background-color: aliceblue; 
+	background-color: aliceblue;
 	border-radius: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 }
@@ -127,7 +126,7 @@ button {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px;
+	padding: 0px 10px;
 	background-color: white;
 	border-radius: 10px;
 	width: 100%;
@@ -147,9 +146,10 @@ button {
 
 .state {
 	width: 25px;
-	height: 25px;
-	border-radius: 50%;
+	margin: 0.2rem 0;
+	height: 2.6rem;
 	flex-shrink: 0;
+	border-radius: 0.3rem;
 }
 
 .state-description {
@@ -203,9 +203,80 @@ button {
 }
 
 #maintenance-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-    overflow: auto;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 0.5rem;
+	overflow: auto;
+	padding-right: 20px;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: black;
+	border-radius: 10px;
+	border: none;
+	margin-left: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: white;
+	border-radius: 10px;
+}
+
+#filters {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: end;
+	padding-right: 20px;
+	gap: 0.5rem;
+	display: none;
+}
+
+#header-container h3 {
+	font-size: 1.2rem;
+	font-family: "Rubik", sans-serif;
+	font-weight: 700;
+	color: white;
+	margin-bottom: 1rem;
+	margin: auto 0;
+}
+
+#header-container button {
+	height: 100%;
+	background: linear-gradient(135deg, gray, rgb(78, 78, 78));
+}
+
+#interval {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	flex-wrap: wrap;
+}
+
+input[type="date"] {
+	width: 10rem;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	color: #333;
+	align-items: center;
+}
+
+input[type="date"]:focus {
+	border-color: #007bff;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+	outline: none;
+}
+
+#show-filter {
+	display: block;
 }

@@ -80,55 +80,14 @@ function createProductElement(
 	maintenanceList.appendChild(productDiv);
 }
 
-// Exemplo 1: Estado ABERTA (Cinza)
 createProductElement(
-    "Notebook",
-    "12/12/2023",
-    "A tela está quebrada",
-    "ABERTA"
+	"Mouse",
+	"05/07/2023",
+	"Botão não responde",
+	"FINALIZADA"
 );
 
-// Exemplo 2: Estado ORÇADA (Marrom)
-createProductElement(
-    "Impressora",
-    "10/10/2023",
-    "Problema no cartucho",
-    "ORÇADA"
-);
 
-// Exemplo 3: Estado REJEITADA (Vermelho)
-createProductElement(
-    "Monitor",
-    "08/09/2023",
-    "Monitor não liga",
-    "REJEITADA"
-);
-
-// Exemplo 4: Estado APROVADA (Amarelo)
-createProductElement(
-    "Celular",
-    "14/11/2023",
-    "Troca de bateria",
-    "APROVADA"
-);
-
-// Exemplo 5: Estado REDIRECIONADA (Roxo)
-createProductElement(
-    "Tablet",
-    "01/09/2023",
-    "Tela com defeito",
-    "REDIRECIONADA"
-);
-
-// Exemplo 6: Estado AGUARDANDO PAGAMENTO (Azul)
-createProductElement(
-    "Computador",
-    "23/08/2023",
-    "Problema na fonte de alimentação",
-    "AGUARDANDO PAGAMENTO"
-);
-
-// Exemplo 7: Estado PAGA (Alaranjado)
 createProductElement(
     "Teclado",
     "18/08/2023",
@@ -136,10 +95,37 @@ createProductElement(
     "PAGA"
 );
 
-// Exemplo 8: Estado FINALIZADA (Verde)
 createProductElement(
-    "Mouse",
-    "05/07/2023",
-    "Botão não responde",
-    "FINALIZADA"
+    "Computador",
+    "23/08/2023",
+    "Problema na fonte de alimentação",
+    "AGUARDANDO PAGAMENTO"
+);
+
+createProductElement(
+    "Tablet",
+    "01/09/2023",
+    "Tela com defeito",
+    "REDIRECIONADA"
+);
+
+createProductElement(
+    "Impressora",
+    "10/10/2023",
+    "Problema no cartucho",
+    "ORÇADA"
+);
+
+createProductElement(
+    "Celular",
+    "14/11/2023",
+    "Troca de bateria",
+    "APROVADA"
+);
+
+createProductElement(
+    "Notebook",
+    "12/12/2023",
+    "A tela está quebrada",
+    "ABERTA"
 );
