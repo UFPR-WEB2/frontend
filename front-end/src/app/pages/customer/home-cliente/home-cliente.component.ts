@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { HeaderClienteComponent } from '../../material/header-cliente/header-cliente.component';
-import { NavbarClienteComponent } from '../../material/navbar-cliente/navbar-cliente.component';
+import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
+import { NavbarClienteComponent } from '../../../material/navbar-cliente/navbar-cliente.component';
 
 @Component({
   selector: 'app-home-cliente',
