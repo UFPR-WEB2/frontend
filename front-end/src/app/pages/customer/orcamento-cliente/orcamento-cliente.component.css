@@ -1,0 +1,35 @@
+main {
+    width: 100%;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.055);
+    padding: 1%;
+    border-radius: 10px;
+}
+
+
+#container h1 {
+    font-size: 2.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+#container button {
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, orange, red);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
