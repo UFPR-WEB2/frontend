@@ -16,8 +16,10 @@ $(document).ready(function () {
     const $saveEditButton = $("#save-edit");
     const $closeButton = $(".close-button");
 
-    let categories = [{name: "Maria", date: "11/01/2005", email: "maria@gmail.com", password: "1234"}, 
-                      {name: "Mario", date: "14/03/2004", email: "mario@gmail.com", password: "1234"}];
+    let categories = [
+        { name: "Maria", date: "2005-01-11", email: "maria@gmail.com", password: "1234" },
+        { name: "Mario", date: "2004-03-14", email: "mario@gmail.com", password: "1234" }
+    ];
     let currentEditIndex = null;
 
     function renderEmployees() {
@@ -25,13 +27,15 @@ $(document).ready(function () {
         categories.forEach((employee, index) => {
             const $li = $("<li>").addClass("employee-item");
 
-            const $spanName = $("<span>").text(employee.name);
-            const $spanDate = $("<span>").text(employee.date);
-            const $spanEmail = $("<span>").text(employee.email);
+            const formattedDate = new Date(employee.date).toLocaleDateString('pt-BR');
 
-            const $span = $("<span>").append($spanName, $spanDate, $spanEmail);
+            const $spanName = $("<span>").text(`Nome: ${employee.name}`);
+            const $spanDate = $("<span>").text(`Data de Nascimento: ${formattedDate}`);
+            const $spanEmail = $("<span>").text(`Email: ${employee.email}`);
 
-            const $div = $("<div>");
+            const $infoDiv = $("<div>").append($spanName, "<br>", $spanDate, "<br>", $spanEmail);
+
+            const $div = $("<div>").addClass("buttons");
 
             const $editButton = $("<button>").text("Editar");
             $editButton.on("click", () => openEditModal(index));
@@ -40,23 +44,79 @@ $(document).ready(function () {
             $deleteButton.on("click", () => deleteEmployee(index));
 
             $div.append($editButton, $deleteButton);
-            $li.append($span, $div);
+            $li.append($infoDiv, $div);
             $categoriesList.append($li);
         });
     }
 
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    function emailExists(email) {
+        return categories.some(employee => employee.email === email);
+    }
+
     function addEmployee() {
-        const employee = $employeeInput.val().trim();
-        if (employee) {
-            categories.push(employee);
-            $employeeInput.val("");
-            renderEmployees();
+        const name = $employeeInput.val().trim();
+        const date = $employeeDate.val();
+        const email = $employeeEmail.val().trim();
+        const password = $employeePassword.val().trim();
+
+        let errorMessage = "";
+
+        if (!name) {
+            errorMessage += "O nome é obrigatório.\n";
         }
+
+        if (!email) {
+            errorMessage += "O email é obrigatório.\n";
+        } else if (!validateEmail(email)) {
+            errorMessage += "Formato de email inválido.\n";
+        } else if (emailExists(email)) {
+            errorMessage += "Este email já está em uso.\n";
+        }
+
+        if (!password) {
+            errorMessage += "A senha é obrigatória.\n";
+        }
+
+        if (!date) {
+            errorMessage += "A data de nascimento é obrigatória.\n";
+        }
+
+        if (errorMessage) {
+            alert(errorMessage);
+            return;
+        }
+
+        const newEmployee = {
+            name: name,
+            date: date,
+            email: email,
+            password: password
+        };
+
+        categories.push(newEmployee);
+
+        $employeeInput.val("");
+        $employeeDate.val("");
+        $employeeEmail.val("");
+        $employeePassword.val("");
+
+        renderEmployees();
     }
 
     function openEditModal(index) {
         currentEditIndex = index;
-        $editEmployeeInput.val(categories[index]);
+        const employee = categories[index];
+
+        $editEmployeeInput.val(employee.name);
+        $editEmployeeDate.val(employee.date);
+        $editEmployeeEmail.val(employee.email);
+        $editEmployeePassword.val(employee.password);
+
         $editModal.show();
         $editEmployeeInput.focus();
     }
@@ -65,13 +125,52 @@ $(document).ready(function () {
         $editModal.hide();
     }
 
+    function emailExistsForEdit(email, index) {
+        return categories.some((employee, i) => employee.email === email && i !== index);
+    }
+
     function saveEdit() {
-        const newEmployee = $editEmployeeInput.val().trim();
-        if (newEmployee) {
-            categories[currentEditIndex] = newEmployee;
-            renderEmployees();
-            closeEditModal();
+        const name = $editEmployeeInput.val().trim();
+        const date = $editEmployeeDate.val();
+        const email = $editEmployeeEmail.val().trim();
+        const password = $editEmployeePassword.val().trim();
+
+        let errorMessage = "";
+
+        if (!name) {
+            errorMessage += "O nome é obrigatório.\n";
         }
+
+        if (!email) {
+            errorMessage += "O email é obrigatório.\n";
+        } else if (!validateEmail(email)) {
+            errorMessage += "Formato de email inválido.\n";
+        } else if (emailExistsForEdit(email, currentEditIndex)) {
+            errorMessage += "Este email já está em uso.\n";
+        }
+
+        if (!password) {
+            errorMessage += "A senha é obrigatória.\n";
+        }
+
+        if (!date) {
+            errorMessage += "A data de nascimento é obrigatória.\n";
+        }
+
+        if (errorMessage) {
+            alert(errorMessage);
+            return;
+        }
+
+        categories[currentEditIndex] = {
+            name: name,
+            date: date,
+            email: email,
+            password: password
+        };
+
+        renderEmployees();
+        closeEditModal();
     }
 
     function deleteEmployee(index) {
@@ -80,12 +179,6 @@ $(document).ready(function () {
     }
 
     $addEmployeeButton.on("click", addEmployee);
-
-    $employeeInput.on("keypress", e => {
-        if (e.key === "Enter") {
-            addEmployee();
-        }
-    });
 
     $saveEditButton.on("click", saveEdit);
     $closeButton.on("click", closeEditModal);
