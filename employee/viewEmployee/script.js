@@ -1,11 +1,11 @@
 $(document).ready(function () {
-	const $employeeInput = $("#employee-name");
+	const $employeeName = $("#employee-name");
 	const $employeeDate = $("#employee-date");
 	const $employeeEmail = $("#employee-email");
 	const $employeePassword = $("#employee-password");
 
 	const $addEmployeeButton = $("#add-employee");
-	const $categoriesList = $("#employee");
+	const $employeeList = $("#employee");
 	const $editModal = $("#edit-modal");
 
 	const $editEmployeeName = $("#edit-employee-name");
@@ -16,26 +16,34 @@ $(document).ready(function () {
 	const $saveEditButton = $("#save-edit");
 	const $closeButton = $(".close-button");
 
-    let categories = [
-        { name: "Maria", date: "2005-01-11", email: "maria@gmail.com", password: "1234" },
-        { name: "Mario", date: "2004-03-14", email: "mario@gmail.com", password: "1234" }
-    ];
-    let currentEditIndex = null;
+	let employees = [
+		{
+			name: "Maria",
+			date: "2005-01-11",
+			email: "maria@gmail.com",
+			password: "1234",
+		},
+		{
+			name: "Mario",
+			date: "2004-03-14",
+			email: "mario@gmail.com",
+			password: "1234",
+		},
+	];
+	let currentEditIndex = null;
 
 	function renderEmployees() {
-		$categoriesList.empty();
+		$employeeList.empty();
 		employees.forEach((employee, index) => {
 			const $li = $("<li>").addClass("employee-item");
 
-            const formattedDate = new Date(employee.date).toLocaleDateString('pt-BR');
+			const $spanName = $("<span>").text(employee.name);
+			const $spanDate = $("<span>").text(employee.date);
+			const $spanEmail = $("<span>").text(employee.email);
 
-            const $spanName = $("<span>").text(`Nome: ${employee.name}`);
-            const $spanDate = $("<span>").text(`Data de Nascimento: ${formattedDate}`);
-            const $spanEmail = $("<span>").text(`Email: ${employee.email}`);
+			const $span = $("<span>").append($spanName, $spanDate, $spanEmail);
 
-            const $infoDiv = $("<div>").append($spanName, "<br>", $spanDate, "<br>", $spanEmail);
-
-            const $div = $("<div>").addClass("buttons");
+			const $div = $("<div>");
 
 			const $editButton = $("<button>").text("Editar");
 			$editButton.on("click", () => openEditModal(index));
@@ -43,145 +51,73 @@ $(document).ready(function () {
 			const $deleteButton = $("<button>").text("Excluir");
 			$deleteButton.on("click", () => deleteEmployee(index));
 
-            $div.append($editButton, $deleteButton);
-            $li.append($infoDiv, $div);
-            $categoriesList.append($li);
-        });
-    }
+			$div.append($editButton, $deleteButton);
+			$li.append($span, $div);
+			$employeeList.append($li);
+		});
+	}
 
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
+	function addEmployee() {
+		const newEmployee = {
+			name: $employeeName.val().trim(),
+			date: $employeeDate.val(),
+			email: $employeeEmail.val().trim(),
+			password: $employeePassword.val().trim(),
+		};
 
-    function emailExists(email) {
-        return categories.some(employee => employee.email === email);
-    }
+		if (validateEmployee(newEmployee)) {
+			employees.push(newEmployee);
+			$employeeName.val("");
+			$employeeDate.val("");
+			$employeeEmail.val("");
+			$employeePassword.val("");
+		}
 
-    function addEmployee() {
-        const name = $employeeInput.val().trim();
-        const date = $employeeDate.val();
-        const email = $employeeEmail.val().trim();
-        const password = $employeePassword.val().trim();
+		renderEmployees();
+	}
 
-        let errorMessage = "";
+	function openEditModal(index) {
+		currentEditIndex = index;
+		const employee = employees[index];
 
-        if (!name) {
-            errorMessage += "O nome é obrigatório.\n";
-        }
+		$editEmployeeName.val(employee.name);
+		$editEmployeeDate.val(employee.date);
+		$editEmployeeEmail.val(employee.email);
+		$editEmployeePassword.val(employee.password);
 
-        if (!email) {
-            errorMessage += "O email é obrigatório.\n";
-        } else if (!validateEmail(email)) {
-            errorMessage += "Formato de email inválido.\n";
-        } else if (emailExists(email)) {
-            errorMessage += "Este email já está em uso.\n";
-        }
+		$editModal.show();
+		$editEmployeeName.focus();
+	}
 
-        if (!password) {
-            errorMessage += "A senha é obrigatória.\n";
-        }
+	function closeEditModal() {
+		$editModal.hide();
+	}
 
-        if (!date) {
-            errorMessage += "A data de nascimento é obrigatória.\n";
-        }
+	function saveEdit() {
+		const employee = {
+			name: $editEmployeeName.val().trim(),
+			date: $editEmployeeDate.val(),
+			email: $editEmployeeEmail.val().trim(),
+			password: $editEmployeePassword.val().trim(),
+		};
 
-        if (errorMessage) {
-            alert(errorMessage);
-            return;
-        }
+		if (validateEmployee(employee, true)) {
+			employees[currentEditIndex] = employee;
 
-        const newEmployee = {
-            name: name,
-            date: date,
-            email: email,
-            password: password
-        };
-
-        categories.push(newEmployee);
-
-        $employeeInput.val("");
-        $employeeDate.val("");
-        $employeeEmail.val("");
-        $employeePassword.val("");
-
-        renderEmployees();
-    }
-
-    function openEditModal(index) {
-        currentEditIndex = index;
-        const employee = categories[index];
-
-        $editEmployeeInput.val(employee.name);
-        $editEmployeeDate.val(employee.date);
-        $editEmployeeEmail.val(employee.email);
-        $editEmployeePassword.val(employee.password);
-
-        $editModal.show();
-        $editEmployeeInput.focus();
-    }
-
-    function closeEditModal() {
-        $editModal.hide();
-    }
-
-    function emailExistsForEdit(email, index) {
-        return categories.some((employee, i) => employee.email === email && i !== index);
-    }
-
-    function saveEdit() {
-        const name = $editEmployeeInput.val().trim();
-        const date = $editEmployeeDate.val();
-        const email = $editEmployeeEmail.val().trim();
-        const password = $editEmployeePassword.val().trim();
-
-        let errorMessage = "";
-
-        if (!name) {
-            errorMessage += "O nome é obrigatório.\n";
-        }
-
-        if (!email) {
-            errorMessage += "O email é obrigatório.\n";
-        } else if (!validateEmail(email)) {
-            errorMessage += "Formato de email inválido.\n";
-        } else if (emailExistsForEdit(email, currentEditIndex)) {
-            errorMessage += "Este email já está em uso.\n";
-        }
-
-        if (!password) {
-            errorMessage += "A senha é obrigatória.\n";
-        }
-
-        if (!date) {
-            errorMessage += "A data de nascimento é obrigatória.\n";
-        }
-
-        if (errorMessage) {
-            alert(errorMessage);
-            return;
-        }
-
-        categories[currentEditIndex] = {
-            name: name,
-            date: date,
-            email: email,
-            password: password
-        };
-
-        renderEmployees();
-        closeEditModal();
-    }
+			renderEmployees();
+			closeEditModal();
+		}
+	}
 
 	function deleteEmployee(index) {
-        if(employees.length === 1){
-            return alert("Não é possível excluir o último funcionário.");
-        }
+		if (employees.length === 1) {
+			return alert("Não é possível excluir o último funcionário.");
+		}
 		employees.splice(index, 1);
 		renderEmployees();
 	}
 
-    $addEmployeeButton.on("click", addEmployee);
+	$addEmployeeButton.on("click", addEmployee);
 
 	$saveEditButton.on("click", saveEdit);
 	$closeButton.on("click", closeEditModal);
@@ -195,26 +131,31 @@ $(document).ready(function () {
 		if (!name || typeof name !== "string" || name.trim() === "") {
 			return false;
 		}
+		return true;
 	}
 
-	function validateEmail(email) {
+	function validateEmail(email, isEdit = false) {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!email || !emailRegex.test(email)) {
 			return false;
 		}
 
-		const emailExists = employees.find(
-			employee => employee.email === email
-		);
-		if (emailExists) {
-			return false;
+		if (!isEdit) {
+			const emailExists = employees.find(
+				employee => employee.email === email
+			);
+			if (emailExists) {
+				return false;
+			}
 		}
+		return true;
 	}
 
 	function validateDate(date) {
-		if (!date || typeof date !== "string" || date.trim() === "") {
+		if (!date) {
 			return false;
 		}
+		return true;
 	}
 
 	function validatePassword(password) {
@@ -226,17 +167,33 @@ $(document).ready(function () {
 		) {
 			return false;
 		}
+		return true;
 	}
 
-	function validateEmployee(employee) {
-		const { name, email, password, birthdayDate } = employee;
+	function validateEmployee(employee, isEdit = false) {
+		const { name, email, password, date } = employee;
 
-		if (
-			validateName(name) &&
-			validateEmail(email) &&
-			validateDate(birthdayDate) &&
-			validatePassword(password)
-		) {
+		const nameValidation = validateName(name);
+		if (!nameValidation) {
+			alert("Nome inválido");
+			return false;
+		}
+
+		const emailValidation = validateEmail(email, isEdit);
+		if (!emailValidation) {
+			alert("Email inválido");
+			return false;
+		}
+
+		const dateValidation = validateDate(date);
+		if (!dateValidation) {
+			alert("Data de nascimento inválida");
+			return false;
+		}
+
+		const passwordValidation = validatePassword(password);
+		if (!passwordValidation) {
+			alert("Senha inválida");
 			return false;
 		}
 
