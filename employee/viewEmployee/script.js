@@ -16,7 +16,8 @@ $(document).ready(function () {
     const $saveEditButton = $("#save-edit");
     const $closeButton = $(".close-button");
 
-    let categories = ["Maria", "Mário"];
+    let categories = [{name: "Maria", date: "11/01/2005", email: "maria@gmail.com", password: "1234"}, 
+                      {name: "Mario", date: "14/03/2004", email: "mario@gmail.com", password: "1234"}];
     let currentEditIndex = null;
 
     function renderEmployees() {
@@ -24,7 +25,11 @@ $(document).ready(function () {
         categories.forEach((employee, index) => {
             const $li = $("<li>").addClass("employee-item");
 
-            const $span = $("<span>").text(employee);
+            const $spanName = $("<span>").text(employee.name);
+            const $spanDate = $("<span>").text(employee.date);
+            const $spanEmail = $("<span>").text(employee.email);
+
+            const $span = $("<span>").append($spanName, $spanDate, $spanEmail);
 
             const $div = $("<div>");
 

@@ -139,9 +139,13 @@ button {
 	width: 30%;
 }
 
-#employee-password,
+
 #employee-email {
-	width: 47.5%;
+	width: 65%;
+}
+
+#employee-password{
+	width: 30%;
 }
 
 #edit-employee-input {
