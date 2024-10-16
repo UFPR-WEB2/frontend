@@ -106,20 +106,42 @@ button {
 
 #employee-form {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	margin-bottom: 2rem;
 	width: 100%;
 	padding: 0 1rem;
 }
 
-#employee-input,
+#employee-inputs {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 1rem 0px;
+}
+
+.employee-input,
 #edit-employee-input {
 	padding: 0.5rem;
 	font-size: 1rem;
 	width: 200px;
 	margin-right: 1rem;
-	width: 75%;
+	width: 40%;
 	border-radius: 0.5rem;
+}
+
+#employee-name {
+	width: 65%;
+}
+
+#employee-date {
+	width: 30%;
+}
+
+#employee-password,
+#employee-email {
+	width: 47.5%;
 }
 
 #edit-employee-input {
@@ -127,7 +149,7 @@ button {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
-#employee-input::placeholder {
+.employee-input::placeholder {
 	font-size: 1rem;
 	color: rgb(99, 99, 99);
 	font-weight: 600;
@@ -138,6 +160,8 @@ button {
 #add-employee {
 	cursor: pointer;
 	width: 25%;
+	margin: auto;
+	margin-top: 10px;
 }
 
 #employee-list {
@@ -226,4 +250,23 @@ button {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+
+@media screen and (max-width: 1200px) {
+	#employee-inputs {
+		flex-direction: column;
+	}
+	
+	#employee-password,
+	#employee-email,
+	#employee-date,
+	#employee-name {
+		width: 99%;
+	}
+
+
+	#add-employee {
+		width: 60%;
+	}
 }
