@@ -1,9 +1,18 @@
 $(document).ready(function () {
-    const $employeeInput = $("#employee-input");
+    const $employeeInput = $("#employee-name");
+    const $employeeDate = $("#employee-date");
+    const $employeeEmail = $("#employee-email");
+    const $employeePassword = $("#employee-password");
+
     const $addEmployeeButton = $("#add-employee");
     const $categoriesList = $("#employee");
     const $editModal = $("#edit-modal");
-    const $editEmployeeInput = $("#edit-employee-input");
+
+    const $editEmployeeInput = $("#edit-employee-name");
+    const $editEmployeeDate = $("#edit-employee-date");
+    const $editEmployeeEmail = $("#edit-employee-email");
+    const $editEmployeePassword = $("#edit-employee-password");
+
     const $saveEditButton = $("#save-edit");
     const $closeButton = $(".close-button");
 
