@@ -206,3 +206,30 @@ button:active {
     font-weight: 700;
     color: white;
 }
+
+#button-back {
+    height: 2rem;
+    width: 8rem;
+    background: linear-gradient(135deg, orange, red);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 0.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    transition: transform 0.2s;
+}
+
+#button-back:hover {
+    transform: translateY(-1px);
+}
+
+#button-back:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    transform: translateY(0);
+}
