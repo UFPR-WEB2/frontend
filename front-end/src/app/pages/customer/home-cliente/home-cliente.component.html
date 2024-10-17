@@ -38,10 +38,10 @@
               <td class="item">{{ servico.descricao }}</td>
               <td class="item">{{ servico.status }}</td>
               <td class="item">
-                <button *ngIf="servico.acao === 'aprovar'" (click)="mostrarOrcamento(servico.id)">Aprovar/Rejeitar Serviço</button>
-                <button *ngIf="servico.acao === 'visualizar'" (click)="mostrarDetalhes(servico.id)">Visualizar Serviço</button>
-                <button *ngIf="servico.acao === 'resgatar'" (click)="resgatarServico(servico.id)">Resgatar Serviço</button>
-                <button *ngIf="servico.acao === 'pagar'" (click)="pagarServico(servico.id)">Pagar Serviço</button>
+                <button *ngIf="servico.status === 'ORÇADA'" (click)="mostrarOrcamento(servico.id)">Aprovar/Rejeitar Serviço</button>
+                <button *ngIf="servico.status === 'APROVADA'" (click)="mostrarDetalhes(servico.id)">Visualizar Serviço</button>
+                <button *ngIf="servico.status === 'REJEITADA'" (click)="resgatarServico(servico.id)">Resgatar Serviço</button>
+                <button *ngIf="servico.status === 'ARRUMADA'" (click)="pagarServico(servico.id)">Pagar Serviço</button>
               </td>
             </tr>
           </tbody>

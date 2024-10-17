@@ -4,26 +4,34 @@ import { CommonModule } from '@angular/common';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { NavbarClienteComponent } from '../../../material/navbar-cliente/navbar-cliente.component';
 import { Router } from '@angular/router';
+import { ServicoStorageService } from '../../../services/servico-storage.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-solic-manutencao-cliente',
   standalone: true,
-  imports: [HeaderClienteComponent, NavbarClienteComponent, ReactiveFormsModule, CommonModule],
+  imports: [HeaderClienteComponent, NavbarClienteComponent, ReactiveFormsModule, CommonModule, DatePipe],
   templateUrl: './solic-manutencao-cliente.component.html',
   styleUrl: './solic-manutencao-cliente.component.css'
 })
 export class SolicManutencaoClienteComponent {
   solicForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  protected novo: any
+
+  constructor(private fb: FormBuilder, private router: Router, private servicoStorage: ServicoStorageService) {
     this.solicForm = this.fb.group({
       equipmentDescription: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(200)]],
       defectDescription: ['', [Validators.required, Validators.minLength(30), Validators.maxLength(500)]],
+      equipmentCategory: ['', [Validators.required]]
     });
   }
 
   get equipmentDescription() {
     return this.solicForm.get('equipmentDescription');
+  }
+  get equipmentCategory() {
+    return this.solicForm.get('equipmentCategory');
   }
   get defectDescription() {
     return this.solicForm.get('defectDescription');
@@ -32,6 +40,14 @@ export class SolicManutencaoClienteComponent {
   onSubmit() {
     if (this.solicForm.valid) {
       console.log('Formulário válido:', this.solicForm.value);
+      const descErro = this.defectDescription?.value;
+      const category = this.equipmentCategory?.value;
+      const equipmentDescription = this.equipmentCategory?.value
+      const data = new Date().toLocaleDateString('pt-BR');
+      const id = Math.floor(Math.random() * 20000);
+      this.novo = { id: id, data: data, descricao: descErro, status: 'ORÇADA', categoria: category, acao: 'aprovar', cliente: 'João', funcionario: 'Maria' };
+      this.servicoStorage.addServico(this.novo)
+      this.router.navigate(['/cliente/home'])
     } else {
       console.log('Formulário inválido');
       this.solicForm.markAllAsTouched();
