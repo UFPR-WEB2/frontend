@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Funcionpários</title>
+    <link rel="stylesheet" href="../../pattern.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div id="icon"></div>
+    </header>
+    <main>
+        <div id="container">
+            <h1>Funcionários</h1>
+            <div id="employee-form">
+                <div id="employee-inputs">
+                    <input type="text" id="employee-name" class="employee-input" placeholder="Novo funcionário">
+                    <input type="date" id="employee-date" class="employee-input" placeholder="Data de Nascimento">
+                    <input type="email" id="employee-email" class="employee-input"placeholder="Email">
+                    <input type="password" id="employee-password" class="employee-input" placeholder="Senha">
+                </div>
+                <button id="add-employee">Adicionar</button>
+            </div>
+            <div id="employee-list">
+                <ul id="employee"></ul>
+            </div>
+            <button onclick="window.history.back();">Voltar</button>
+        </div>
+    </main>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div>
+                <h2>Editar Funcionário</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <input type="text" id="edit-employee-name" placeholder="Nome">
+            <input type="date" id="edit-employee-date" placeholder="Data">
+            <input type="email" id="edit-employee-email" placeholder="Email">
+            <input type="password" id="edit-employee-password" placeholder="Senha">
+            <button id="save-edit">Salvar</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</body>
+
+</html>

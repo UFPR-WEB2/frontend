@@ -13,19 +13,35 @@ $(document).ready(function () {
         $("#redirect-info").show();
     });
 
+<<<<<<< HEAD
     $("#btn-confirm-redirect").click(function () {
         const selectedEmployee = $("#select-employee").val();
         if (selectedEmployee) {
             const currentEmployeeId = 1;
+=======
+    let lastRedirectedEmployee = null;
+    let isFirstRedirect = true;
+
+    $("#btn-confirm-redirect").click(function () {
+        const selectedEmployee = $("#select-employee").val();
+        if (selectedEmployee) {
+            const currentEmployeeId = lastRedirectedEmployee || 1;
+>>>>>>> 1a255b3fd2cf62e17e0fe69f116c8cb39ef28f1e
             if (selectedEmployee != currentEmployeeId) {
                 const dateTime = new Date().toLocaleString();
                 const originEmployee = employees.find(emp => emp.id == currentEmployeeId).name;
                 const destinationEmployee = employees.find(emp => emp.id == selectedEmployee).name;
 
-                $("#request-info").append(`<p><strong>Estado:</strong> REDIRECIONADA</p>`);
-                $("#request-info").append(`<p><strong>Histórico:</strong> ${dateTime} - Redirecionada de ${originEmployee} para ${destinationEmployee}</p>`);
+                if (isFirstRedirect) {
+                    $("#request-info p:contains('Estado:')").html(`<strong>Estado:</strong> REDIRECIONADA`);
+                    isFirstRedirect = false;
+                }
+                const historyElement = $("#request-info p:contains('Histórico:')");
+                const existingHistory = historyElement.html();
+                historyElement.html(`${existingHistory} ${dateTime} - Redirecionada de ${originEmployee} para ${destinationEmployee}<br>`);
 
                 $("#redirect-info").hide();
+                lastRedirectedEmployee = selectedEmployee;
             } else {
                 alert("Não é possível redirecionar para si mesmo.");
             }
@@ -78,7 +94,10 @@ $(document).ready(function () {
     const clientInfo = getClientInfo();
     const requestInfo = getRequestInfo();
 
+<<<<<<< HEAD
     // Preencher informações do cliente
+=======
+>>>>>>> 1a255b3fd2cf62e17e0fe69f116c8cb39ef28f1e
     $('#client-info').append(`
         <p><strong>Nome:</strong> ${clientInfo.name}</p>
         <p><strong>Email:</strong> ${clientInfo.email}</p>
@@ -90,7 +109,10 @@ $(document).ready(function () {
         <p><strong>Cidade:</strong> ${clientInfo.city}</p>
     `);
 
+<<<<<<< HEAD
     // Preencher informações da solicitação
+=======
+>>>>>>> 1a255b3fd2cf62e17e0fe69f116c8cb39ef28f1e
     $('#request-info').append(`
         <p><strong>ID:</strong> ${requestInfo.id}</p>
         <p><strong>Data/Hora:</strong> ${requestInfo.dateTime}</p>
@@ -98,6 +120,11 @@ $(document).ready(function () {
         <p><strong>Categoria:</strong> ${requestInfo.category}</p>
         <p><strong>Defeito:</strong> ${requestInfo.defect}</p>
         <p><strong>Estado:</strong> ${requestInfo.status}</p>
+<<<<<<< HEAD
         <p><strong>Histórico:</strong> ${requestInfo.history}</p>
+=======
+        <p><strong>Histórico:</strong> </p>
+        <td>${requestInfo.history}</td>
+>>>>>>> 1a255b3fd2cf62e17e0fe69f116c8cb39ef28f1e
     `);
 });

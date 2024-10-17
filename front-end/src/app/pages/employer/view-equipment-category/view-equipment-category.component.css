@@ -1,0 +1,13 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1%;
+    border-radius: 10px;
+    max-height: 100%;
+    gap: 1rem;
+  }
+  
+  
