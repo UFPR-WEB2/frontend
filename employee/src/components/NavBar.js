@@ -24,6 +24,13 @@ class NavBarPadrao extends HTMLElement {
         funcionalidade1.appendChild(link1);
         funcionalidadesList.appendChild(funcionalidade1);
         
+        const funcionalidade2 = document.createElement("li");
+        const link2 = document.createElement("a");
+        link2.href = "./viewReceipts/index.html";
+        link2.textContent = "Visualizar Relatorios";
+        funcionalidade2.appendChild(link2);
+        funcionalidadesList.appendChild(funcionalidade2);
+
         componentRoot.appendChild(funcionalidadesList);
 
         return componentRoot;
