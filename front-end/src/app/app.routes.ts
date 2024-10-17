@@ -12,6 +12,9 @@ export const routes: Routes = [
   { path: 'login/register', loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent) },
   { path: 'home-cliente', loadComponent: () => import('./pages/home-cliente/home-cliente.component').then(m => m.HomeClienteComponent) },
   { path: 'view-maintenance', loadComponent: () => import('./pages/employer/view-maintenance/view-maintenance.component').then(m => m.ViewMaintenanceComponent) },
+<<<<<<< HEAD
+=======
   { path: 'view-equipment-category', component: ViewEquipmentCategoryComponent },
+>>>>>>> 1a255b3fd2cf62e17e0fe69f116c8cb39ef28f1e
   { path: '**', redirectTo: '' }
 ];

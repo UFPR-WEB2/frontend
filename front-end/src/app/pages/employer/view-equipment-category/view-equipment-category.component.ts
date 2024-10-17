@@ -1,4 +1,16 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
+
+@Component({
+  selector: 'app-view-equipment-category',
+  standalone: true,
+  imports: [],
+  templateUrl: './view-equipment-category.component.html',
+  styleUrl: './view-equipment-category.component.css'
+})
+export class ViewEquipmentCategoryComponent {
+
+=======
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -45,4 +57,5 @@ export class ViewEquipmentCategoryComponent  {
   goBack() {
     window.history.back();
   }
+>>>>>>> 1a255b3fd2cf62e17e0fe69f116c8cb39ef28f1e
 }
