@@ -19,17 +19,19 @@ document.getElementById('generate-pdf').addEventListener('click', function () {
     doc.text('Receitas:', 14, 50);
 
     const table = document.getElementById('report-table');
-    const rows = table.querySelectorAll('tr');
+    const rows = table.querySelectorAll('tbody tr');
     let y = 58;
 
     rows.forEach((row, index) => {
-        const cells = row.querySelectorAll('th, td');
-        let x = 14;
-        cells.forEach(cell => {
-            doc.text(cell.innerText, x, y);
-            x += 50;
-        });
-        y += 8;
+        if (row.style.display !== 'none') {
+            const cells = row.querySelectorAll('td');
+            let x = 14;
+            cells.forEach(cell => {
+                doc.text(cell.innerText, x, y);
+                x += 50;
+            });
+            y += 8;
+        }
     });
 
     const total = document.querySelector('#total h3').innerText;
