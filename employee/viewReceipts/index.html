@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Solicitação</title>
+    <link rel="stylesheet" href="../../pattern.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div id="icon"></div>
+    </header>
+    <main>
+        <div id="container">
+            <div id="header-container">
+            <h1>Relatório de Receitas</h1>
+            </div>
+            <div id="filter-container">
+            <h2>Filtrar por Período</h2>
+            <form id="filter-form">
+                <label for="start-date">Data Inicial:</label>
+                <input type="date" id="start-date" name="start-date">
+                <label for="end-date">Data Final:</label>
+                <input type="date" id="end-date" name="end-date">
+                <button type="submit">Filtrar</button>
+                <button type="reset">Limpar</button>
+            </form>
+            <a href="./viewCategory/index.html"> <button>Ver por categoria</button></a>
+            </div>
+            <div id="report-container">
+            <h2>Receitas por Dia</h2>
+            <div id="report-content">
+                <div style="max-height: 300px; overflow-y: auto;">
+                    <table id="report-table">
+                        <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                                <th>Data</th>
+                                <th>Receita</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>06/08/2024</td>
+                                <td>R$ 520,00</td>
+                            </tr>
+                            <tr>
+                                <td>07/08/2024</td>
+                                <td>R$ 480,00</td>
+                            </tr>
+                            <tr>
+                                <td>08/08/2024</td>
+                                <td>R$ 600,00</td>
+                            </tr>
+                            <tr>
+                                <td>09/08/2024</td>
+                                <td>R$ 550,00</td>
+                            </tr>
+                            <tr>
+                                <td>10/08/2024</td>
+                                <td>R$ 620,00</td>
+                            </tr>
+                            <tr>
+                                <td>11/09/2024</td>
+                                <td>R$ 530,00</td>
+                            </tr>
+                            <tr>
+                                <td>12/09/2024</td>
+                                <td>R$ 490,00</td>
+                            </tr>
+                            <tr>
+                                <td>13/09/2024</td>
+                                <td>R$ 610,00</td>
+                            </tr>
+                            <tr>
+                                <td>14/09/2024</td>
+                                <td>R$ 570,00</td>
+                            </tr>
+                            <tr>
+                                <td>15/09/2024</td>
+                                <td>R$ 640,00</td>
+                            </tr>
+                            <tr>
+                                <td>19/09/2024</td>
+                                <td>R$ 900,00</td>
+                            </tr>
+                            <tr>
+                                <td>01/10/2024</td>
+                                <td>R$ 500,00</td>
+                            </tr>
+                            <tr>
+                                <td>02/10/2024</td>
+                                <td>R$ 450,00</td>
+                            </tr>
+                            <tr>
+                                <td>03/10/2024</td>
+                                <td>R$ 450,00</td>
+                            </tr>
+                            <tr>
+                                <td>04/10/2024</td>
+                                <td>R$ 700,00</td>
+                            </tr>
+                            <tr>
+                                <td>05/10/2024</td>
+                                <td>R$ 700,00</td>
+                            </tr>
+                            <tr>
+                                <td>06/10/2024</td>
+                                <td>R$ 300,00</td>
+                            </tr>
+                            <tr>
+                                <td>07/10/2024</td>
+                                <td>R$ 300,00</td>
+                            </tr>
+                            <tr>
+                                <td>08/10/2024</td>
+                                <td>R$ 650,00</td>
+                            </tr>
+                            <tr>
+                                <td>09/10/2024</td>
+                                <td>R$ 850,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="total">
+                    <h3>Total: R$ 11.000,00</h3>
+                </div>
+            </div>
+            </div>
+            <button id="generate-pdf">Gerar PDF</button>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -11,7 +11,11 @@ describe('ViewEquipmentCategoryComponent', () => {
       imports: [ViewEquipmentCategoryComponent]
     })
     .compileComponents();
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> 1a255b3fd2cf62e17e0fe69f116c8cb39ef28f1e
     fixture = TestBed.createComponent(ViewEquipmentCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
