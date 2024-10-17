@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Receitas por Categoria</title>
+    <link rel="stylesheet" href="../../pattern.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div id="icon"></div>
+    </header>
+    <main>
+        <div id="container">
+            <div id="header-container">
+                <h1>Relatório de Receitas por Categoria</h1>
+            </div>
+            <div id="report-container">
+                <h2>Receitas por Categoria</h2>
+                <div id="report-content">
+                    <div style="max-height: 300px; overflow-y: auto;">
+                        <table id="report-table">
+                            <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Receita</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Desktop</td>
+                                    <td>R$ 520,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Notebook</td>
+                                    <td>R$ 480,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Impressora</td>
+                                    <td>R$ 600,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Mouse</td>
+                                    <td>R$ 550,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Teclado</td>
+                                    <td>R$ 600,00</td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="total">
+                        <h3>Total: R$ 1.600,00</h3>
+                    </div>
+                </div>
+            </div>
+            <button id="generate-pdf">Gerar PDF</button>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+        </div>
+    </main>
+</body>
+
+</html>
