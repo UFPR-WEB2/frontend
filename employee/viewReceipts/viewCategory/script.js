@@ -41,5 +41,5 @@ document.getElementById('generate-pdf').addEventListener('click', function () {
         doc.text('Página ' + String(i) + ' de ' + String(pageCount), 180, 290, null, null, 'right');
     }
 
-    doc.save('relatorio_receitas.pdf');
+    doc.save('relatorio_receitas_categorias.pdf');
 });
