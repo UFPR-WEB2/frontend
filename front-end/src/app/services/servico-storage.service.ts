@@ -4,21 +4,31 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ServicoStorageService {
-
+  /* 
+  estado ABERTA -> apos a abertura do cliente
+  estado ORÇADA -> apos func adicionar o orcamento
+  estado REJEITADA -> apos cliente aprovar/refeitar
+  estado APROVADA -> apos cliente aprovar/refeitar
+  estado REDIRECIONADA -> apos func redirecionar
+  estado AGUARDANDO PAGAMENTO -> apos func finalizar
+  estado ARRUMADA -> apos func finalizar
+  estado PAGA -> apos o cliente pagar
+  estado FINALIZADA -> apos o func finalizar ela
+  */
   //Parte para incializacao do localStorage
   listaInicial = [
-    { id: '001', data: '15/09/24 10:00', descricao: 'Equipamento A com falha...', status: 'ORÇADA', categoria: 'Notebook', acao: 'aprovar', cliente: 'João', funcionario: 'Maria' },
-    { id: '002', data: '14/09/24 09:30', descricao: 'Equipamento B com defeito...', status: 'APROVADA', categoria: 'Notebook', acao: 'visualizar', cliente: 'João', funcionario: 'Maria' },
-    { id: '003', data: '13/09/24 08:45', descricao: 'Equipamento C reiniciando...', status: 'REJEITADA', categoria: 'Notebook', acao: 'resgatar', cliente: 'João', funcionario: 'Maria' },
-    { id: '004', data: '12/09/24 11:15', descricao: 'Equipamento D sem energia...', status: 'ARRUMADA', categoria: 'Desktop', acao: 'pagar', cliente: 'José', funcionario: 'Maria' },
-    { id: '005', data: '13/09/24 08:45', descricao: 'Equipamento E reiniciando...', status: 'ORÇADA', categoria: 'Desktop', acao: 'aprovar', cliente: 'José', funcionario: 'Maria' },
-    { id: '006', data: '13/09/24 08:45', descricao: 'Equipamento F reiniciando...', status: 'REJEITADA', categoria: 'Desktop', acao: 'resgatar', cliente: 'José', funcionario: 'Maria' },
-    { id: '007', data: '13/09/24 08:45', descricao: 'Equipamento G reiniciando...', status: 'ORÇADA', categoria: 'Impressora', acao: 'aprovar', cliente: 'Joana', funcionario: 'Mário' },
-    { id: '008', data: '13/09/24 08:45', descricao: 'Equipamento H reiniciando...', status: 'APROVADA', categoria: 'Impressora', acao: 'resgatar', cliente: 'Joana', funcionario: 'Mário' },
-    { id: '009', data: '13/09/24 08:45', descricao: 'Equipamento I reiniciando...', status: 'ARRUMADA', categoria: 'Mouse', acao: 'resgatar', cliente: 'Joana', funcionario: 'Mário' },
-    { id: '010', data: '13/09/24 08:45', descricao: 'Equipamento J reiniciando...', status: 'REJEITADA', categoria: 'Mouse', acao: 'resgatar', cliente: 'Joaquina', funcionario: 'Mário' },
-    { id: '011', data: '13/09/24 08:45', descricao: 'Equipamento K reiniciando...', status: 'ORÇADA', categoria: 'Teclado', acao: 'resgatar', cliente: 'Joaquina', funcionario: 'Mário' },
-    { id: '012', data: '13/09/24 08:45', descricao: 'Equipamento C reiniciando...', status: 'ARRUMADA', categoria: 'Teclado', acao: 'resgatar', cliente: 'Joaquina', funcionario: 'Mário' },
+    { id: '001', data: '15/09/24 10:00', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento A com falha...', status: 'ORÇADA', categoria: 'Notebook', cliente: 'João', funcionario: 'Maria', preco: '150,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '002', data: '14/09/24 09:30', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento B com defeito...', status: 'APROVADA', categoria: 'Notebook', cliente: 'João', funcionario: 'Maria', preco: '250,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '003', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento C reiniciando...', status: 'REJEITADA', categoria: 'Notebook', cliente: 'João', funcionario: 'Maria', preco: '350,00', motivoRejeicao: 'Rejeitado pelo motivo X e pelo preco caro', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '004', data: '12/09/24 11:15', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento D sem energia...', status: 'ARRUMADA', categoria: 'Desktop', cliente: 'José', funcionario: 'Maria', preco: '450,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '20/9/24 08:45', dataFinalizacao: '' },
+    { id: '005', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento E reiniciando...', status: 'ORÇADA', categoria: 'Desktop', cliente: 'José', funcionario: 'Maria', preco: '250,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '006', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento F reiniciando...', status: 'REJEITADA', categoria: 'Desktop', cliente: 'José', funcionario: 'Maria', preco: '350,00', motivoRejeicao: 'Rejeitado pelo motivo X e pelo preco caro', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '007', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento G reiniciando...', status: 'ORÇADA', categoria: 'Impressora', cliente: 'Joana', funcionario: 'Mário', preco: '450,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '008', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento H reiniciando...', status: 'APROVADA', categoria: 'Impressora', cliente: 'Joana', funcionario: 'Mário', preco: '550,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '009', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento I reiniciando...', status: 'ARRUMADA', categoria: 'Mouse', cliente: 'Joana', funcionario: 'Mário', preco: '650,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '24/9/24 08:45', dataFinalizacao: '' },
+    { id: '010', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento J reiniciando...', status: 'REJEITADA', categoria: 'Mouse', cliente: 'Joaquina', funcionario: 'Mário', preco: '250,00', motivoRejeicao: 'Rejeitado pelo motivo X e pelo preco caro', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '011', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento K reiniciando...', status: 'ORÇADA', categoria: 'Teclado', cliente: 'Joaquina', funcionario: 'Mário', preco: '250,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '', dataFinalizacao: '' },
+    { id: '012', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento C reiniciando...', status: 'ARRUMADA', categoria: 'Teclado', cliente: 'Joaquina', funcionario: 'Mário', preco: '250,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '21/9/24 08:45', dataFinalizacao: '' },
   ];
 
   constructor() {

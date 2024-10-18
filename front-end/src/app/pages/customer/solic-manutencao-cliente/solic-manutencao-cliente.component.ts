@@ -10,7 +10,8 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-solic-manutencao-cliente',
   standalone: true,
-  imports: [HeaderClienteComponent, NavbarClienteComponent, ReactiveFormsModule, CommonModule, DatePipe],
+  imports: [HeaderClienteComponent, NavbarClienteComponent, ReactiveFormsModule, CommonModule],
+  providers: [DatePipe],
   templateUrl: './solic-manutencao-cliente.component.html',
   styleUrl: './solic-manutencao-cliente.component.css'
 })
@@ -19,7 +20,7 @@ export class SolicManutencaoClienteComponent {
 
   protected novo: any
 
-  constructor(private fb: FormBuilder, private router: Router, private servicoStorage: ServicoStorageService) {
+  constructor(private fb: FormBuilder, private router: Router, private servicoStorage: ServicoStorageService, private datePipe: DatePipe) {
     this.solicForm = this.fb.group({
       equipmentDescription: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(200)]],
       defectDescription: ['', [Validators.required, Validators.minLength(30), Validators.maxLength(500)]],
@@ -40,12 +41,13 @@ export class SolicManutencaoClienteComponent {
   onSubmit() {
     if (this.solicForm.valid) {
       console.log('Formulário válido:', this.solicForm.value);
+      const descEquipamento = this.equipmentDescription?.value;
       const descErro = this.defectDescription?.value;
       const category = this.equipmentCategory?.value;
-      const equipmentDescription = this.equipmentCategory?.value
-      const data = new Date().toLocaleDateString('pt-BR');
+      const dataAtual = new Date();
+      const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
       const id = Math.floor(Math.random() * 20000);
-      this.novo = { id: id, data: data, descricao: descErro, status: 'ORÇADA', categoria: category, acao: 'aprovar', cliente: 'João', funcionario: 'Maria' };
+      this.novo = { id: id, data: dataFormatada, descricaoEquipamento: descEquipamento, descricaoErro: descErro, status: 'ABERTA', categoria: category, cliente: 'João', funcionario: 'Maria' };
       this.servicoStorage.addServico(this.novo)
       this.router.navigate(['/cliente/home'])
     } else {

@@ -13,7 +13,7 @@
     <div id="principal">
         <main>
             <div id="container">
-                <h1>Orçamento</h1>
+                <h1>Pagamento</h1>
                 <h1>Detalhes da Solicitação</h1>
                 <div id="informacoes" *ngIf="item">
                     <div class="item-orcamento">
@@ -33,9 +33,8 @@
                         <p>{{item.preco}}</p>
                     </div>
                 </div>
-                <button (click)="aprovarServico()">Aprovar Serviço</button>
-                <button (click)="rejeitarServico()">Rejeitar Serviço</button>
-                <button onclick="history.back()">Voltar</button>
+                <button>Pagar</button>
+                <button onclick="history.back()" id="btn-voltar">Voltar</button>
             </div>
         </main>
     </div>

@@ -26,15 +26,25 @@ export class OrcamentoClienteComponent {
   }
 
   aprovarServico() {
-    const dadosAtualizados = { status: 'APROVADA', acao: 'visualizar' };
+    const valorServico = this.item.preco;
+    const dadosAtualizados = { status: 'APROVADA' };
+    alert(`Serviço Aprovado no Valor R$ ${valorServico}`);
     this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
     this.router.navigate(['/cliente/home']);
   }
 
   rejeitarServico() {
-    const dadosAtualizados = { status: 'REJEITADA', acao: 'visualizar' };
-    this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
-    this.router.navigate(['/cliente/home']);
+    const motivo = prompt('Digite o motivo da rejeição:');
+
+    if (motivo) {
+      const dadosAtualizados = {
+        status: 'REJEITADA',
+        motivoRejeicao: motivo
+      };
+      window.alert('Serviço Rejeitado');
+      this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
+      this.router.navigate(['/cliente/home']);
+    }
   }
 
 
