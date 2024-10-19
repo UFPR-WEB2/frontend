@@ -26,8 +26,8 @@ export class HomeClienteComponent {
   mostrarOrcamento(id: string) {
     this.router.navigate([`/cliente/home/orcamento/${id}`]);
   }
-  mostrarDetalhes(id: string) {
-    console.log(`Visualizar detalhes do serviço ID ${id}`);
+  visualizarServico(id: string) {
+    this.router.navigate([`/cliente/home/servico/${id}`]);
   }
   resgatarServico(id: string) {
     const dataAtual = new Date();
@@ -37,7 +37,5 @@ export class HomeClienteComponent {
   }
   pagarServico(id: string) {
     this.router.navigate([`cliente/home/pagamento/${id}`]);
-  }
-  visualizarServico(id: string) {
   }
 }

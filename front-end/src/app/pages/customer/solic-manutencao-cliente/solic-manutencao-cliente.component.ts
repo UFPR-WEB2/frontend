@@ -47,7 +47,7 @@ export class SolicManutencaoClienteComponent {
       const dataAtual = new Date();
       const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
       const id = Math.floor(Math.random() * 20000);
-      this.novo = { id: id, data: dataFormatada, descricaoEquipamento: descEquipamento, descricaoErro: descErro, status: 'ABERTA', categoria: category, cliente: 'João', funcionario: 'Maria' };
+      this.novo = { id: `${id}`, data: dataFormatada, descricaoEquipamento: descEquipamento, descricaoErro: descErro, status: 'ABERTA', categoria: category, cliente: 'João', funcionario: 'Maria' };
       this.servicoStorage.addServico(this.novo)
       this.router.navigate(['/cliente/home'])
     } else {

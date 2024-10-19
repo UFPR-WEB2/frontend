@@ -35,7 +35,7 @@
             <tr *ngFor="let servico of servicos">
               <td class="item">{{ servico.id }}</td>
               <td class="item">{{ servico.data }}</td>
-              <td class="item">{{ servico.descricaoErro }}</td>
+              <td class="item">{{ servico.descricaoErro | slice:0:30 }}</td>
               <td class="item">{{ servico.status }}</td>
               <td class="item">
                 <button *ngIf="servico.status === 'ABERTA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->

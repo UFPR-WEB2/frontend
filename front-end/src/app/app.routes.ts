@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'cliente/home/solicitarManutencao', loadComponent: () => import('./pages/customer/solic-manutencao-cliente/solic-manutencao-cliente.component').then(m => m.SolicManutencaoClienteComponent) },
   { path: 'cliente/home/orcamento/:id', loadComponent: () => import('./pages/customer/orcamento-cliente/orcamento-cliente.component').then(m => m.OrcamentoClienteComponent) },
   { path: 'cliente/home/pagamento/:id', loadComponent: () => import('./pages/customer/payment/payment.component').then(m => m.PaymentComponent) },
+  { path: 'cliente/home/servico/:id', loadComponent: () => import('./pages/customer/view-solicitacao/view-solicitacao.component').then(m => m.ViewSolicitacaoComponent) },
   { path: 'view-maintenance', loadComponent: () => import('./pages/employer/view-maintenance/view-maintenance.component').then(m => m.ViewMaintenanceComponent) },
   { path: 'view-equipment-category', component: ViewEquipmentCategoryComponent },
   { path: '**', redirectTo: '' }
