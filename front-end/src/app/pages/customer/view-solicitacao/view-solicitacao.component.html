@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Solicitação</title>
+    <link rel="stylesheet" href="../style/style-padrao.css">
+</head>
+
+<body>
+    <app-header-cliente></app-header-cliente>
+    <div id="principal">
+        <main>
+            <div id="container">
+                <h1>Visualizar Solicitação</h1>
+
+                <div id="informacoes" *ngIf="item">
+                    <div class="linha-dupla">
+                        <div class="item-orcamento">
+                            <h3>Status Atual:</h3>
+                            <p>{{item.status}}</p>
+                        </div>
+                        <div class="item-orcamento">
+                            <h3>Categoria:</h3>
+                            <p>{{item.categoria}}</p>
+                        </div>
+                        <div class="item-orcamento">
+                            <h3>Preço Orçado:</h3>
+                            <p>{{item.preco}}</p>
+                        </div>
+                    </div>
+                    <div class="item-orcamento">
+                        <h3>Descrição do Equipamento:</h3>
+                        <p>{{item.descricaoEquipamento}}</p>
+                    </div>
+
+                    <div class="item-orcamento" id="descricao-erro" style=" height: 15dvh;">
+                        <h3>Defeito:</h3>
+                        <p>{{item.descricaoErro}}</p>
+                    </div>
+
+                    <h3 id="title-lista-historico">Histórico da Solicitação:</h3>
+                    <div id="lista-historico">
+                        <ul>
+                            <li *ngIf="item.data">Criação: {{item.data}}</li>
+                            <li *ngIf="item.dataOrcamento">Orçamento: {{item.dataOrcamento}} - {{item.funcionario}}</li>
+                            <li *ngIf="item.dataRecuperacao">Recuperação: {{item.dataRecuperacao}} -
+                                {{item.funcionario}}</li>
+                            <li *ngIf="item.dataConserto">Conserto: {{item.dataConserto}} - {{item.funcionario}}</li>
+                            <li *ngIf="item.dataFinalizacao">Finalização: {{item.dataFinalizacao}} -
+                                {{item.funcionario}}</li>
+                            <li *ngIf="item.motivoRejeicao">Rejeição: {{item.motivoRejeicao}} - {{item.funcionario}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button onclick="history.back()">Voltar</button>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

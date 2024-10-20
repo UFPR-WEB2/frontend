@@ -35,13 +35,18 @@
             <tr *ngFor="let servico of servicos">
               <td class="item">{{ servico.id }}</td>
               <td class="item">{{ servico.data }}</td>
-              <td class="item">{{ servico.descricao }}</td>
+              <td class="item">{{ servico.descricaoErro | slice:0:30 }}</td>
               <td class="item">{{ servico.status }}</td>
               <td class="item">
-                <button *ngIf="servico.acao === 'aprovar'" (click)="mostrarOrcamento(servico.id)">Aprovar/Rejeitar Serviço</button>
-                <button *ngIf="servico.acao === 'visualizar'" (click)="mostrarDetalhes(servico.id)">Visualizar Serviço</button>
-                <button *ngIf="servico.acao === 'resgatar'" (click)="resgatarServico(servico.id)">Resgatar Serviço</button>
-                <button *ngIf="servico.acao === 'pagar'" (click)="pagarServico(servico.id)">Pagar Serviço</button>
+                <button *ngIf="servico.status === 'ABERTA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->
+                <button *ngIf="servico.status === 'ORÇADA'" (click)="mostrarOrcamento(servico.id)">Aprovar/Rejeitar Serviço</button> <!--Leva para a tela de aprovacao-->
+                <!--<button *ngIf="servico.status === 'APROVADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> APROVADA: Sem botão de ação-->
+                <button *ngIf="servico.status === 'REJEITADA'" (click)="resgatarServico(servico.id)">Resgatar Serviço</button> <!--Apenas a acao de resgatar servico -->
+                <button *ngIf="servico.status === 'REDIRECIONADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->
+                <button *ngIf="servico.status === 'ARRUMADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->
+                <button *ngIf="servico.status === 'AGUARDANDO PAGAMENTO'" (click)="pagarServico(servico.id)">Pagar Serviço</button> <!--Leva para a tela de pagamento-->
+                <button *ngIf="servico.status === 'PAGA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->
+                <button *ngIf="servico.status === 'FINALIZADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->
               </td>
             </tr>
           </tbody>

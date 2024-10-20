@@ -1,0 +1,105 @@
+main {
+    width: 100%;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.055);
+    border-radius: 10px;
+    padding: 0.5%;
+}
+
+#container h1 {
+    font-size: 2.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+#container button {
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, orange, red);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#informacoes {
+    width: 100%;
+    height: 63dvh;
+    text-align: left;
+    color: white;
+    font-size: large;
+    overflow-y: auto;
+}
+
+#informacoes .item-orcamento {
+    padding-top: 1dvh;
+    height: 12dvh;
+}
+
+#informacoes .item-orcamento p {
+    font-size: medium;
+    max-width: 100%;
+    margin: 0;
+    text-align: justify;
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    white-space: normal; 
+}
+
+.linha-dupla {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0;
+}
+#informacoes .linha-dupla .item-orcamento {
+    padding-top: 0dvh;
+    height: 6dvh;
+}
+
+
+#price {
+    text-align: right;
+}
+
+#title-lista-historico {
+    padding-top: 1dvh;
+}
+
+#lista-historico {
+    padding-top: 1dvh;
+    height: 25dvh;
+    overflow-y: auto;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-top: 0.5dvh;
+}
+
+li {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+li:hover {
+    background-color: #eaeaea50;
+}
