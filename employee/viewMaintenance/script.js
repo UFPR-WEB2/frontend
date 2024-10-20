@@ -15,7 +15,7 @@ function createProductElement(
         "FINALIZADA": "green"
     };
 
-    let currentState = stateDescription; // Variável para manter o estado atual
+    let currentState = stateDescription; 
 
     const stateClass = stateColors[currentState] || "default-state-color";
 
@@ -74,8 +74,8 @@ function createProductElement(
 
     const actionButtons = {
         "ABERTA": { text: "Efetuar Orçamento", link: "RF012.html" },
-        "APROVADA": { text: "Efetuar Manutenção", link: "RF014.html" },
-        "REDIRECIONADA": { text: "Efetuar Manutenção", link: "RF014.html" },
+        "APROVADA": { text: "Efetuar Manutenção", link: "../viewSolic/index.html" },
+        "REDIRECIONADA": { text: "Efetuar Manutenção", link: "../viewSolic/index.html" },
         "PAGA": { text: "Finalizar Solicitação", link: "RF016.html" }
     };
 

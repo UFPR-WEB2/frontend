@@ -1,9 +1,21 @@
+
 * {
     border: 0;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+
+:root {
+    --gray: #1B262C;
+    --black: #000000;
+    --white: #ffffff;
+    --blue1: #0F4C75;
+    --blue2: #3282B8;
+    --blue3: #BBE1FA;
+}
+
 
 body {
     --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
@@ -14,17 +26,6 @@ body {
     color: white;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--blue2);
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    font-family: "Poppins", sans-serif;
-    color: black;
-    background-color: white;
-}
 
 header {
     --bg-color: transparent;
@@ -51,6 +52,7 @@ header #icon {
     aspect-ratio: 1/1;
     border-radius: 50%;
 }
+
 
 main {
     --bg-color: transparent;
@@ -95,14 +97,8 @@ p {
     margin-bottom: 0.5rem;
 }
 
-#budget-info label {
-    font-size: 1rem;
-    font-family: "Poppins", sans-serif;
-    color: white;
-    margin-bottom: 0.5rem;
-}
 
-input[type="number"] {
+input[type="text"], input[type="number"] {
     width: 100%;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -110,6 +106,8 @@ input[type="number"] {
     margin-bottom: 1rem;
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
+    color: black;
+    background-color: white;
 }
 
 button {
@@ -137,7 +135,8 @@ button:active {
 }
 
 #infos-efetuar-manunt,
-#redirect-info {
+#redirect-info,
+#request-info {
     display: none;
     background: rgba(255, 255, 255, 0.1);
     padding: 1rem;
@@ -146,32 +145,91 @@ button:active {
 }
 
 #request-info {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
+    display: block;
 }
 
 #request-info h2 {
     font-size: 1.5rem;
-    font-family: "Rubik", sans-serif;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 0.5rem;
 }
 
 #request-info p {
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
-    color: white;
-    margin-bottom: 0.5rem;
+}
+#report-container {
+    margin-top: 2rem;
 }
 
-#select-employee {
-    font-size: 1rem;
+#report-content {
+    overflow-x: auto;
+}
+
+#report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+#report-table th, #report-table td {
+    border: 1px solid #000000;
+    padding: 0.75rem;
+    text-align: center;
     font-family: "Poppins", sans-serif;
-    color: black;
-    margin-bottom: 0.5rem;
-    padding: 5px;
+    color: white;
 }
 
+#report-table th {
+    background-color: #c85000;
+    font-weight: 700;
+}
+
+#report-table td {
+    background-color: #222b30;
+}
+
+#generate-pdf {
+    display: block;
+    margin: 2rem auto;
+}
+
+#total {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+#total h3 {
+    font-size: 1.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    color: white;
+}
+
+#button-back {
+    height: 2rem;
+    width: 8rem;
+    background: linear-gradient(135deg, orange, red);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 0.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    transition: transform 0.2s;
+}
+
+#button-back:hover {
+    transform: translateY(-1px);
+}
+
+#button-back:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    transform: translateY(0);
+}

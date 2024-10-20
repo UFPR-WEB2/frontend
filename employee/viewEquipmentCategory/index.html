@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Solicitação</title>
+    <link rel="stylesheet" href="../../pattern.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div id="icon"></div>
+    </header>
+    <main>
+        <div id="container">
+            <h1>Categorias de Equipamentos</h1>
+            <div id="category-form">
+                <input type="text" id="category-input" placeholder="Nova Categoria">
+                <button id="add-category">Adicionar</button>
+            </div>
+            <div id="category-list">
+                <ul id="categories"></ul>
+            </div>
+            <button onclick="window.history.back();">Voltar</button>
+        </div>
+    </main>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div>
+                <h2>Editar Categoria</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <input type="text" id="edit-category-input">
+            <button id="save-edit">Salvar</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</body>
+
+</html>
