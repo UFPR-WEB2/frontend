@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { ButtonComponent } from './material';
+import { ServicoStorageService } from './services/servico-storage.service';
 
 
 @Component({
@@ -16,7 +17,12 @@ import { ButtonComponent } from './material';
 })
 export class AppComponent {
   title = 'Meu App';
-  constructor(private router: Router) { }
+  servicos : any[] = []
+  constructor(private router: Router, private servicoStorage : ServicoStorageService) { }
+
+  ngOnInit(): void {
+    this.servicos = this.servicoStorage.getServicos();
+  }
 
   goToLogin() {
     this.router.navigate(['/login']);

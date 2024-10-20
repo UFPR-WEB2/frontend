@@ -1,0 +1,257 @@
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --gray: #1B262C;
+    --black: #000000;
+    --white: #ffffff;
+    --blue1: #0F4C75;
+    --blue2: #3282B8;
+    --blue3: #BBE1FA;
+}
+
+
+body {
+    --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
+    background: var(--bg-color);
+    width: 100vw;
+    min-height: 100dvh;
+    font-family: "Poppins", sans-serif;
+    color: white;
+}
+
+
+header {
+    --bg-color: transparent;
+    --height: 4rem;
+    --max-height: 4rem;
+
+    background: var(--bg-color);
+    height: var(--height);
+    max-height: var(--max-height);
+    width: 100%;
+    padding: 0.5rem 5dvw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    color: white;
+}
+
+header #icon {
+    --bg-color: linear-gradient(135deg, orange, red);
+
+    background: var(--bg-color);
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+
+main {
+    --bg-color: transparent;
+    height: calc(100dvh - 4rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1%;
+    border-radius: 10px;
+    height: auto;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--blue2);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    color: black;
+    background-color: white;
+}
+
+button {
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    width: 15rem;
+    background: linear-gradient(135deg, orange, red);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+button:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    transform: translateY(0);
+}
+
+#infos-efetuar-manunt,
+#redirect-info,
+#request-info {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#request-info {
+    display: block;
+}
+
+#request-info h2 {
+    font-size: 1.5rem;
+}
+
+#request-info p {
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+#report-container {
+    margin-top: 2rem;
+}
+
+#report-content {
+    overflow-x: auto;
+}
+
+#report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+#report-table th, #report-table td {
+    border: 1px solid #000000;
+    padding: 0.75rem;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    color: white;
+}
+
+#report-table th {
+    background-color: #c85000;
+    font-weight: 700;
+}
+
+#report-table td {
+    background-color: #222b30;
+}
+
+#generate-pdf {
+    display: block;
+    margin: 2rem auto;
+}
+
+#total {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+#total h3 {
+    font-size: 1.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    color: white;
+}
+
+
+#filter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+#filter-form button {
+    width: 10rem;
+    height: 2rem;
+    font-size: 0.875rem;
+    margin: 0.5rem
+}
+
+#filter-container a button {
+    width: 10rem;
+    height: 2rem;
+    font-size: 0.875rem;
+}
+
+#button-back {
+    height: 2rem;
+    width: 8rem;
+    background: linear-gradient(135deg, orange, red);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 0.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    transition: transform 0.2s;
+}
+
+#button-back:hover {
+    transform: translateY(-1px);
+}
+
+#button-back:active {
+    background-color: #c85000;
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    transform: translateY(0);
+}

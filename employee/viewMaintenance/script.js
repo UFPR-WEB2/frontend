@@ -15,7 +15,7 @@ function createProductElement(
         "FINALIZADA": "green"
     };
 
-    let currentState = stateDescription; // Variável para manter o estado atual
+    let currentState = stateDescription; 
 
     const stateClass = stateColors[currentState] || "default-state-color";
 
