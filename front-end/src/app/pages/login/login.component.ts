@@ -30,6 +30,9 @@ export class LoginComponent implements OnInit {
   goToHomeCliente() {
     this.router.navigate(['/cliente/home']);
   }
+  goToHomeFuncionario() {
+    this.router.navigate(['/funcionario/home']);
+  }
 
   onLogin() {
     console.log(this.email);
@@ -38,7 +41,12 @@ export class LoginComponent implements OnInit {
 
     if (usuario) {
       localStorage.setItem('usuarioLogado', JSON.stringify(usuario)); 
-      this.goToHomeCliente(); 
+      if(usuario.funcao === 'cliente'){
+        this.goToHomeCliente(); 
+      }else{
+        this.goToHomeFuncionario();
+      }
+        
     } else {
       alert('Credenciais inválidas'); 
     }

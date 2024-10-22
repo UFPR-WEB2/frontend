@@ -32,10 +32,10 @@ export class ServicoStorageService {
   ];
 
   listaUsuarios = [
-    { email: 'emailCliente@gmail.com', senha: 'cliente', nome: 'João', funcao: 'cliente' },
-    { email: 'emailFuncionario@gmail.com', senha: 'funcionario', nome: 'Maria', funcao: 'funcionario' },
-    { email: 'emailCliente2@gmail.com', senha: 'cliente', nome: 'José', funcao: 'cliente' },
-    { email: 'emailFuncionario2@gmail.com', senha: 'funcionario', nome: 'Mario', funcao: 'funcionario' }
+    { email: 'emailCliente@gmail.com', senha: 'cliente', nome: 'João', funcao: 'cliente', status: 'ativo' },
+    { email: 'emailFuncionario@gmail.com', senha: 'funcionario', nome: 'Maria', funcao: 'funcionario', status: 'ativo' },
+    { email: 'emailCliente2@gmail.com', senha: 'cliente', nome: 'José', funcao: 'cliente', status: 'ativo' },
+    { email: 'emailFuncionario2@gmail.com', senha: 'funcionario', nome: 'Mario', funcao: 'funcionario', status: 'ativo' }
   ];
 
   constructor() {
@@ -93,5 +93,5 @@ export class ServicoStorageService {
     const perfisString = localStorage.getItem(this.perfisStorageKey);
     return perfisString ? JSON.parse(perfisString) : [];
   }
-  
+
 }

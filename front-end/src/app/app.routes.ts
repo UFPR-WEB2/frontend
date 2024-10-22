@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { ViewEquipmentCategoryComponent } from './pages/employer/view-equipment-category/view-equipment-category.component';
 
 
 export const routes: Routes = [
@@ -11,7 +10,13 @@ export const routes: Routes = [
   { path: 'cliente/home/orcamento/:id', loadComponent: () => import('./pages/customer/orcamento-cliente/orcamento-cliente.component').then(m => m.OrcamentoClienteComponent) },
   { path: 'cliente/home/pagamento/:id', loadComponent: () => import('./pages/customer/payment/payment.component').then(m => m.PaymentComponent) },
   { path: 'cliente/home/servico/:id', loadComponent: () => import('./pages/customer/view-solicitacao/view-solicitacao.component').then(m => m.ViewSolicitacaoComponent) },
-  { path: 'view-maintenance', loadComponent: () => import('./pages/employer/view-maintenance/view-maintenance.component').then(m => m.ViewMaintenanceComponent) },
-  { path: 'view-equipment-category', component: ViewEquipmentCategoryComponent },
+  { path: 'funcionario/home', loadComponent: ()=> import('./pages/employer/home-funcionario/home-funcionario.component').then(m=> m.HomeFuncionarioComponent)},
+  { path: 'funcionario/home/efetuar-orcamento/:id', loadComponent: ()=> import('./pages/employer/efetuar-orcamento/efetuar-orcamento.component').then(m=> m.EfetuarOrcamentoComponent)},
+  { path: 'funcionario/home/efetuar-manutencao/:id', loadComponent: ()=> import('./pages/employer/efetuar-manutencao/efetuar-manutencao.component').then(m=> m.EfetuarManutencaoComponent)},
+  { path: 'funcionario/home/visualizacao-solicitacoes', loadComponent: ()=> import('./pages/employer/visualizacao-solicitacoes/visualizacao-solicitacoes.component').then(m=> m.VisualizacaoSolicitacoesComponent)},
+  { path: 'funcionario/home/crud-funcionario', loadComponent: ()=> import('./pages/employer/crud-funcionario/crud-funcionario.component').then(m=> m.CrudFuncionarioComponent)},
+  { path: 'funcionario/home/crud-categoria', loadComponent: ()=> import('./pages/employer/crud-categoria/crud-categoria.component').then(m=> m.CrudCategoriaComponent)},
+  { path: 'funcionario/home/relatorio-receitas', loadComponent: ()=> import('./pages/employer/relatorio-receitas/relatorio-receitas.component').then(m=> m.RelatorioReceitasComponent)},
+  { path: 'funcionario/home/relatorio-categorias', loadComponent: ()=> import('./pages/employer/relatorio-categorias/relatorio-categorias.component').then(m=> m.RelatorioCategoriasComponent)},
   { path: '**', redirectTo: '' }
 ];

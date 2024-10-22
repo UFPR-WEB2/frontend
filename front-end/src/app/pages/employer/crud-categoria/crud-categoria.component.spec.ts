@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewClientComponent } from './view-client.component';
+import { CrudCategoriaComponent } from './crud-categoria.component';
 
-describe('ViewClientComponent', () => {
-  let component: ViewClientComponent;
-  let fixture: ComponentFixture<ViewClientComponent>;
+describe('CrudCategoriaComponent', () => {
+  let component: CrudCategoriaComponent;
+  let fixture: ComponentFixture<CrudCategoriaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewClientComponent]
+      imports: [CrudCategoriaComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewClientComponent);
+    fixture = TestBed.createComponent(CrudCategoriaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

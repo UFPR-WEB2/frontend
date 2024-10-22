@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewSolicComponent } from './view-solic.component';
+import { HomeFuncionarioComponent } from './home-funcionario.component';
 
-describe('ViewSolicComponent', () => {
-  let component: ViewSolicComponent;
-  let fixture: ComponentFixture<ViewSolicComponent>;
+describe('HomeFuncionarioComponent', () => {
+  let component: HomeFuncionarioComponent;
+  let fixture: ComponentFixture<HomeFuncionarioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewSolicComponent]
+      imports: [HomeFuncionarioComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewSolicComponent);
+    fixture = TestBed.createComponent(HomeFuncionarioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
