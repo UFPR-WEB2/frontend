@@ -14,6 +14,20 @@ export class HeaderClienteComponent {
   @Input() emailCliente: string = 'emailDoCliente@gmail.com';
 
   constructor(private router: Router) {}
+
+  usuarioLogado: any;
+
+  ngOnInit() {
+    this.recuperarUsuarioLogado();
+  }
+
+  recuperarUsuarioLogado() {
+    const usuario = localStorage.getItem('usuarioLogado');
+    if (usuario) {
+      this.usuarioLogado = JSON.parse(usuario); 
+    }
+  }
+
   goToMenu() {
     this.router.navigate(['']);
   }
