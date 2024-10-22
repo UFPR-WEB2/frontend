@@ -31,8 +31,16 @@ export class ServicoStorageService {
     { id: '012', data: '13/09/24 08:45', descricaoEquipamento: 'Descricao Equipamento A', descricaoErro: 'Equipamento C reiniciando...', status: 'ARRUMADA', categoria: 'Teclado', cliente: 'Joaquina', funcionario: 'Mário', preco: '250,00', motivoRejeicao: '', dataOrcamento: '18/9/24 08:45', dataRecuperacao: '', dataConserto: '21/9/24 08:45', dataFinalizacao: '' },
   ];
 
+  listaUsuarios = [
+    { email: 'emailCliente@gmail.com', senha: 'cliente', nome: 'João', funcao: 'cliente' },
+    { email: 'emailFuncionario@gmail.com', senha: 'funcionario', nome: 'Maria', funcao: 'funcionario' },
+    { email: 'emailCliente2@gmail.com', senha: 'cliente', nome: 'José', funcao: 'cliente' },
+    { email: 'emailFuncionario2@gmail.com', senha: 'funcionario', nome: 'Mario', funcao: 'funcionario' }
+  ];
+
   constructor() {
     this.initializeServicos();
+    this.initializePerfis();
   }
 
   initializeServicos(): void {
@@ -41,8 +49,15 @@ export class ServicoStorageService {
     }
   }
 
+  initializePerfis(): void {
+    if (!localStorage.getItem(this.perfisStorageKey)) {
+      localStorage.setItem(this.perfisStorageKey, JSON.stringify(this.listaUsuarios));
+    }
+  }
+
   //--------------------------------------------------------------------------------------------------------------------------------
   private storageKey = 'servicos';
+  private perfisStorageKey = 'perfis';
 
 
   // Retorna a lista de serviços do localStorage
@@ -72,4 +87,11 @@ export class ServicoStorageService {
       this.saveServicos(servicos); // Salva as mudanças no localStorage
     }
   }
+
+  // Retorna a lista de perfis do localStorage
+  getPerfis(): any[] {
+    const perfisString = localStorage.getItem(this.perfisStorageKey);
+    return perfisString ? JSON.parse(perfisString) : [];
+  }
+  
 }

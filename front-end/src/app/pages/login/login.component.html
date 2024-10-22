@@ -28,16 +28,17 @@
         <div id="grid-2">
             <div class="container">
                 <h1>Entrar</h1>
-                <form action="">
-                    <div class="field"><label>Digite seu email:</label>
-                        <input type="text" name="email" id="email" placeholder="E-mail">
+                <form (ngSubmit)="onLogin()">
+                    <div class="field">
+                      <label>Digite seu email:</label>
+                      <input type="text" [(ngModel)]="email" name="email" placeholder="E-mail" required>
                     </div>
                     <div class="field">
-                        <label>Digite sua senha:</label>
-                        <input type="password" name="password" id="password" placeholder="Senha">
+                      <label>Digite sua senha:</label>
+                      <input type="password" [(ngModel)]="password" name="password" placeholder="Senha" required>
                     </div>
                     <label id="Fpassowrd">Esqueci minha senha</label>
-                    <button-material [navigateUrl]="'cliente/home'" text="Entrar"></button-material>
+                    <button-material type="submit" text="Entrar"></button-material>
                 </form>
             </div>
             <div class="container">
