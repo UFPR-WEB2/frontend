@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeFuncionarioComponent } from './home-funcionario.component';
 
 describe('HomeFuncionarioComponent', () => {
@@ -10,7 +9,7 @@ describe('HomeFuncionarioComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HomeFuncionarioComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(HomeFuncionarioComponent);
     component = fixture.componentInstance;
