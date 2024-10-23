@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ServicoStorageService {
-  /* 
+  /*
   estado ABERTA -> apos a abertura do cliente
   estado ORÇADA -> apos func adicionar o orcamento
   estado REJEITADA -> apos cliente aprovar/refeitar
@@ -86,7 +86,7 @@ export class ServicoStorageService {
     const clientes = this.getPerfis();
     clientes.push(novoCliente);
     this.savePerfis(clientes);
-  } 
+  }
 
   // Modifica um serviço existente pelo ID
   updateServico(id: string, servicoModificado: any): void {
@@ -98,12 +98,21 @@ export class ServicoStorageService {
     }
   }
 
+  deleteServico(id: string): void {
+    const servicos = this.getServicos();
+    const index = servicos.findIndex(servico => servico.id === id);
+    if (index !== -1) {
+      servicos.splice(index, 1);
+      this.saveServicos(servicos);
+    }
+  }
+
   updateCliente(id: number, clienteModificado: object): void {
     const clientes = this.getPerfis();
     const index = clientes.findIndex(cliente => cliente.id === id);
     if (index !== -1) {
       clientes[index] = { ...clientes[index], ...clienteModificado };
-      this.savePerfis(clientes); 
+      this.savePerfis(clientes);
     }
   }
 
@@ -116,10 +125,42 @@ export class ServicoStorageService {
     }
   }
 
-  // Retorna a lista de perfis do localStorage
   getPerfis(): any[] {
     const perfisString = localStorage.getItem(this.perfisStorageKey);
     return perfisString ? JSON.parse(perfisString) : [];
+  }
+
+  getCategorias(): string[] {
+    const categoriasString = localStorage.getItem('categorias');
+    return categoriasString ? JSON.parse(categoriasString) : [];
+  }
+
+  saveCategorias(categorias: string[]): void {
+    localStorage.setItem('categorias', JSON.stringify(categorias));
+  }
+
+  addCategoria(novaCategoria: string): void {
+    const categorias = this.getCategorias();
+    categorias.push(novaCategoria);
+    this.saveCategorias(categorias);
+  }
+
+  updateCategoria(categoriaAntiga: string, categoriaNova: string): void {
+    const categorias = this.getCategorias();
+    const index = categorias.indexOf(categoriaAntiga);
+    if (index !== -1) {
+      categorias[index] = categoriaNova;
+      this.saveCategorias(categorias);
+    }
+  }
+
+  deleteCategoria(categoria: string): void {
+    const categorias = this.getCategorias();
+    const index = categorias.indexOf(categoria);
+    if (index !== -1) {
+      categorias.splice(index, 1);
+      this.saveCategorias(categorias);
+    }
   }
 
 }
