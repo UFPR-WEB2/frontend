@@ -18,6 +18,8 @@ export class CrudFuncionarioComponent implements OnInit {
 
   funcionarios: any[] = [];
 
+  modalEditar = false;
+
   pessoa = {
     id: new Date().getTime(),
     nome: '',
@@ -63,6 +65,37 @@ export class CrudFuncionarioComponent implements OnInit {
     this.atualizarListaFuncionarios();
   }
   
+  abrirModalEditar(funcionario: any) {
+    this.pessoa = funcionario;
+    this.modalEditar = true;
+  }
 
+  fecharModalEditar() {
+    this.modalEditar = false;
+    this.pessoa = {
+      id: new Date().getTime(),
+      nome: '',
+      senha: '',
+      email: '',
+      nascimento: '',
+      funcao: 'funcionario',
+      status: 'ativo',
+    };
+  }
+
+  atualizarFuncionario() {
+    this.servicoStorageService.updateCliente(this.pessoa.id, this.pessoa);
+    this.atualizarListaFuncionarios();
+    this.pessoa = {
+      id: new Date().getTime(),
+      nome: '',
+      senha: '',
+      email: '',
+      nascimento: '',
+      funcao: 'funcionario',
+      status: 'ativo',
+    };
+    this.modalEditar = false;
+  }
 
 }

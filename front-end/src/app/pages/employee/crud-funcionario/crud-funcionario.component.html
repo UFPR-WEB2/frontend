@@ -22,7 +22,7 @@
               <span>{{ funcionario.email }}</span>
             </span>
             <div>
-              <button type="button" (click)="deleteFuncionario(funcionario.id)">Editar</button>
+              <button type="button" (click)="abrirModalEditar(funcionario)">Editar</button>
               <button type="button" (click)="deleteFuncionario(funcionario.id)">Excluir</button>
             </div>
           </li>
@@ -32,19 +32,18 @@
     </div>
 </main>
   
-<!--  
-<div id="edit-modal" class="modal">
+
+<div *ngIf="modalEditar" id="edit-modal" class="modal">
     <div class="modal-content">
         <div>
             <h2>Editar Funcionário</h2>
-            <span class="close-button">&times;</span>
+            <span (click)="fecharModalEditar()" class="close-button">&times;</span>
         </div>
-        <input type="text" id="edit-employee-name" placeholder="Nome">
-        <input type="date" id="edit-employee-date" placeholder="Data">
-        <input type="email" id="edit-employee-email" placeholder="Email">
-        <input type="password" id="edit-employee-password" placeholder="Senha">
-        <button id="save-edit">Salvar</button>
+        <input type="text" id="edit-employee-name" placeholder="Nome" value="{{pessoa.nome}}">
+        <input type="date" id="edit-employee-date" placeholder="Data" value="{{pessoa.nascimento}}">
+        <input type="email" id="edit-employee-email" placeholder="Email" value="{{pessoa.email}}">
+        <input type="password" id="edit-employee-password" placeholder="Senha" value="{{pessoa.senha}}">
+        <button id="save-edit" (click)="atualizarFuncionario()">Salvar</button>
     </div>
 
 </div>
--->

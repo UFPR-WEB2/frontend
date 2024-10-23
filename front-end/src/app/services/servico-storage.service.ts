@@ -98,7 +98,7 @@ export class ServicoStorageService {
     }
   }
 
-  updateCliente(id: string, clienteModificado: any): void {
+  updateCliente(id: number, clienteModificado: object): void {
     const clientes = this.getPerfis();
     const index = clientes.findIndex(cliente => cliente.id === id);
     if (index !== -1) {
