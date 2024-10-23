@@ -39,11 +39,10 @@
             <h2>Editar Funcionário</h2>
             <span (click)="fecharModalEditar()" class="close-button">&times;</span>
         </div>
-        <input type="text" id="edit-employee-name" placeholder="Nome" value="{{pessoa.nome}}">
-        <input type="date" id="edit-employee-date" placeholder="Data" value="{{pessoa.nascimento}}">
-        <input type="email" id="edit-employee-email" placeholder="Email" value="{{pessoa.email}}">
-        <input type="password" id="edit-employee-password" placeholder="Senha" value="{{pessoa.senha}}">
+        <input type="text" [(ngModel)]="pessoaEditar.nome"  id="edit-employee-name" placeholder="Nome" value="{{pessoaEditar.nome}}">
+        <input type="date" [(ngModel)]="pessoaEditar.nascimento"  id="edit-employee-date" placeholder="Data" value="{{pessoaEditar.nascimento}}">
+        <input type="email" [(ngModel)]="pessoaEditar.email"  id="edit-employee-email" placeholder="Email" value="{{pessoaEditar.email}}">
+        <input type="password" [(ngModel)]="pessoaEditar.senha"  id="edit-employee-password" placeholder="Senha" value="{{pessoaEditar.senha}}">
         <button id="save-edit" (click)="atualizarFuncionario()">Salvar</button>
     </div>
-
 </div>
