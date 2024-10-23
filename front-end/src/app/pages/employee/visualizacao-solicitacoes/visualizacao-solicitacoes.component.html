@@ -1,1 +1,51 @@
-<p>visualizacao-solicitacoes works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../customer/style/style-padrao.css">
+</head>
+<body>
+    <app-header-cliente></app-header-cliente>
+    <div id="principal">
+      <app-navbar-funcionario (filtroAplicado)="onFiltroAplicado($event)"></app-navbar-funcionario>
+        <main>
+          <div class="tabela">
+            <table id="table-user">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Data</th>
+                  <th>Descrição</th>
+                  <th>Status</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let servico of servicosFiltrados">
+                  <td class="item">{{ servico.id }}</td>
+                  <td class="item">{{ servico.data }}</td>
+                  <td class="item">{{ servico.descricaoErro | slice:0:30 }}</td>
+                  <td class="item">{{ servico.status }}</td>
+                  <td class="item">
+                    <!--
+                    <button *ngIf="servico.status === 'ABERTA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> 
+                    <button *ngIf="servico.status === 'ORÇADA'" (click)="mostrarOrcamento(servico.id)">Aprovar/Rejeitar Serviço</button> 
+                    <button *ngIf="servico.status === 'APROVADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> 
+                    <button *ngIf="servico.status === 'REJEITADA'" (click)="resgatarServico(servico.id)">Resgatar Serviço</button> 
+                    <button *ngIf="servico.status === 'REDIRECIONADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> 
+                    <button *ngIf="servico.status === 'ARRUMADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> 
+                    <button *ngIf="servico.status === 'AGUARDANDO PAGAMENTO'" (click)="pagarServico(servico.id)">Pagar Serviço</button> 
+                    <button *ngIf="servico.status === 'PAGA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> 
+                    <button *ngIf="servico.status === 'FINALIZADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> 
+                    -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+</body>
+</html>
