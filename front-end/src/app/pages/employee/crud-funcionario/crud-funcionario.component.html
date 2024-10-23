@@ -1,1 +1,49 @@
-<p>crud-funcionario works!</p>
+
+<main>
+    <div id="container">
+      <h1>Funcionários</h1>
+      <form #formFuncionario="ngForm">
+        <div id="employee-form">
+          <div id="employee-inputs">
+            <input type="text" name="nome" [(ngModel)]="pessoa.nome" #nome="ngModel" id="employee-name" class="employee-input" placeholder="Novo funcionário">
+            <input type="date" name="nascimento" [(ngModel)]="pessoa.nascimento" #nascimento="ngModel" id="employee-date" class="employee-input" placeholder="Data de Nascimento">
+            <input type="email" name="email" [(ngModel)]="pessoa.email" #email="ngModel" id="employee-email" class="employee-input" placeholder="Email">
+            <input type="password" name="senha" [(ngModel)]="pessoa.senha" #senha="ngModel" id="employee-password" class="employee-input" placeholder="Senha">
+          </div>
+          <button type="button" (click)="inserir()" id="add-employee">Adicionar</button>
+        </div>
+      </form>
+      <div *ngIf="funcionarios.length > 0" id="employee-list">
+        <ul id="employee">
+          <li *ngFor="let funcionario of funcionarios; index as i" class="employee-item">
+            <span>
+              <span>{{ funcionario.nome }}</span>
+              <span>{{ funcionario.nascimento | date: 'dd/MM/yyyy' }}</span>
+              <span>{{ funcionario.email }}</span>
+            </span>
+            <div>
+              <button type="button" (click)="abrirModalEditar(funcionario)">Editar</button>
+              <button type="button" (click)="deleteFuncionario(funcionario.id)">Excluir</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <a href="#" [routerLink]="['/funcionario/home']" ><button type="button">Voltar</button></a>
+    </div>
+</main>
+  
+
+<div *ngIf="modalEditar" id="edit-modal" class="modal">
+    <div class="modal-content">
+        <div>
+            <h2>Editar Funcionário</h2>
+            <span (click)="fecharModalEditar()" class="close-button">&times;</span>
+        </div>
+        <input type="text" id="edit-employee-name" placeholder="Nome" value="{{pessoa.nome}}">
+        <input type="date" id="edit-employee-date" placeholder="Data" value="{{pessoa.nascimento}}">
+        <input type="email" id="edit-employee-email" placeholder="Email" value="{{pessoa.email}}">
+        <input type="password" id="edit-employee-password" placeholder="Senha" value="{{pessoa.senha}}">
+        <button id="save-edit" (click)="atualizarFuncionario()">Salvar</button>
+    </div>
+
+</div>
