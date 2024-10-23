@@ -5,9 +5,6 @@ import { FormsModule } from '@angular/forms';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-
-
-
 @Component({
   selector: 'app-relatorio-receitas',
   standalone: true,
@@ -81,9 +78,6 @@ export class RelatorioReceitasComponent {
 
   gerarPDF() {
     const doc = new jsPDF();
-
-    doc.setFillColor(230, 230, 250);
-    doc.rect(5, 5, 190, 277, 'F');
 
     doc.setFontSize(18);
     doc.setFont('helvetica', 'bold');

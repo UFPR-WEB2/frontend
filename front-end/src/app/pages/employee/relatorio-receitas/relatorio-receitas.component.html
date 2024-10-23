@@ -2,9 +2,8 @@
 <header>
   <div id="icon"></div>
   <div id="header-container">
-  <a routerLink="/home-funcionario">
     <button id="button-back" (click)="goToHomeFuncionario()">Voltar</button>
-  </a>
+    <button id="button-categorias" (click)="goToRelatorioCategorias()">Ver por categoria</button>
   </div>
 </header>
 <main>
@@ -22,9 +21,6 @@
         <button type="submit">Filtrar</button>
         <button type="reset" (click)="limparFiltro()">Limpar</button>
     </form>
-      <a routerLink="funcionario/home/relatorio-categorias">
-        <button id="button-categorias" (click)="goToRelatorioCategorias()">Ver por categoria</button>
-      </a>
     </div>
     <div id="report-container">
       <h2>Receitas por Dia</h2>
