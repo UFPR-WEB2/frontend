@@ -7,13 +7,13 @@ import { ServicoStorageService } from '../../../services/servico-storage.service
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { DatePipe } from '@angular/common';
 
-
 @Component({
   selector: 'app-efetuar-orcamento',
   standalone: true,
   imports: [HeaderClienteComponent, CommonModule, FormsModule],
   templateUrl: './efetuar-orcamento.component.html',
-  styleUrl: './efetuar-orcamento.component.css'
+  styleUrls: ['./efetuar-orcamento.component.css'],// Correção aqui
+  providers: [DatePipe] // Adicione esta linha
 })
 export class EfetuarOrcamentoComponent {
   item: any;
@@ -22,27 +22,42 @@ export class EfetuarOrcamentoComponent {
   cliente: any;
   valor: string = '';
   usuarioLogado: any;
-  
-  constructor(private servicoStorage: ServicoStorageService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
+
+  constructor(
+    private servicoStorage: ServicoStorageService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit() {
     this.recuperarUsuarioLogado();
-
+    
     const id = this.route.snapshot.paramMap.get('id');
-    this.servicos = this.servicoStorage.getServicos();
-    const escolhido = this.servicos.filter(s => s.id === id);
-    this.item = escolhido[0];
+    if (id) {
+      this.servicos = this.servicoStorage.getServicos();
+      const escolhido = this.servicos.find(s => s.id === id); // Use find para obter o objeto diretamente
+      this.item = escolhido || null;
 
-    this.perfis = this.servicoStorage.getPerfis();
-    const clienteCriador = this.perfis.find(p => p.nome === this.item.cliente);
-    this.cliente = clienteCriador;
+      if (this.item) {
+        this.perfis = this.servicoStorage.getPerfis();
+        const clienteCriador = this.perfis.find(p => p.nome === this.item.cliente);
+        this.cliente = clienteCriador;
+      } else {
+        console.error('Serviço não encontrado');
+      }
+    } else {
+      console.error('ID do serviço não fornecido');
+    }
   }
+
   recuperarUsuarioLogado() {
     const usuario = localStorage.getItem('usuarioLogado');
     if (usuario) {
-      this.usuarioLogado = JSON.parse(usuario); 
+      this.usuarioLogado = JSON.parse(usuario);
     }
   }
+
   onValueChange(value: string) {
     const parsedValue = parseFloat(value.replace('R$ ', '').replace(',', '.'));
     this.valor = isNaN(parsedValue) ? '' : parsedValue.toString();
@@ -66,7 +81,6 @@ export class EfetuarOrcamentoComponent {
     event.preventDefault();
   }
 
-
   onSubmit(form: any) {
     if (form.valid) {
       if (this.valor) {
@@ -76,16 +90,20 @@ export class EfetuarOrcamentoComponent {
           const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
           const dadosAtualizados = {
             status: 'ORÇADA',
-            preco : valorSemMascara,
-            dataOrcamento : dataFormatada
+            preco: valorSemMascara,
+            dataOrcamento: dataFormatada
           };
-          window.alert('Serviço Rejeitado');
+          window.alert('Serviço orçado');
           this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
-          this.router.navigate(['/cliente/home']);
+          this.router.navigate(['/funcionario/home']);
+        } else {
+          console.error("Valor não pode ser negativo");
         }
       } else {
         console.error("Valor não pode ser nulo");
       }
+    } else {
+      console.error("Formulário inválido");
     }
   }
 }

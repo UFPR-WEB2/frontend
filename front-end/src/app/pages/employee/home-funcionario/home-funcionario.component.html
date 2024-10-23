@@ -18,6 +18,7 @@
   <div id="principal">
     <app-navbar-funcionario></app-navbar-funcionario>
       <main>
+        <h3>Solicitações</h3>
         <div class="tabela">
           <table id="table-user">
             <thead>
@@ -36,8 +37,7 @@
                 <td class="item">{{ servico.descricaoErro | slice:0:30 }}</td>
                 <td class="item">{{ servico.status }}</td>
                 <td class="item">
-                  <button If="servico.status==='ABERTA'" (click)=" Efetuaorcamento(servico.id)">Efetuar
-                    Orçamento</button>
+                  <button *ngIf="servico.status === 'ABERTA'" (click)="Efetuaorcamento(servico.id)">Efetuar Orçamento</button>
                 </td>
               </tr>
             </tbody>

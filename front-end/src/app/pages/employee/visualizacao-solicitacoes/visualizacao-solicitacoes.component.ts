@@ -4,13 +4,15 @@ import { HeaderClienteComponent } from '../../../material/header-cliente/header-
 import { Router } from '@angular/router';
 import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { NavbarFuncionarioComponent } from '../../../material/navbar-funcionario/navbar-funcionario.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-visualizacao-solicitacoes',
   standalone: true,
   imports: [HeaderClienteComponent, NavbarFuncionarioComponent, CommonModule],
   templateUrl: './visualizacao-solicitacoes.component.html',
-  styleUrls: ['./visualizacao-solicitacoes.component.css']
+  styleUrls: ['./visualizacao-solicitacoes.component.css'],
+  providers : [DatePipe]
 })
 export class VisualizacaoSolicitacoesComponent {
 
@@ -18,7 +20,22 @@ export class VisualizacaoSolicitacoesComponent {
   servicosFiltrados: any[] = [];
   usuarioLogado: any;
 
-  constructor(private servicoStorage: ServicoStorageService, private router: Router) { }
+  constructor(private servicoStorage: ServicoStorageService, private router: Router,private datePipe: DatePipe) { }
+
+  efetuarManutencao(id: string){
+    this.router.navigate([`funcionario/home/efetuar-manutencao/${id}`])
+  }
+
+  Efetuaorcamento(id: string) {
+    this.router.navigate([`/funcionario/home/efetuar-orcamento/${id}`]);
+  }
+
+  finalizarSolicitacao(id: string){
+    const dataAtual = new Date();
+    const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
+    this.servicoStorage.updateServico(id, { status: "FINALIZADA", dataFinalizacao: dataFormatada, funcionarioFinalizacao: this.usuarioLogado.nome});
+    this.servicos = this.servicoStorage.getServicos();
+  }
 
   recuperarUsuarioLogado() {
     const usuario = localStorage.getItem('usuarioLogado');
