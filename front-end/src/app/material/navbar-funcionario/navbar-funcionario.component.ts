@@ -13,10 +13,14 @@ import { FormsModule } from '@angular/forms';
 export class NavbarFuncionarioComponent {
   
   funcionalidades = [
-    { nome: 'Solicitar Manutenção', link: '/cliente/home/solicitarManutencao' }
+    { nome: 'HOME', link: '/funcionario/home' },
+    { nome: 'Visualizar solicitações', link: '/funcionario/home/visualizacao-solicitacoes' },
+    { nome: 'CRUD Categoria', link: '/funcionario/home/crud-categoria' },
+    { nome: 'CRUD Funcionário', link: '/funcionario/home/crud-funcionario' },
+    { nome: 'Relatório de receitas', link: '/funcionario/home/relatorio-receitas' },
+    { nome: 'Relatório de receitas por categoria', link: '/funcionario/home/relatorio-categorias' },
   ];
 
-  estados = ['Orçada', 'Aprovada', 'Rejeitada', 'Arrumada', 'Outros estados'];
 
   filtroSelecionado: string = 'todas';
   dataInicio: string = '';
