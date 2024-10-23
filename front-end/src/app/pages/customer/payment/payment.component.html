@@ -29,11 +29,11 @@
                         <p>{{item.descricaoErro}}</p>
                     </div>
                     <div class="item-orcamento" id="price">
-                        <h3>Preço Orçado:</h3>
+                        <h3>Total a pagar:</h3>
                         <p>{{item.preco}}</p>
                     </div>
                 </div>
-                <button>Pagar</button>
+                <button (click)="efetuarPagamento()">Pagar</button>
                 <button onclick="history.back()" id="btn-voltar">Voltar</button>
             </div>
         </main>

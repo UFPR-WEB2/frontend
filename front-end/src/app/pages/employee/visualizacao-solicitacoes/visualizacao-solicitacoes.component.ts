@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
   imports: [HeaderClienteComponent, NavbarFuncionarioComponent, CommonModule],
   templateUrl: './visualizacao-solicitacoes.component.html',
   styleUrls: ['./visualizacao-solicitacoes.component.css'],
-  providers : [DatePipe]
+  providers: [DatePipe]
 })
 export class VisualizacaoSolicitacoesComponent {
 
@@ -20,9 +20,12 @@ export class VisualizacaoSolicitacoesComponent {
   servicosFiltrados: any[] = [];
   usuarioLogado: any;
 
-  constructor(private servicoStorage: ServicoStorageService, private router: Router,private datePipe: DatePipe) { }
+  constructor(private servicoStorage: ServicoStorageService, private router: Router, private datePipe: DatePipe) { }
 
-  efetuarManutencao(id: string){
+  carregarServicos() {
+    this.servicos = this.servicoStorage.getServicos(); // Obter a lista de serviços
+  }
+  efetuarManutencao(id: string) {
     this.router.navigate([`funcionario/home/efetuar-manutencao/${id}`])
   }
 
@@ -30,17 +33,20 @@ export class VisualizacaoSolicitacoesComponent {
     this.router.navigate([`/funcionario/home/efetuar-orcamento/${id}`]);
   }
 
-  finalizarSolicitacao(id: string){
-    const dataAtual = new Date();
-    const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
-    this.servicoStorage.updateServico(id, { status: "FINALIZADA", dataFinalizacao: dataFormatada, funcionarioFinalizacao: this.usuarioLogado.nome});
-    this.servicos = this.servicoStorage.getServicos();
+  finalizarSolicitacao(id: string) {
+    const confirmacao = window.confirm('Você tem certeza que deseja fianlizar este serviço?');
+    if (confirmacao) {
+      const dataAtual = new Date();
+      const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
+      this.servicoStorage.updateServico(id, { status: "FINALIZADA", dataFinalizacao: dataFormatada, funcionarioFinalizacao: this.usuarioLogado.nome });
+      this.carregarServicos();
+    }
   }
 
   recuperarUsuarioLogado() {
     const usuario = localStorage.getItem('usuarioLogado');
     if (usuario) {
-      this.usuarioLogado = JSON.parse(usuario); 
+      this.usuarioLogado = JSON.parse(usuario);
     }
   }
 
@@ -60,7 +66,7 @@ export class VisualizacaoSolicitacoesComponent {
 
   onFiltroAplicado(event: any) {
     const hoje = new Date();
-    
+
     if (event.filtro === 'hoje') {
       const hoje = new Date();
       this.servicosFiltrados = this.servicos.filter(s => {
@@ -68,8 +74,8 @@ export class VisualizacaoSolicitacoesComponent {
         return dataServico.toDateString() === hoje.toDateString();
       });
     } else if (event.filtro === 'periodo') {
-      const dataInicio = this.converterParaData(event.dataInicio); 
-      const dataFim = this.converterParaData(event.dataFim); 
+      const dataInicio = this.converterParaData(event.dataInicio);
+      const dataFim = this.converterParaData(event.dataFim);
       this.servicosFiltrados = this.servicos.filter(s => {
         const dataServico = this.converterParaData(s.data);
         return dataServico >= dataInicio && dataServico <= dataFim;
@@ -77,6 +83,5 @@ export class VisualizacaoSolicitacoesComponent {
     } else {
       this.servicosFiltrados = this.servicos;
     }
-    
   }
 }

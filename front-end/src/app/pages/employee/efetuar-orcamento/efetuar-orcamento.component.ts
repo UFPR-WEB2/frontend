@@ -36,7 +36,7 @@ export class EfetuarOrcamentoComponent {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.servicos = this.servicoStorage.getServicos();
-      const escolhido = this.servicos.find(s => s.id === id); // Use find para obter o objeto diretamente
+      const escolhido = this.servicos.find(s => s.id === id);
       this.item = escolhido || null;
 
       if (this.item) {
