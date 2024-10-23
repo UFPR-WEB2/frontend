@@ -32,10 +32,10 @@ export class ServicoStorageService {
   ];
 
   listaUsuarios = [
-    { email: 'emailCliente@gmail.com', senha: 'cliente', nome: 'João', funcao: 'cliente', status: 'ativo' },
-    { email: 'emailFuncionario@gmail.com', senha: 'funcionario', nome: 'Maria', funcao: 'funcionario', status: 'ativo' },
-    { email: 'emailCliente2@gmail.com', senha: 'cliente', nome: 'José', funcao: 'cliente', status: 'ativo' },
-    { email: 'emailFuncionario2@gmail.com', senha: 'funcionario', nome: 'Mario', funcao: 'funcionario', status: 'ativo' }
+    { id: '001', email: 'emailCliente@gmail.com', senha: 'cliente', nome: 'João', funcao: 'cliente', status: 'ativo' },
+    { id: '002', email: 'emailFuncionario@gmail.com', senha: 'funcionario', nome: 'Maria', funcao: 'funcionario', status: 'ativo' },
+    { id: '003', email: 'emailCliente2@gmail.com', senha: 'cliente', nome: 'José', funcao: 'cliente', status: 'ativo' },
+    { id: '004', email: 'emailFuncionario2@gmail.com', senha: 'funcionario', nome: 'Mario', funcao: 'funcionario', status: 'ativo' }
   ];
 
   constructor() {
@@ -71,12 +71,22 @@ export class ServicoStorageService {
     localStorage.setItem(this.storageKey, JSON.stringify(servicos));
   }
 
+  savePerfis(perfis: any[]): void {
+    localStorage.setItem(this.perfisStorageKey, JSON.stringify(perfis));
+  }
+
   // Adiciona um novo serviço
   addServico(novoServico: any): void {
     const servicos = this.getServicos();
     servicos.push(novoServico);
     this.saveServicos(servicos);
   }
+
+  addCliente(novoCliente: any): void {
+    const clientes = this.getPerfis();
+    clientes.push(novoCliente);
+    this.savePerfis(clientes);
+  } 
 
   // Modifica um serviço existente pelo ID
   updateServico(id: string, servicoModificado: any): void {
@@ -85,6 +95,24 @@ export class ServicoStorageService {
     if (index !== -1) {
       servicos[index] = { ...servicos[index], ...servicoModificado }; // Atualiza o serviço
       this.saveServicos(servicos); // Salva as mudanças no localStorage
+    }
+  }
+
+  updateCliente(id: string, clienteModificado: any): void {
+    const clientes = this.getPerfis();
+    const index = clientes.findIndex(cliente => cliente.id === id);
+    if (index !== -1) {
+      clientes[index] = { ...clientes[index], ...clienteModificado };
+      this.savePerfis(clientes); 
+    }
+  }
+
+  deleteCliente(id: string): void {
+    const clientes = this.getPerfis();
+    const index = clientes.findIndex(cliente => cliente.id === id);
+    if (index !== -1) {
+      clientes.splice(index, 1);
+      this.savePerfis(clientes);
     }
   }
 
