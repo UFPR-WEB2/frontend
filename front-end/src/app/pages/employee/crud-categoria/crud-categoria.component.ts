@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { RouterModule } from '@angular/router';
+import { ButtonComponent } from '../../../material';
 
 @Component({
   selector: 'app-crud-categoria',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, ButtonComponent],
   templateUrl: './crud-categoria.component.html',
-  styleUrls: ['./crud-categoria.component.css']
+  styleUrls: ['./crud-categoria.component.css'],
 })
 export class CrudCategoriaComponent implements OnInit {
+  @ViewChild('categoriaInput') categoriaInput!: ElementRef;
+  @ViewChild('editCategoryInput') editCategoryInput!: ElementRef;
+
   categories: string[] = [];
   newCategory: string = '';
   editedCategory: string = '';
@@ -21,111 +25,11 @@ export class CrudCategoriaComponent implements OnInit {
   constructor(private servicoStorage: ServicoStorageService) {}
 
   ngOnInit(): void {
-    this.loadServicos();
-    this.loadClientes();
     this.loadCategorias();
-  }
-
-  // Serviços
-  servicos: any[] = [];
-  novoServico: any = { descricaoEquipamento: '', descricaoErro: '', preco: '' };
-  editedServico: any = { id: null, descricaoEquipamento: '', descricaoErro: '', preco: '' };
-  isEditServicoModalOpen: boolean = false;
-
-  loadServicos(): void {
-    this.servicos = this.servicoStorage.getServicos();
-  }
-
-  addServico(): void {
-    if (this.novoServico.descricaoEquipamento.trim() && this.novoServico.descricaoErro.trim() && this.novoServico.preco.trim()) {
-      const novoServico = {
-        id: new Date().getTime(),
-        descricaoEquipamento: this.novoServico.descricaoEquipamento.trim(),
-        descricaoErro: this.novoServico.descricaoErro.trim(),
-        preco: this.novoServico.preco.trim(),
-        status: 'ABERTA',
-      };
-
-      this.servicoStorage.addServico(novoServico);
-      this.novoServico = { descricaoEquipamento: '', descricaoErro: '', preco: '' };
-      this.loadServicos();
-    }
-  }
-
-  editServico(servico: any): void {
-    this.editedServico = { ...servico };
-    this.isEditServicoModalOpen = true;
-  }
-
-  updateServico(id: number): void {
-    if (this.editedServico.descricaoEquipamento.trim() && this.editedServico.descricaoErro.trim() && this.editedServico.preco.trim()) {
-      this.servicoStorage.updateServico(id.toString(), this.editedServico);
-      this.closeEditServicoModal();
-      this.loadServicos();
-    }
-  }
-
-  deleteServico(id: number): void {
-    this.servicoStorage.deleteServico(id.toString());
-    this.loadServicos();
-  }
-
-  closeEditServicoModal(): void {
-    this.isEditServicoModalOpen = false;
-    this.editedServico = { id: null, descricaoEquipamento: '', descricaoErro: '', preco: '' };
-  }
-
-  // Clientes
-  clientes: any[] = [];
-  novoCliente: any = { nome: '', email: '', senha: '' };
-  editedCliente: any = { id: null, nome: '', email: '', senha: '' };
-  isEditClienteModalOpen: boolean = false;
-
-  loadClientes(): void {
-    this.clientes = this.servicoStorage.getPerfis();
-  }
-
-  addCliente(): void {
-    if (this.novoCliente.nome.trim() && this.novoCliente.email.trim() && this.novoCliente.senha.trim()) {
-      const novoCliente = {
-        id: new Date().getTime(),
-        nome: this.novoCliente.nome.trim(),
-        email: this.novoCliente.email.trim(),
-        senha: this.novoCliente.senha.trim(),
-      };
-
-      this.servicoStorage.addCliente(novoCliente);
-      this.novoCliente = { nome: '', email: '', senha: '' };
-      this.loadClientes();
-    }
-  }
-
-  editCliente(cliente: any): void {
-    this.editedCliente = { ...cliente };
-    this.isEditClienteModalOpen = true;
-  }
-
-  updateCliente(id: number): void {
-    if (this.editedCliente.nome.trim() && this.editedCliente.email.trim() && this.editedCliente.senha.trim()) {
-      this.servicoStorage.updateCliente(id, this.editedCliente);
-      this.closeEditClienteModal();
-      this.loadClientes();
-    }
-  }
-
-  deleteCliente(id: number): void {
-    this.servicoStorage.deleteCliente(id.toString());
-    this.loadClientes();
-  }
-
-  closeEditClienteModal(): void {
-    this.isEditClienteModalOpen = false;
-    this.editedCliente = { id: null, nome: '', email: '', senha: '' };
   }
 
   // Categorias
   categorias: string[] = [];
-  novaCategoria: string = '';
   categoriaEditada: string = '';
   categoriaSendoEditada: string | null = null;
   isEditCategoriaModalOpen: boolean = false;
@@ -135,9 +39,11 @@ export class CrudCategoriaComponent implements OnInit {
   }
 
   addCategoria(): void {
-    if (this.novaCategoria.trim()) {
-      this.servicoStorage.addCategoria(this.novaCategoria.trim());
-      this.novaCategoria = '';
+    let novaCategoria = this.categoriaInput.nativeElement.value;
+    console.log(novaCategoria);
+    if (novaCategoria.trim()) {
+      this.servicoStorage.addCategoria(novaCategoria.trim());
+      this.categoriaInput.nativeElement.value = '';
       this.loadCategorias();
     }
   }
@@ -150,8 +56,11 @@ export class CrudCategoriaComponent implements OnInit {
 
   updateCategoria(): void {
     if (this.categoriaEditada.trim() && this.categoriaSendoEditada) {
-      this.servicoStorage.updateCategoria(this.categoriaSendoEditada, this.categoriaEditada.trim());
-      this.closeEditCategoriaModal();
+      this.servicoStorage.updateCategoria(
+        this.categoriaSendoEditada,
+        this.categoriaEditada.trim()
+      );
+      this.closeEditModal();
       this.loadCategorias();
     }
   }
@@ -161,9 +70,30 @@ export class CrudCategoriaComponent implements OnInit {
     this.loadCategorias();
   }
 
-  closeEditCategoriaModal(): void {
+  openEditModal(categoria: string): void {
+    this.categoriaEditada = categoria;
+    this.isEditCategoriaModalOpen = true;
+  }
+
+  closeEditModal(): void {
     this.isEditCategoriaModalOpen = false;
-    this.categoriaEditada = '';
-    this.categoriaSendoEditada = null;
+  }
+
+  saveCategoriaEditada(): void {
+    const novoValor = this.editCategoryInput.nativeElement.value.trim();
+    if (novoValor) {
+      const index = this.categorias.indexOf(this.categoriaEditada);
+      if (index !== -1) {
+        this.categorias[index] = novoValor;
+        this.servicoStorage.saveCategorias(this.categorias);
+        this.closeEditModal();
+      }
+    } else {
+      alert('O valor da categoria não pode ser vazio.');
+    }
+  }
+
+  goBack(): void {
+    window.history.back();
   }
 }

@@ -1,134 +1,33 @@
 <main>
   <div id="container">
-    <h1>Gerenciamento de Serviços e Clientes</h1>
- 
-    <section id="servicos-section">
-      <h2>Adicionar Serviço</h2>
-      <form id="servico-form" (submit)="addServico(); $event.preventDefault();">
-        <input
-          id="servico-input"
-          type="text"
-          [(ngModel)]="novoServico.descricaoEquipamento"
-          placeholder="Descrição do Equipamento"
-          name="descricaoEquipamento"
-          required
-        />
-        <input
-          id="erro-input"
-          type="text"
-          [(ngModel)]="novoServico.descricaoErro"
-          placeholder="Descrição do Erro"
-          name="descricaoErro"
-          required
-        />
-        <input
-          id="preco-input"
-          type="text"
-          [(ngModel)]="novoServico.preco"
-          placeholder="Preço"
-          name="preco"
-          required
-        />
-        <button type="submit">Adicionar Serviço</button>
-      </form>
-
-      <ul id="servicos-lista">
-        <li *ngFor="let servico of servicos" class="servico-item">
-          <span>{{ servico.descricaoEquipamento }} - {{ servico.status }}</span>
-          <button (click)="editServico(servico)">Editar</button>
-          <button (click)="deleteServico(servico.id)">Excluir</button>
+    <h1>Categorias de Equipamentos</h1>
+    <form id="category-form">
+      <input type="text" id="category-input" placeholder="Nova Categoria" #categoriaInput>
+      <button-material (click)="addCategoria()" [text]="'Adicionar'"></button-material>
+    </form>
+    <div id="category-list">
+      <ul id="categories">
+        <li *ngFor="let categoria of categorias" class="category-item">
+          <span>{{ categoria }}</span>
+          <div>
+            <button (click)="editCategoria(categoria)">Editar</button>
+            <button (click)="deleteCategoria(categoria)">Excluir</button>
+          </div>
         </li>
+
       </ul>
-    </section>
-
-    <section id="clientes-section">
-      <h2>Adicionar Cliente</h2>
-      <form id="cliente-form" (submit)="addCliente(); $event.preventDefault();">
-        <input
-          id="nome-input"
-          type="text"
-          [(ngModel)]="novoCliente.nome"
-          placeholder="Nome do Cliente"
-          name="nome"
-          required
-        />
-        <input
-          id="email-input"
-          type="email"
-          [(ngModel)]="novoCliente.email"
-          placeholder="Email do Cliente"
-          name="email"
-          required
-        />
-        <input
-          id="senha-input"
-          type="password"
-          [(ngModel)]="novoCliente.senha"
-          placeholder="Senha"
-          name="senha"
-          required
-        />
-        <button type="submit">Adicionar Cliente</button>
-      </form>
-
-      <ul id="clientes-lista">
-        <li *ngFor="let cliente of clientes" class="cliente-item">
-          <span>{{ cliente.nome }} - {{ cliente.email }}</span>
-          <button (click)="editCliente(cliente)">Editar</button>
-          <button (click)="deleteCliente(cliente.id)">Excluir</button>
-        </li>
-      </ul>
-    </section>
-
-    <div id="edit-servico-modal" class="modal" [class.show]="isEditServicoModalOpen">
-      <div class="modal-content">
-        <h2>Editar Serviço</h2>
-        <span class="close-button" (click)="closeEditServicoModal()">&times;</span>
-        <input
-          id="edit-servico-descricao"
-          type="text"
-          [(ngModel)]="editedServico.descricaoEquipamento"
-          placeholder="Descrição do Equipamento"
-        />
-        <input
-          id="edit-servico-erro"
-          type="text"
-          [(ngModel)]="editedServico.descricaoErro"
-          placeholder="Descrição do Erro"
-        />
-        <input
-          id="edit-servico-preco"
-          type="text"
-          [(ngModel)]="editedServico.preco"
-          placeholder="Preço"
-        />
-        <button (click)="updateServico(editedServico.id)">Salvar</button>
-      </div>
     </div>
 
-    <div id="edit-cliente-modal" class="modal" [class.show]="isEditClienteModalOpen">
+    <button-material [text]="'Voltar'" (click)="goBack()"></button-material>
+
+    <div *ngIf="isEditCategoriaModalOpen" class="modal">
       <div class="modal-content">
-        <h2>Editar Cliente</h2>
-        <span class="close-button" (click)="closeEditClienteModal()">&times;</span>
-        <input
-          id="edit-cliente-nome"
-          type="text"
-          [(ngModel)]="editedCliente.nome"
-          placeholder="Nome"
-        />
-        <input
-          id="edit-cliente-email"
-          type="email"
-          [(ngModel)]="editedCliente.email"
-          placeholder="Email"
-        />
-        <input
-          id="edit-cliente-senha"
-          type="password"
-          [(ngModel)]="editedCliente.senha"
-          placeholder="Senha"
-        />
-        <button (click)="updateCliente(editedCliente.id)">Salvar</button>
+        <div>
+          <h2>Editar Categoria</h2>
+          <span class="close-button" (click)="closeEditModal()">&times;</span>
+        </div>
+        <input type="text" id="edit-category-input" #editCategoryInput>
+        <button (click)="saveCategoriaEditada()">Salvar</button>
       </div>
     </div>
 
