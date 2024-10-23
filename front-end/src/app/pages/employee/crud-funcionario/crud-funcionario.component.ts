@@ -30,6 +30,17 @@ export class CrudFuncionarioComponent implements OnInit {
     status: 'ativo',
   };
 
+  pessoaEditar = {
+    id: new Date().getTime(),
+    nome: '',
+    senha: '',
+    email: '',
+    nascimento: '',
+    funcao: 'funcionario',
+    status: 'ativo',
+  };
+
+
   constructor(private servicoStorageService: ServicoStorageService) {
     this.funcionarios = this.servicoStorageService.getPerfis();
   }
@@ -66,7 +77,7 @@ export class CrudFuncionarioComponent implements OnInit {
   }
   
   abrirModalEditar(funcionario: any) {
-    this.pessoa = funcionario;
+    this.pessoaEditar = { ...funcionario };
     this.modalEditar = true;
   }
 
@@ -84,7 +95,8 @@ export class CrudFuncionarioComponent implements OnInit {
   }
 
   atualizarFuncionario() {
-    this.servicoStorageService.updateCliente(this.pessoa.id, this.pessoa);
+    this.servicoStorageService.updateCliente(this.pessoaEditar.id, this.pessoaEditar);
+    console.log(this.pessoa);
     this.atualizarListaFuncionarios();
     this.pessoa = {
       id: new Date().getTime(),
