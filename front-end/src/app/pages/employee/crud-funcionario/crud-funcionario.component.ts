@@ -19,6 +19,8 @@ export class CrudFuncionarioComponent implements OnInit {
   funcionarios: any[] = [];
 
   modalEditar = false;
+  modalExcluir = false;
+  pessoaParaExcluir: any = null;
 
   pessoa = {
     id: new Date().getTime(),
@@ -71,9 +73,22 @@ export class CrudFuncionarioComponent implements OnInit {
     }
   }
 
-  deleteFuncionario(id: string) {
-    this.servicoStorageService.deleteCliente(id);
-    this.atualizarListaFuncionarios();
+  abrirModalExcluir(funcionario: any) {
+    this.pessoaParaExcluir = funcionario;
+    this.modalExcluir = true;
+  }
+
+  fecharModalExcluir() {
+    this.modalExcluir = false;
+    this.pessoaParaExcluir = null;
+  }
+
+  confirmarExcluirFuncionario() {
+    if (this.pessoaParaExcluir) {
+      this.servicoStorageService.deleteCliente(this.pessoaParaExcluir.id);
+      this.atualizarListaFuncionarios();
+      this.fecharModalExcluir();
+    }
   }
   
   abrirModalEditar(funcionario: any) {

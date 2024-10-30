@@ -11,7 +11,7 @@
           <span>{{ categoria }}</span>
           <div>
             <button (click)="editCategoria(categoria)">Editar</button>
-            <button (click)="deleteCategoria(categoria)">Excluir</button>
+            <button (click)="openDeleteModal(categoria)">Excluir</button>
           </div>
         </li>
 
@@ -26,8 +26,20 @@
           <h2>Editar Categoria</h2>
           <span class="close-button" (click)="closeEditModal()">&times;</span>
         </div>
-        <input type="text" id="edit-category-input" #editCategoryInput>
+        <input type="text" id="edit-category-input" [(ngModel)]="categoriaEditada" #editCategoryInput>
         <button (click)="saveCategoriaEditada()">Salvar</button>
+      </div>
+    </div>
+
+    <div *ngIf="isDeleteCategoriaModalOpen" class="modal">
+      <div class="modal-content">
+        <div>
+          <h2>Confirmar Exclusão</h2>
+          <span class="close-button" (click)="closeDeleteModal()">&times;</span>
+        </div>
+        <p>Tem certeza de que deseja excluir a categoria "{{ categoriaParaExcluir }}"?</p>
+        <button (click)="confirmDeleteCategoria()">Confirmar</button>
+        <button (click)="closeDeleteModal()">Cancelar</button>
       </div>
     </div>
 
