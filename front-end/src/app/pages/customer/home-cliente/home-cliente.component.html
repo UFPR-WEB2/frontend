@@ -43,7 +43,7 @@
                 <!--<button *ngIf="servico.status === 'APROVADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> APROVADA: Sem botão de ação-->
                 <button *ngIf="servico.status === 'REJEITADA'" (click)="resgatarServico(servico.id)">Resgatar Serviço</button> <!--Apenas a acao de resgatar servico -->
                 <button *ngIf="servico.status === 'REDIRECIONADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->
-                <button *ngIf="servico.status === 'ARRUMADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->
+                <button *ngIf="servico.status === 'ARRUMADA'" (click)="pagarServico(servico.id)">Pagar Serviço</button> <!--Leva para a tela de visualizar-->
                 <button *ngIf="servico.status === 'AGUARDANDO PAGAMENTO'" (click)="pagarServico(servico.id)">Pagar Serviço</button> <!--Leva para a tela de pagamento-->
                 <button *ngIf="servico.status === 'PAGA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->
                 <button *ngIf="servico.status === 'FINALIZADA'" (click)="visualizarServico(servico.id)">Visualizar Serviço</button> <!--Leva para a tela de visualizar-->

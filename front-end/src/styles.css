@@ -8,3 +8,21 @@
     --blue2: #3282B8;
     --blue3: #BBE1FA;
 }
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+	--bg-color: radial-gradient(
+		circle at center,
+		var(--gray),
+		var(--black) 60%
+	);
+	background: var(--bg-color);
+	width: 100vw;
+	min-height: 100dvh;
+}

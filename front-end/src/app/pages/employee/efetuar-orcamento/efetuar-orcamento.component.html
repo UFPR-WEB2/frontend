@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orcamento</title>
+    <link rel="stylesheet" href="../../customer/style/style-padrao.css">
+</head>
+
+<body>
+    <app-header-cliente></app-header-cliente>
+    <div id="principal">
+        <main>
+            <div id="container">
+                <h1>Efetuar Orçamento</h1>
+                <div id="informacoes" *ngIf="item">
+                    <h2 style="padding-bottom: 1dvh;">Detalhes da Solicitação</h2>
+                    <div class="item-orcamento">
+                        <h3>Descrição do Equipamento:</h3>
+                        <p>{{item.descricaoEquipamento}}</p>
+                    </div>
+                    <div class="item-orcamento">
+                        <h3>Categoria:</h3>
+                        <p>{{item.categoria}}</p>
+                    </div>
+                    <div class="item-orcamento">
+                        <h3>Defeito:</h3>
+                        <p>{{item.descricaoErro}}</p>
+                    </div>
+                    <div>
+
+                    </div>
+                    <h2 style="padding-bottom: 1dvh;">Dados do cliente</h2>
+                    <div id="dados-cliente">
+                        <div class="item-orcamento">
+                            <h3>Nome cliente:</h3>
+                            <p>{{cliente.nome}}</p>
+                        </div>
+                        <div class="item-orcamento">
+                            <h3>E-mail cliente:</h3>
+                            <p>{{cliente.email}}</p>
+                        </div>
+                    </div>
+                </div>
+                <form #valorForm="ngForm" (ngSubmit)="onSubmit(valorForm)" class="orcamento-form">
+                    <div class="form-group">
+                        <label for="valor">Valor Monetário:</label>
+                        <input type="text" id="valor" name="valor" [(ngModel)]="valor" #valorInput="ngModel" required
+                            (keydown)="isNumberKey($event)"
+                        (ngModelChange)="onValueChange($event)"
+                        (blur)="formatarValor()" 
+                        />
+                        <div *ngIf="valorInput.invalid && (valorInput.dirty || valorInput.touched)">
+                            <small *ngIf="valorInput.errors?.['required']">O valor é obrigatório.</small>
+                            <small *ngIf="valorInput.errors?.['min']">O valor deve ser positivo.</small>
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="valorInput.invalid" class="submit-button">Enviar</button>
+                </form>
+
+                <button onclick="history.back()">Voltar</button>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
