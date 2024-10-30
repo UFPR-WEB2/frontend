@@ -1,43 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orcamento</title>
-    <link rel="stylesheet" href="../style/style-padrao.css">
-</head>
-
-<body>
-    <app-header-cliente></app-header-cliente>
-    <div id="principal">
-        <main>
-            <div id="container">
-                <h1>Pagamento</h1>
-                <h1>Detalhes da Solicitação</h1>
-                <div id="informacoes" *ngIf="item">
-                    <div class="item-orcamento">
-                        <h3>Descrição do Equipamento:</h3>
-                        <p>{{item.descricaoEquipamento}}</p>
-                    </div>
-                    <div class="item-orcamento">
-                        <h3>Categoria:</h3>
-                        <p>{{item.categoria}}</p>
-                    </div>
-                    <div class="item-orcamento">
-                        <h3>Defeito:</h3>
-                        <p>{{item.descricaoErro}}</p>
-                    </div>
-                    <div class="item-orcamento" id="price">
-                        <h3>Total a pagar:</h3>
-                        <p>{{item.preco}}</p>
-                    </div>
+<app-header-cliente></app-header-cliente>
+<div id="principal">
+    <main>
+        <div id="container">
+            <h1>Pagamento</h1>
+            <h1>Detalhes da Solicitação</h1>
+            <div id="informacoes" *ngIf="item">
+                <div class="item-orcamento">
+                    <h3>Descrição do Equipamento:</h3>
+                    <p>{{item.descricaoEquipamento}}</p>
                 </div>
-                <button (click)="efetuarPagamento()">Pagar</button>
-                <button onclick="history.back()" id="btn-voltar">Voltar</button>
+                <div class="item-orcamento">
+                    <h3>Categoria:</h3>
+                    <p>{{item.categoria}}</p>
+                </div>
+                <div class="item-orcamento">
+                    <h3>Defeito:</h3>
+                    <p>{{item.descricaoErro}}</p>
+                </div>
+                <div class="item-orcamento" id="price">
+                    <h3>Total a pagar:</h3>
+                    <p>{{item.preco}}</p>
+                </div>
             </div>
-        </main>
-    </div>
-</body>
-
-</html>
+            <button (click)="efetuarPagamento()">Pagar</button>
+            <button onclick="history.back()" id="btn-voltar">Voltar</button>
+        </div>
+    </main>
+</div>
