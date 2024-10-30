@@ -9,12 +9,10 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './crud-funcionario.component.html',
-  styleUrl: './crud-funcionario.component.css'
+  styleUrl: './crud-funcionario.component.css',
 })
-
 export class CrudFuncionarioComponent implements OnInit {
-
-  @ViewChild('formFuncionario') formFuncionario! : NgForm;
+  @ViewChild('formFuncionario') formFuncionario!: NgForm;
 
   funcionarios: any[] = [];
 
@@ -42,14 +40,15 @@ export class CrudFuncionarioComponent implements OnInit {
     status: 'ativo',
   };
 
-
   constructor(private servicoStorageService: ServicoStorageService) {
     this.funcionarios = this.servicoStorageService.getPerfis();
   }
 
   atualizarListaFuncionarios() {
     const perfis = this.servicoStorageService.getPerfis();
-    this.funcionarios = perfis.filter(perfil => perfil.funcao === 'funcionario');
+    this.funcionarios = perfis.filter(
+      (perfil) => perfil.funcao === 'funcionario'
+    );
   }
 
   ngOnInit(): void {
@@ -74,8 +73,12 @@ export class CrudFuncionarioComponent implements OnInit {
   }
 
   abrirModalExcluir(funcionario: any) {
-    this.pessoaParaExcluir = funcionario;
-    this.modalExcluir = true;
+    if (this.funcionarios.length > 1) {
+      this.pessoaParaExcluir = funcionario;
+      this.modalExcluir = true;
+    } else {
+      alert('Não é possível excluir o último funcionário.');
+    }
   }
 
   fecharModalExcluir() {
@@ -90,7 +93,7 @@ export class CrudFuncionarioComponent implements OnInit {
       this.fecharModalExcluir();
     }
   }
-  
+
   abrirModalEditar(funcionario: any) {
     this.pessoaEditar = { ...funcionario };
     this.modalEditar = true;
@@ -110,7 +113,10 @@ export class CrudFuncionarioComponent implements OnInit {
   }
 
   atualizarFuncionario() {
-    this.servicoStorageService.updateCliente(this.pessoaEditar.id, this.pessoaEditar);
+    this.servicoStorageService.updateCliente(
+      this.pessoaEditar.id,
+      this.pessoaEditar
+    );
     console.log(this.pessoa);
     this.atualizarListaFuncionarios();
     this.pessoa = {
@@ -124,5 +130,4 @@ export class CrudFuncionarioComponent implements OnInit {
     };
     this.modalEditar = false;
   }
-
 }
