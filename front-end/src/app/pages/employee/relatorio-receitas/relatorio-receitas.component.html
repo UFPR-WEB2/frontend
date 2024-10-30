@@ -1,4 +1,3 @@
-<body>
 <header>
   <div id="icon"></div>
   <div id="header-container">
@@ -20,7 +19,7 @@
         <input type="date" id="end-date" [(ngModel)]="endDate" name="end-date">
         <button type="submit">Filtrar</button>
         <button type="reset" (click)="limparFiltro()">Limpar</button>
-    </form>
+      </form>
     </div>
     <div id="report-container">
       <h2>Receitas por Dia</h2>
@@ -37,16 +36,15 @@
               <tr *ngFor="let receita of receitasFiltradas">
                 <td>{{ receita.data }}</td>
                 <td>R$ {{ receita.valor | number:'1.2-2' }}</td>
-            </tr>
+              </tr>
             </tbody>
-            </table>
-            </div>
-            <div id="total">
-              <h3>Total: {{ calcularTotal() | currency:'BRL' }}</h3>
-          </div>
-       </div>
-       <button (click)="gerarPDF()">Gerar PDF</button>
+          </table>
+        </div>
+        <div id="total">
+          <h3>Total: {{ calcularTotal() | currency:'BRL' }}</h3>
+        </div>
+      </div>
+      <button (click)="gerarPDF()">Gerar PDF</button>
+    </div>
   </div>
-</div>
 </main>
-</body>
