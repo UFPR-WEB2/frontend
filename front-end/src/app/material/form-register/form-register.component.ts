@@ -146,6 +146,7 @@ export class FormRegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       console.log('Formulário válido:', this.registerForm.value);
+      this.goToLogin();
     } else {
       console.log('Formulário inválido');
       this.registerForm.markAllAsTouched();
