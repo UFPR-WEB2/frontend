@@ -5,6 +5,8 @@
   box-sizing: border-box;
 }
 
+
+
 body {
   --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
   background: var(--bg-color);
@@ -189,6 +191,7 @@ button:active {
 
 .arrumada {
   background: blue;
+
 }
 
 .paga {

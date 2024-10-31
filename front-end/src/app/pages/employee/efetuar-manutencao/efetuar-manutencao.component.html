@@ -1,67 +1,69 @@
 <app-header-cliente></app-header-cliente>
 <div id="principal">
-    <main>
-        <div id="container">
-            <h1>Efetuar Manutenção</h1>
-            <div id="informacoes" *ngIf="item">
-                <h2 style="padding-bottom: 1dvh;">Detalhes da Solicitação</h2>
-                <div class="item-orcamento">
-                    <h3>Descrição do Equipamento:</h3>
-                    <p>{{item.descricaoEquipamento}}</p>
-                </div>
-                <div class="item-orcamento">
-                    <h3>Categoria:</h3>
-                    <p>{{item.categoria}}</p>
-                </div>
-                <div class="item-orcamento">
-                    <h3>Defeito:</h3>
-                    <p>{{item.descricaoErro}}</p>
-                </div>
-                <div>
-
-                </div>
-                <h2 style="padding-bottom: 1dvh;">Dados do cliente</h2>
-                <div id="dados-cliente">
-                    <div class="item-orcamento">
-                        <h3>Nome cliente:</h3>
-                        <p>{{cliente.nome}}</p>
-                    </div>
-                    <div class="item-orcamento">
-                        <h3>E-mail cliente:</h3>
-                        <p>{{cliente.email}}</p>
-                    </div>
-                </div>
-            </div>
-            <button *ngIf="!mostrarFormulario && !mostrarComboBox" id="button-conserto" (click)="efetuarManutencao()">Efetuar Manutenção</button>
-            <button *ngIf="!mostrarFormulario && !mostrarComboBox" (click)="mostrarRedirecionamento()">Redirecionar</button>
-            
-            <!-- Formulário de Efetuar Manutenção -->
-            <div *ngIf="mostrarFormulario">
-              <div class="item-form">
-                <h3>Descrição da Manutenção</h3>
-                <textarea [(ngModel)]="descricaoManutencao" placeholder="Digite a descrição da manutenção"></textarea>
-              </div>
-              <div class="item-form">
-                <h3>Orientações para o Cliente</h3>
-                <textarea [(ngModel)]="orientacoesCliente" placeholder="Digite as orientações para o cliente"></textarea>
-              </div>
-              <button (click)="onSubmit()">Registrar Manutenção</button>
-            </div>
-            
-            <!-- ComboBox para Redirecionamento de Funcionário -->
-            <div *ngIf="mostrarComboBox">
-              <div class="item-form">
-                <h3>Escolher Funcionário para Redirecionamento</h3>
-                <select [(ngModel)]="funcionarioSelecionado">
-                  <option *ngFor="let funcionario of funcionarios" [value]="funcionario.nome">
-                    {{ funcionario.nome }}
-                  </option>
-                </select>
-              </div>
-              <button (click)="redirecionar()">Confirmar Redirecionamento</button>
-            </div>
-            
-            <button onclick="history.back()">Voltar</button>
+  <main>
+    <div id="container">
+      <h1>Efetuar Manutenção</h1>
+      <div id="informacoes" *ngIf="item">
+        <h2 style="padding-bottom: 1dvh;">Detalhes da Solicitação</h2>
+        <div class="item-orcamento">
+          <h3>Descrição do Equipamento:</h3>
+          <p>{{item.descricaoEquipamento}}</p>
         </div>
-    </main>
+        <div class="item-orcamento">
+          <h3>Categoria:</h3>
+          <p>{{item.categoria}}</p>
+        </div>
+        <div class="item-orcamento">
+          <h3>Defeito:</h3>
+          <p>{{item.descricaoErro}}</p>
+        </div>
+        <div>
+
+        </div>
+        <h2 style="padding-bottom: 1dvh;">Dados do cliente</h2>
+        <div id="dados-cliente">
+          <div class="item-orcamento">
+            <h3>Nome cliente:</h3>
+            <p>{{cliente.nome}}</p>
+          </div>
+          <div class="item-orcamento">
+            <h3>E-mail cliente:</h3>
+            <p>{{cliente.email}}</p>
+          </div>
+        </div>
+      </div>
+      <button *ngIf="!mostrarFormulario && !mostrarComboBox" id="button-conserto" class="first_button"
+        (click)="efetuarManutencao()">Efetuar
+        Manutenção</button>
+      <button *ngIf="!mostrarFormulario && !mostrarComboBox" (click)="mostrarRedirecionamento()">Redirecionar</button>
+
+      <!-- Formulário de Efetuar Manutenção -->
+      <div *ngIf="mostrarFormulario" class="item-form">
+        <div>
+          <h3>Descrição da Manutenção</h3>
+          <textarea [(ngModel)]="descricaoManutencao" placeholder="Digite a descrição da manutenção"></textarea>
+        </div>
+        <div>
+          <h3>Orientações para o Cliente</h3>
+          <textarea [(ngModel)]="orientacoesCliente" placeholder="Digite as orientações para o cliente"></textarea>
+        </div>
+        <button (click)="onSubmit()">Registrar Manutenção</button>
+      </div>
+
+      <!-- ComboBox para Redirecionamento de Funcionário -->
+      <div *ngIf="mostrarComboBox" class="item-form">
+        <div>
+          <h3>Escolher Funcionário para Redirecionamento</h3>
+          <select [(ngModel)]="funcionarioSelecionado" class="classic">
+            <option *ngFor="let funcionario of funcionarios" [value]="funcionario.nome">
+              {{ funcionario.nome }}
+            </option>
+          </select>
+        </div>
+        <button (click)="redirecionar()">Confirmar Redirecionamento</button>
+      </div>
+
+      <button onclick="history.back()">Voltar</button>
+    </div>
+  </main>
 </div>

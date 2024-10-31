@@ -31,18 +31,9 @@
                 }">
               {{ servico.status }}
             </td>
-            <td class="item" [ngClass]="{
-              'aberta': servico.status === 'ABERTA',
-              'orcada': servico.status === 'ORÇADA',
-              'rejeitada': servico.status === 'REJEITADA',
-              'aprovada': servico.status === 'APROVADA',
-              'redirecionada': servico.status === 'REDIRECIONADA',
-              'arrumada': servico.status === 'ARRUMADA',
-              'paga': servico.status === 'PAGA',
-              'finalizada': servico.status === 'FINALIZADA'
-            }">
-              <button *ngIf="servico.status === 'ABERTA'" (click)="Efetuaorcamento(servico.id)">Efetuar
-                Orçamento</button>
+            <td class="item" >
+              <button *ngIf=" servico.status==='ABERTA'" (click)=" Efetuaorcamento(servico.id)">Efetuar
+              Orçamento</button>
               <button *ngIf="servico.status === 'APROVADA'" (click)="efetuarManutencao(servico.id)">Efetuar
                 Manutenção</button>
               <button *ngIf="servico.status === 'REDIRECIONADA'" (click)="efetuarManutencao(servico.id)">Efetuar
