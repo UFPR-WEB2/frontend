@@ -24,8 +24,11 @@
                 <small class="text-danger" *ngIf="cpf?.hasError('required')">
                     CPF é obrigatório.
                 </small>
-                <small class="text-danger" *ngIf="cpf?.hasError('invalidCpf')">
+                <small class="text-danger" *ngIf="cpf?.hasError('invalidCpfFormat')">
                     CPF com formato inválido.
+                </small>
+                <small class="text-danger" *ngIf="cpf?.hasError('invalidCpf')">
+                    CPF é inválido.
                 </small>
             </div>
         </div>
@@ -48,8 +51,11 @@
                 <small class="text-danger" *ngIf="cep?.hasError('required')">
                     CEP é obrigatório.
                 </small>
-                <small class="text-danger" *ngIf="cep?.hasError('invalidCep')">
+                <small class="text-danger" *ngIf="cep?.hasError('invalidCepFormat')">
                     CEP com formato inválido.
+                </small>
+                <small class="text-danger" *ngIf="cep?.hasError('invalidCep')">
+                    CEP não encontrado.
                 </small>
             </div>
         </div>
