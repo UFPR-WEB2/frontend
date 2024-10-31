@@ -19,12 +19,15 @@ export class EfetuarManutencaoComponent {
   item: any;
   servicos: any[] = [];
   perfis: any[] = [];
+  funcionarios: any[] = [];  // Lista de funcionários
   cliente: any;
   valor: string = '';
   usuarioLogado: any;
   mostrarFormulario: boolean = false;
+  mostrarComboBox: boolean = false;  // Controla a visibilidade do comboBox
   descricaoManutencao: string = '';
   orientacoesCliente: string = '';
+  funcionarioSelecionado: string = '';  // Variável para armazenar o funcionário selecionado
 
   constructor(
     private servicoStorage: ServicoStorageService,
@@ -46,6 +49,9 @@ export class EfetuarManutencaoComponent {
         this.perfis = this.servicoStorage.getPerfis();
         const clienteCriador = this.perfis.find(p => p.nome === this.item.cliente);
         this.cliente = clienteCriador;
+
+        // Filtra os perfis para obter somente os funcionários
+        this.funcionarios = this.perfis.filter(perfil => perfil.funcao === 'funcionario');
       } else {
         console.error('Serviço não encontrado');
       }
@@ -61,32 +67,29 @@ export class EfetuarManutencaoComponent {
     }
   }
 
-  escolherOutroFuncionario(): any {
-    let funcionarios = this.servicoStorage.getPerfis().filter(f => f.funcao === 'funcionario');
-    const outroFuncionario = funcionarios.filter(f => f.nome !== this.usuarioLogado.nome)[0];
-    return outroFuncionario || null;
+  efetuarManutencao() {
+    this.mostrarFormulario = true;
+    this.mostrarComboBox = false;  // Garante que o comboBox esteja oculto
+  }
+
+  mostrarRedirecionamento() {
+    this.mostrarComboBox = true;
+    this.mostrarFormulario = false;  // Garante que o formulário esteja oculto
   }
 
   redirecionar() {
     const confirmacao = window.confirm('Você tem certeza que deseja redirecionar este serviço para outro funcionário?');
-    if (confirmacao) {
-      const outroFuncionario = this.escolherOutroFuncionario();
-      if (outroFuncionario) {
-        const dadosAtualizados = {
-          status: 'REDIRECIONADA',
-          funcionario: outroFuncionario.nome
-        };
-        window.alert('Serviço redirecionado com sucesso!');
-        this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
-        this.router.navigate(['/funcionario/home']);
-      } else {
-        window.alert('Nenhum outro funcionário disponível para redirecionar.');
-      }
+    if (confirmacao && this.funcionarioSelecionado) {
+      const dadosAtualizados = {
+        status: 'REDIRECIONADA',
+        funcionario: this.funcionarioSelecionado
+      };
+      window.alert('Serviço redirecionado com sucesso!');
+      this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
+      this.router.navigate(['/funcionario/home']);
+    } else {
+      window.alert('Por favor, selecione um funcionário para redirecionar.');
     }
-  }
-
-  efetuarManutencao() {
-    this.mostrarFormulario = true;
   }
 
   onSubmit() {
@@ -109,3 +112,4 @@ export class EfetuarManutencaoComponent {
     }
   }
 }
+

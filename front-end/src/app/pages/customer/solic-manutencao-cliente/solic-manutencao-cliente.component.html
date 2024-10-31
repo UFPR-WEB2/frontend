@@ -1,76 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abrir Manuntecao</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="./solic-manutencao-cliente.component.css">
-    <link rel="stylesheet" href="../style/style-padrao.css">
-</head>
-
-<body>
-    <app-header-cliente></app-header-cliente>
-    <div id="principal">
-        <main>
-            <div id="container">
-                <h1>Solicitação de Manutenção</h1>
-                <form action="#" method="post" [formGroup]="solicForm" (ngSubmit)="onSubmit()">
-                    <label for="equipmentDescription">Descrição do equipamento</label>
-                    <input type="text" id="equipmentDescription" name="equipmentDescription" required
-                        placeholder="Descrição" formControlName="equipmentDescription">
-                    <small class="text-danger"
-                        *ngIf="equipmentDescription?.hasError('required') && equipmentDescription?.touched">
-                        A Descrição do equipamento é obrigatória.
-                    </small>
-                    <small class="text-danger"
-                        *ngIf="equipmentDescription?.hasError('minlength') && equipmentDescription?.touched">
-                        A descrição do equipamento deve ter pelo menos 15 caracteres.
-                    </small>
-                    <small class="text-danger" *ngIf="equipmentDescription?.hasError('maxlength')">
-                        A descrição do equipamento deve ter no máximo 200 caracteres.
-                    </small>
-                    <label for="equipmentCategory">Categoria do equipamento</label>
-                    <select id="equipmentCategory" name="equipmentCategory" class="dropdown"
-                        formControlName="equipmentCategory">
-                        <option value="" disabled selected>Selecione uma categoria</option>
-                        <option value="eletrico">Desktop</option>
-                        <option value="hidraulico">Notebook</option>
-                        <option value="mecanico">Impressora</option>
-                        <option value="mecanico">Mouse</option>
-                        <option value="outros">Teclado</option>
-                    </select>
-                    <small class="text-danger"
-                        *ngIf="equipmentCategory?.hasError('required') && equipmentCategory?.touched">
-                        Categoria é obrigatório.
-                    </small>
-                    <label for="defectDescription">Descrição do defeito </label>
-                    <textarea id="defectDescription" name="defectDescription" required placeholder="Defeito"
-                        formControlName="defectDescription"></textarea>
-                    <small class="text-danger"
-                        *ngIf="defectDescription?.hasError('required') && defectDescription?.touched">
-                        A descrição do defeito é obrigatória.
-                    </small>
-                    <small class="text-danger"
-                        *ngIf="defectDescription?.hasError('minlength') && defectDescription?.touched">
-                        A descrição do defeito deve ter pelo menos 30 caracteres.
-                    </small>
-                    <small class="text-danger" *ngIf="equipmentDescription?.hasError('maxlength')">
-                        A descrição do defeito deve ter no máximo 500 caracteres.
-                    </small>
-                    <input type="hidden" id="request-date" name="request-date" value="">
-                    <input type="hidden" id="request-status" name="request-status" value="ABERTA">
-                    <button>Enviar</button>
-                </form>
-                <button onclick="history.back()" id="btn-voltar">Voltar</button>
-            </div>
-        </main>
-    </div>
-</body>
-
-</html>
+<app-header-cliente></app-header-cliente>
+<div id="principal">
+    <main>
+        <div id="container">
+            <h1>Solicitação de Manutenção</h1>
+            <form action="#" method="post" [formGroup]="solicForm" (ngSubmit)="onSubmit()">
+                <label for="equipmentDescription">Descrição do equipamento</label>
+                <input type="text" id="equipmentDescription" name="equipmentDescription" required
+                    placeholder="Descrição" formControlName="equipmentDescription">
+                <small class="text-danger"
+                    *ngIf="equipmentDescription?.hasError('required') && equipmentDescription?.touched">
+                    A Descrição do equipamento é obrigatória.
+                </small>
+                <small class="text-danger"
+                    *ngIf="equipmentDescription?.hasError('minlength') && equipmentDescription?.touched">
+                    A descrição do equipamento deve ter pelo menos 15 caracteres.
+                </small>
+                <small class="text-danger" *ngIf="equipmentDescription?.hasError('maxlength')">
+                    A descrição do equipamento deve ter no máximo 200 caracteres.
+                </small>
+                <label for="equipmentCategory">Categoria do equipamento</label>
+                <select id="equipmentCategory" name="equipmentCategory" class="dropdown"
+                    formControlName="equipmentCategory">
+                    <option value="" disabled selected>Selecione uma categoria</option>
+                    <option value="eletrico">Desktop</option>
+                    <option value="hidraulico">Notebook</option>
+                    <option value="mecanico">Impressora</option>
+                    <option value="mecanico">Mouse</option>
+                    <option value="outros">Teclado</option>
+                </select>
+                <small class="text-danger"
+                    *ngIf="equipmentCategory?.hasError('required') && equipmentCategory?.touched">
+                    Categoria é obrigatório.
+                </small>
+                <label for="defectDescription">Descrição do defeito </label>
+                <textarea id="defectDescription" name="defectDescription" required placeholder="Defeito"
+                    formControlName="defectDescription"></textarea>
+                <small class="text-danger"
+                    *ngIf="defectDescription?.hasError('required') && defectDescription?.touched">
+                    A descrição do defeito é obrigatória.
+                </small>
+                <small class="text-danger"
+                    *ngIf="defectDescription?.hasError('minlength') && defectDescription?.touched">
+                    A descrição do defeito deve ter pelo menos 30 caracteres.
+                </small>
+                <small class="text-danger" *ngIf="equipmentDescription?.hasError('maxlength')">
+                    A descrição do defeito deve ter no máximo 500 caracteres.
+                </small>
+                <input type="hidden" id="request-date" name="request-date" value="">
+                <input type="hidden" id="request-status" name="request-status" value="ABERTA">
+                <button>Enviar</button>
+            </form>
+            <button onclick="history.back()" id="btn-voltar">Voltar</button>
+        </div>
+    </main>
+</div>
