@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface ICliente {
+export interface ICliente {
   nome: string;
   email: string;
   cpf: string;
@@ -20,12 +21,16 @@ interface ICliente {
   providedIn: 'root',
 })
 export class CustomerService {
-  private apiUrl = 'https://localhost:8080/api/cliente';
+  private apiUrl = 'http://localhost:9090/api/cliente'; //colocar o 8080 padrao ou a que cada usa
 
   constructor(private http: HttpClient) {}
 
   cadastrarCliente(cliente: ICliente): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, cliente);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', 
+    });
+  
+    return this.http.post(`${this.apiUrl}`, cliente, { headers });
   }
 
   listarClientes(): Observable<any> {

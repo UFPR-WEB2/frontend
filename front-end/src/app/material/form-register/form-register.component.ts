@@ -15,18 +15,22 @@ import {
   cpfValidatorAndFormatter,
   phoneValidatorAndFormatter,
 } from '../../utils/validators';
+import { HttpClientModule } from '@angular/common/http';
+import { CustomerService } from '../../services/api/customer.service';
+import { ICliente } from '../../services/api/customer.service'; // Ajuste o caminho conforme necessário
 
 @Component({
   selector: 'app-form-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './form-register.component.html',
   styleUrl: './form-register.component.css',
+  providers: [CustomerService]
 })
 export class FormRegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private customerService: CustomerService) {
     this.registerForm = this.fb.group({
       name: [
         '',
@@ -114,8 +118,31 @@ export class FormRegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log('Formulário válido:', this.registerForm.value);
-      this.goToLogin();
+      const formValues = this.registerForm.value;
+
+      const cliente: ICliente = {
+        nome: formValues.name,
+        email: formValues.email,
+        cpf: formValues.cpf.replace(/\D/g, ''), 
+        telefone: formValues.phone.replace(/\D/g, ''),
+        cep: formValues.cep.replace(/\D/g, ''), 
+        pais: formValues.country,
+        estado: formValues.state,
+        cidade: formValues.city,
+        rua: formValues.street,
+        numero: formValues.numero,
+        complemento: formValues.complemento || '',
+      };
+  
+      this.customerService.cadastrarCliente(cliente).subscribe(
+        (response) => {
+          console.log('Cliente cadastrado com sucesso:', response);
+          this.goToLogin(); 
+        },
+        (error) => {
+          console.log('Erro ao cadastrar cliente:', error); 
+        }
+      );
     } else {
       console.log('Formulário inválido');
       this.registerForm.markAllAsTouched();
