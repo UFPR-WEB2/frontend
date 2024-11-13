@@ -18,6 +18,6 @@ export class AuthService {
 
     const credentialsJson = JSON.stringify(credentials);
 
-    return this.http.post<any>(`${this.apiUrl}`, credentialsJson, { headers, observe: 'response' });
+    return this.http.post<any>(`${this.apiUrl}/login`, credentialsJson, { headers, observe: 'response' });
   }
 }
