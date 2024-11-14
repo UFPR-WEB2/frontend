@@ -10,17 +10,17 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [HeaderClienteComponent, ButtonComponent, FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] 
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   email: string = '';
   password: string = '';
 
   constructor(private router: Router, private servicoStorage: ServicoStorageService) {}
 
   ngOnInit() {
-    this.servicoStorage.initializePerfis(); 
+    this.servicoStorage.initializePerfis();
   }
 
   goToRegister() {
@@ -35,20 +35,26 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    if (!this.email || !this.password) {
+      alert('É necessário preencher todos os campos.');
+      return;
+    }
+    
     console.log(this.email);
     const usuarios = this.servicoStorage.getPerfis();
     const usuario = usuarios.find(u => u.email === this.email && u.senha === this.password);
 
     if (usuario) {
-      localStorage.setItem('usuarioLogado', JSON.stringify(usuario)); 
+      localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
       if(usuario.funcao === 'cliente'){
-        this.goToHomeCliente(); 
+        this.goToHomeCliente();
       }else{
         this.goToHomeFuncionario();
       }
-        
+
     } else {
-      alert('Credenciais inválidas'); 
+      alert('Credenciais inválidas');
     }
   }
+
 }
