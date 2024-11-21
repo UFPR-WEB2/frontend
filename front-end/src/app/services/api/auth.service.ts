@@ -20,4 +20,8 @@ export class AuthService {
 
     return this.http.post<any>(`${this.apiUrl}/login`, credentialsJson, { headers, observe: 'response' });
   }
+
+  getSession(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/getSession`, {}, { observe: 'response' });
+  }
 }
