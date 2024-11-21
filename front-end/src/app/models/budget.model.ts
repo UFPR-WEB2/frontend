@@ -2,9 +2,9 @@ import { IMaintenance } from './maintenance.model';
 
 export interface IBudget {
   id: number;
-  precoOrcado: number; // Utilize `number` para BigDecimal
+  precoOrcado: number;
   descricao: string;
-  dataCriacao: string; // Formato ISO de data
-  dataAtualizacao: string; // Formato ISO de data
+  dataCriacao: string;
+  dataAtualizacao: string; 
   maintenance: IMaintenance;
 }
