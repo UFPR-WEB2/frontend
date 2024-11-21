@@ -1,7 +1,8 @@
 export interface ICustomer {
-  id: number;
+  id?: number;
   nome: string;
   email: string;
+  cpf: string,
   telefone: string;
   cep: string;
   pais: string;
@@ -10,5 +11,5 @@ export interface ICustomer {
   rua: string;
   numero: string;
   complemento?: string;
-  ativo: boolean;
+  ativo?: boolean;
 }

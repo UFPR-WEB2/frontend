@@ -17,7 +17,7 @@ import {
 } from '../../utils/validators';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomerService } from '../../services/api/customer.service';
-import { ICliente } from '../../services/api/customer.service'; // Ajuste o caminho conforme necessário
+import { ICustomer } from '../../models/customer.model'; // Ajuste o caminho conforme necessário
 
 @Component({
   selector: 'app-form-register',
@@ -121,7 +121,7 @@ export class FormRegisterComponent {
     if (this.registerForm.valid) {
       const formValues = this.registerForm.value;
 
-      const cliente: ICliente = {
+      const cliente: ICustomer = {
         nome: formValues.name,
         email: formValues.email,
         cpf: formValues.cpf.replace(/\D/g, ''),
