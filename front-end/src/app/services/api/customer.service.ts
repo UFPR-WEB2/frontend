@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';  // Importe o catchError aqui
+import { throwError } from 'rxjs';  // Importe o throwError aqui
 
 export interface ICliente {
   nome: string;
@@ -21,16 +22,26 @@ export interface ICliente {
   providedIn: 'root',
 })
 export class CustomerService {
-  private apiUrl = 'http://localhost:9090/api/cliente'; //colocar o 8080 padrao ou a que cada usa
+  private apiUrl = 'http://localhost:8080/api/cliente';
 
   constructor(private http: HttpClient) {}
 
   cadastrarCliente(cliente: ICliente): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json', 
+      'Content-Type': 'application/json',
     });
-  
-    return this.http.post(`${this.apiUrl}`, cliente, { headers });
+
+    return this.http.post(this.apiUrl, cliente, { headers }).pipe(
+      catchError((error) => {
+        if (error.status === 409) {
+          return throwError('Email já cadastrado. Tente outro.');
+        } else if (error.status === 400) {
+          return throwError('Erro ao cadastrar cliente. Revise os dados.');
+        } else {
+          return throwError('Erro desconhecido. Tente novamente.');
+        }
+      })
+    );
   }
 
   listarClientes(): Observable<any> {
