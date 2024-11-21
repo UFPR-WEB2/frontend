@@ -3,30 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';  // Importe o catchError aqui
 import { throwError } from 'rxjs';  // Importe o throwError aqui
-
-export interface ICliente {
-  nome: string;
-  email: string;
-  cpf: string;
-  telefone: string;
-  cep: string;
-  pais: string;
-  estado: string;
-  cidade: string;
-  rua: string;
-  numero: string;
-  complemento?: string;
-}
+import { environment } from '../../environments/environment';
+import { ICustomer } from '../../models/customer.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
-  private apiUrl = 'http://localhost:8080/api/cliente';
+  private apiUrl = `${environment.apiUrl}/cliente`;
 
   constructor(private http: HttpClient) {}
 
-  cadastrarCliente(cliente: ICliente): Observable<any> {
+  cadastrarCliente(cliente: ICustomer): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -52,7 +40,7 @@ export class CustomerService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  atualizarCliente(id: string, cliente: ICliente): Observable<any> {
+  atualizarCliente(id: string, cliente: ICustomer): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, cliente);
   }
 
