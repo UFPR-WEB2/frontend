@@ -40,6 +40,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/funcionario/home']);
   }
 
+  goToPasswordRequest() {
+    this.router.navigate(['/login/password-request']);
+  }
+
   onLogin() {
     if (!this.email || !this.password) {
       alert('É necessário preencher todos os campos.');

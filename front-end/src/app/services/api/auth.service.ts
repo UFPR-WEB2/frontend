@@ -3,6 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { PasswordResetRequest } from '../../models/password-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +25,9 @@ export class AuthService {
 
   getSession(): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/getSession`, {}, { observe: 'response' });
+  }
+
+  requestPasswordReset(request: PasswordResetRequest): Observable<any> {
+    return this.http.post(`${this.apiUrl}/password-reset`, request);
   }
 }
