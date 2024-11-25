@@ -74,4 +74,7 @@
     </div>
 
     <button type="submit">Enviar</button>
+    <div *ngIf="statusMessage" class="status-message" [ngClass]="{'success': isSuccess, 'error': !isSuccess}">
+        {{ statusMessage }}
+      </div>
 </form>

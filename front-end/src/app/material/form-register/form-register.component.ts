@@ -17,7 +17,7 @@ import {
 } from '../../utils/validators';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomerService } from '../../services/api/customer.service';
-import { ICliente } from '../../services/api/customer.service'; // Ajuste o caminho conforme necessário
+import { ICustomer } from '../../models/customer.model'; // Ajuste o caminho conforme necessário
 
 @Component({
   selector: 'app-form-register',
@@ -29,7 +29,8 @@ import { ICliente } from '../../services/api/customer.service'; // Ajuste o cami
 })
 export class FormRegisterComponent {
   registerForm: FormGroup;
-
+  statusMessage: string = ''; 
+  isSuccess: boolean = false; 
   constructor(private fb: FormBuilder, private router: Router, private customerService: CustomerService) {
     this.registerForm = this.fb.group({
       name: [
@@ -120,12 +121,12 @@ export class FormRegisterComponent {
     if (this.registerForm.valid) {
       const formValues = this.registerForm.value;
 
-      const cliente: ICliente = {
+      const cliente: ICustomer = {
         nome: formValues.name,
         email: formValues.email,
-        cpf: formValues.cpf.replace(/\D/g, ''), 
+        cpf: formValues.cpf.replace(/\D/g, ''),
         telefone: formValues.phone.replace(/\D/g, ''),
-        cep: formValues.cep.replace(/\D/g, ''), 
+        cep: formValues.cep.replace(/\D/g, ''),
         pais: formValues.country,
         estado: formValues.state,
         cidade: formValues.city,
@@ -133,19 +134,22 @@ export class FormRegisterComponent {
         numero: formValues.numero,
         complemento: formValues.complemento || '',
       };
-  
+
       this.customerService.cadastrarCliente(cliente).subscribe(
         (response) => {
-          console.log('Cliente cadastrado com sucesso:', response);
-          this.goToLogin(); 
+          this.statusMessage = 'Cliente cadastrado com sucesso!';
+          this.isSuccess = true;
+          this.goToLogin();
         },
         (error) => {
-          console.log('Erro ao cadastrar cliente:', error); 
+          this.statusMessage = error;
+          this.isSuccess = false; 
         }
       );
     } else {
-      console.log('Formulário inválido');
       this.registerForm.markAllAsTouched();
+      this.statusMessage = 'Por favor, preencha todos os campos corretamente.';
+      this.isSuccess = false;
     }
   }
 }

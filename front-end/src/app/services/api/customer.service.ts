@@ -1,36 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface ICliente {
-  nome: string;
-  email: string;
-  cpf: string;
-  telefone: string;
-  cep: string;
-  pais: string;
-  estado: string;
-  cidade: string;
-  rua: string;
-  numero: string;
-  complemento?: string;
-}
+import { catchError } from 'rxjs/operators';  // Importe o catchError aqui
+import { throwError } from 'rxjs';  // Importe o throwError aqui
+import { environment } from '../../environments/environment';
+import { ICustomer } from '../../models/customer.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
-  private apiUrl = 'http://localhost:9090/api/cliente'; //colocar o 8080 padrao ou a que cada usa
+  private apiUrl = `${environment.apiUrl}/cliente`;
 
   constructor(private http: HttpClient) {}
 
-  cadastrarCliente(cliente: ICliente): Observable<any> {
+  cadastrarCliente(cliente: ICustomer): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json', 
+      'Content-Type': 'application/json',
     });
-  
-    return this.http.post(`${this.apiUrl}`, cliente, { headers });
+
+    return this.http.post(this.apiUrl, cliente, { headers }).pipe(
+      catchError((error) => {
+        if (error.status === 409) {
+          return throwError('Email já cadastrado. Tente outro.');
+        } else if (error.status === 400) {
+          return throwError('Erro ao cadastrar cliente. Revise os dados.');
+        } else {
+          return throwError('Erro desconhecido. Tente novamente.');
+        }
+      })
+    );
   }
 
   listarClientes(): Observable<any> {
@@ -41,7 +40,7 @@ export class CustomerService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  atualizarCliente(id: string, cliente: ICliente): Observable<any> {
+  atualizarCliente(id: string, cliente: ICustomer): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, cliente);
   }
 
