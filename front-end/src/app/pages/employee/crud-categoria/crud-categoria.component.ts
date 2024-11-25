@@ -1,14 +1,22 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../../material';
+import { CrudCategoriaService, Categoria} from '../../../services/api/crud-categoria.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-crud-categoria',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ButtonComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ButtonComponent, HttpClientModule],
   templateUrl: './crud-categoria.component.html',
   styleUrls: ['./crud-categoria.component.css'],
 })
@@ -16,7 +24,14 @@ export class CrudCategoriaComponent implements OnInit, AfterViewChecked {
   @ViewChild('categoriaInput') categoriaInput!: ElementRef;
   @ViewChild('editCategoryInput') editCategoryInput!: ElementRef;
 
-  constructor(private servicoStorage: ServicoStorageService) {}
+  categorias: Categoria[] = [];
+  categoriaEditada: Categoria = new Categoria(0, '');
+  categoriaSendoEditada: Categoria | null = null;
+  isEditCategoriaModalOpen = false;
+  isDeleteCategoriaModalOpen = false;
+  categoriaParaExcluir: Categoria | null = null;
+
+  constructor(private crudService: CrudCategoriaService) {}
 
   ngOnInit(): void {
     this.loadCategorias();
@@ -28,46 +43,56 @@ export class CrudCategoriaComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  // Categorias
-  categorias: string[] = [];
-  categoriaEditada: string = '';
-  categoriaSendoEditada: string | null = null;
-  isEditCategoriaModalOpen: boolean = false;
-  isDeleteCategoriaModalOpen: boolean = false;
-  categoriaParaExcluir: string | null = null;
-
   loadCategorias(): void {
-    this.categorias = this.servicoStorage.getCategorias();
+    this.crudService.getCategorias().subscribe(
+      (data) => {
+        this.categorias = data;
+      },
+      (error) => {
+        console.error('Erro ao carregar categorias', error);
+      }
+    );
   }
 
   addCategoria(): void {
-    let novaCategoria = this.categoriaInput.nativeElement.value;
-    console.log(novaCategoria);
-    if (novaCategoria.trim()) {
-      this.servicoStorage.addCategoria(novaCategoria.trim());
-      this.categoriaInput.nativeElement.value = '';
-      this.loadCategorias();
+    const nomeCategoria = this.categoriaInput.nativeElement.value.trim();
+    if (nomeCategoria) {
+      const novaCategoria = new Categoria(0, nomeCategoria);
+      this.crudService.createCategoria(novaCategoria).subscribe(
+        () => {
+          this.categoriaInput.nativeElement.value = '';
+          this.loadCategorias();
+        },
+        (error) => {
+          console.error('Erro ao adicionar categoria', error);
+        }
+      );
     }
   }
 
-  editCategoria(categoria: string): void {
-    this.categoriaEditada = categoria;
+  editCategoria(categoria: Categoria): void {
+    this.categoriaEditada = { ...categoria };
     this.categoriaSendoEditada = categoria;
     this.isEditCategoriaModalOpen = true;
   }
 
   updateCategoria(): void {
-    if (this.categoriaEditada.trim() && this.categoriaSendoEditada) {
-      this.servicoStorage.updateCategoria(
-        this.categoriaSendoEditada,
-        this.categoriaEditada.trim()
-      );
-      this.closeEditModal();
-      this.loadCategorias();
+    if (this.categoriaEditada.nomeCategoria.trim() && this.categoriaSendoEditada) {
+      this.crudService
+        .updateCategoria(this.categoriaSendoEditada.id, this.categoriaEditada)
+        .subscribe(
+          () => {
+            this.closeEditModal();
+            this.loadCategorias();
+          },
+          (error) => {
+            console.error('Erro ao atualizar categoria', error);
+          }
+        );
     }
   }
 
-  openDeleteModal(categoria: string): void {
+  openDeleteModal(categoria: Categoria): void {
     this.categoriaParaExcluir = categoria;
     this.isDeleteCategoriaModalOpen = true;
   }
@@ -79,37 +104,21 @@ export class CrudCategoriaComponent implements OnInit, AfterViewChecked {
 
   confirmDeleteCategoria(): void {
     if (this.categoriaParaExcluir) {
-      this.servicoStorage.deleteCategoria(this.categoriaParaExcluir);
-      this.loadCategorias();
-      this.closeDeleteModal();
+      this.crudService.deleteCategoria(this.categoriaParaExcluir.id).subscribe(
+        () => {
+          this.loadCategorias();
+          this.closeDeleteModal();
+        },
+        (error) => {
+          console.error('Erro ao excluir categoria', error);
+        }
+      );
     }
-  }
-
-  openEditModal(categoria: string): void {
-    this.categoriaEditada = categoria;
-    this.isEditCategoriaModalOpen = true;
-
-    setTimeout(() => {
-      this.editCategoryInput.nativeElement.focus();
-    });
   }
 
   closeEditModal(): void {
     this.isEditCategoriaModalOpen = false;
-    this.categoriaEditada = '';
-  }
-
-  saveCategoriaEditada(): void {
-    if (this.categoriaEditada.trim()) {
-      const index = this.categorias.indexOf(this.categoriaSendoEditada!);
-      if (index !== -1) {
-        this.categorias[index] = this.categoriaEditada.trim();
-        this.servicoStorage.saveCategorias(this.categorias);
-        this.closeEditModal();
-      }
-    } else {
-      alert('O valor da categoria não pode ser vazio.');
-    }
+    this.categoriaEditada = new Categoria(0, '');
   }
 
   goBack(): void {
