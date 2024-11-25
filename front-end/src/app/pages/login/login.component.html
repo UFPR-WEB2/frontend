@@ -37,7 +37,7 @@
                       <label>Digite sua senha:</label>
                       <input type="password" [(ngModel)]="password" name="password" placeholder="Senha" required>
                     </div>
-                    <label id="Fpassowrd">Esqueci minha senha</label>
+                    <label id="Fpassowrd" (click)="goToPasswordRequest()">Esqueci minha senha</label>
                     <button-material type="submit" text="Entrar"></button-material>
                   </form>
             </div>
