@@ -16,11 +16,20 @@ import { DatePipe } from '@angular/common';
 })
 export class HomeClienteComponent {
   servicos: any[] = [];
+  usuarioLogado: any;
 
   constructor(private servicoStorage: ServicoStorageService, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.servicos = this.servicoStorage.getServicos();
+    this.recuperarUsuarioLogado();
+    this.servicos = this.servicoStorage.getServicos().filter(s => s.cliente === this.usuarioLogado.nome);
+  }
+
+  recuperarUsuarioLogado() {
+    const usuario = localStorage.getItem('usuarioLogado');
+    if (usuario) {
+      this.usuarioLogado = JSON.parse(usuario); 
+    }
   }
 
   mostrarOrcamento(id: string) {

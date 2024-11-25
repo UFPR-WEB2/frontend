@@ -7,7 +7,7 @@ import { HeaderClienteComponent } from '../../../material/header-cliente/header-
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [HeaderClienteComponent,CommonModule],
+  imports: [HeaderClienteComponent, CommonModule],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
 })
@@ -21,5 +21,15 @@ export class PaymentComponent {
     const escolhido = this.servicos.filter(s => s.id === id);
     this.item = escolhido[0];
   }
-
+  efetuarPagamento() {
+    const confirmacao = window.confirm(`Confirmar pagamento no valor de R$ ${this.item.preco}`);
+    if (confirmacao) {
+      const dadosAtualizados = {
+        status: 'PAGA',
+      };
+      window.alert('Serviço pago com sucesso!');
+      this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
+      this.router.navigate(['/cliente/home']);
+    }
+  }
 }

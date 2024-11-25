@@ -1,0 +1,174 @@
+#container h1 {
+  font-size: 2.5rem;
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+#container {
+  box-sizing: border-box;
+}
+
+
+p {
+  word-break: break-all;
+  margin-bottom: 10px;
+}
+
+#container button#button-conserto.first_button {
+  margin-top: 100px;
+}
+
+#container button {
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, orange, red);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1px;
+  margin-top: 10px;
+}
+
+#informacoes {
+  width: 100%;
+  height: 40dvh;
+  text-align: left;
+  color: white;
+}
+
+#informacoes .item-orcamento {
+  height: 9dvh;
+}
+
+#dados-cliente {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#dados-cliente .item-orcamento {
+  flex: 0 0 50%;
+  height: 5dvh;
+}
+
+.orcamento-form {
+  width: 70%;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+}
+
+.form-group label {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.form-group input {
+  flex: 2;
+  padding: 8px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.item-form {
+  width: 100%;
+  margin-top: 100px;
+}
+
+h3 {
+  color: white;
+  margin: 10px;
+}
+
+.item-form textarea {
+  width: 100%;
+  height: 7dvh;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  resize: none;
+}
+
+
+select {
+
+  /* styling */
+  background-color: white;
+  border: thin solid black;
+  border-radius: 4px;
+  display: inline-block;
+  font: inherit;
+  line-height: 1.5em;
+  padding: 0.5em 3.5em 0.5em 1em;
+
+  /* reset */
+
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+
+select.classic {
+  background-image:
+    linear-gradient(45deg, transparent 50%, white 50%),
+    linear-gradient(135deg, white 50%, transparent 50%),
+    linear-gradient(to right, orange, red);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    100% 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    2.5em 2.5em;
+  background-repeat: no-repeat;
+}
+
+select.classic:focus {
+  background-image:
+
+    linear-gradient(45deg, white 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, white 50%),
+    linear-gradient(to right, orange, red);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    100% 0;
+  background-size:
+    5px 5px,
+    5px 5px,
+    2.5em 2.5em;
+  background-repeat: no-repeat;
+  border-color: grey;
+  outline: 0;
+}
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}

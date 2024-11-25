@@ -1,0 +1,50 @@
+<app-header-cliente></app-header-cliente>
+<div id="principal">
+  <app-navbar-funcionario (filtroAplicado)="onFiltroAplicado($event)"></app-navbar-funcionario>
+  <main>
+    <h3>Solicitações</h3>
+    <div class="tabela">
+      <table id="table-user">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let servico of servicosFiltrados">
+            <td class="item">{{ servico.id }}</td>
+            <td class="item">{{ servico.data }}</td>
+            <td class="item">{{ servico.descricaoErro | slice: 0: 30 }}</td>
+            <td class="item" [ngClass]="{
+                  'aberta': servico.status === 'ABERTA',
+                  'orcada': servico.status === 'ORÇADA',
+                  'rejeitada': servico.status === 'REJEITADA',
+                  'aprovada': servico.status === 'APROVADA',
+                  'redirecionada': servico.status === 'REDIRECIONADA',
+                  'arrumada': servico.status === 'ARRUMADA',
+                  'paga': servico.status === 'PAGA',
+                  'finalizada': servico.status === 'FINALIZADA'
+                }">
+              {{ servico.status }}
+            </td>
+            <td class="item" >
+              <button *ngIf=" servico.status==='ABERTA'" (click)=" Efetuaorcamento(servico.id)">Efetuar
+              Orçamento</button>
+              <button *ngIf="servico.status === 'APROVADA'" (click)="efetuarManutencao(servico.id)">Efetuar
+                Manutenção</button>
+              <button *ngIf="servico.status === 'REDIRECIONADA'" (click)="efetuarManutencao(servico.id)">Efetuar
+                Manutenção</button>
+              <button *ngIf="servico.status === 'PAGA'" (click)="finalizarSolicitacao(servico.id)">Finalizar
+                serviço</button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>

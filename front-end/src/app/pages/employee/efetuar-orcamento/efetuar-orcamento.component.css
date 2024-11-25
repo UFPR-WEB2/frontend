@@ -1,0 +1,84 @@
+#container h1 {
+  font-size: 2.5rem;
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+
+}
+
+p {
+  word-break: break-all;
+  margin-bottom: 10px;
+}
+
+#container button {
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, orange, red);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#informacoes {
+  width: 100%;
+  height: 45dvh;
+  text-align: left;
+  color: white;
+}
+
+#informacoes .item-orcamento {
+  height: 9dvh;
+}
+
+#dados-cliente {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#dados-cliente .item-orcamento {
+  flex: 0 0 50%;
+}
+
+.orcamento-form {
+  width: 70%;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+}
+
+.form-group label {
+  flex: 1;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.form-group input {
+  flex: 2;
+  padding: 8px;
+  margin: 8px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}

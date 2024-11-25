@@ -1,0 +1,50 @@
+<header>
+  <div id="icon"></div>
+  <div id="header-container">
+    <button id="button-back" (click)="goToHomeFuncionario()">Voltar</button>
+    <button id="button-categorias" (click)="goToRelatorioCategorias()">Ver por categoria</button>
+  </div>
+</header>
+<main>
+  <div id="container">
+    <div id="header-container">
+      <h1>Relatório de Receitas</h1>
+    </div>
+    <div id="filter-container">
+      <h2>Filtrar por Período</h2>
+      <form (submit)="filtrarReceitas($event)">
+        <label for="start-date">Data Inicial:</label>
+        <input type="date" id="start-date" [(ngModel)]="startDate" name="start-date">
+        <label for="end-date">Data Final:</label>
+        <input type="date" id="end-date" [(ngModel)]="endDate" name="end-date">
+        <button type="submit">Filtrar</button>
+        <button type="reset" (click)="limparFiltro()">Limpar</button>
+      </form>
+    </div>
+    <div id="report-container">
+      <h2>Receitas por Dia</h2>
+      <div id="report-content">
+        <div style="max-height: 300px; overflow-y: auto;">
+          <table id="report-table">
+            <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
+              <tr>
+                <th>Data</th>
+                <th>Receita</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let receita of receitasFiltradas">
+                <td>{{ receita.data }}</td>
+                <td>R$ {{ receita.valor | number:'1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="total">
+          <h3>Total: {{ calcularTotal() | currency:'BRL' }}</h3>
+        </div>
+      </div>
+      <button (click)="gerarPDF()">Gerar PDF</button>
+    </div>
+  </div>
+</main>

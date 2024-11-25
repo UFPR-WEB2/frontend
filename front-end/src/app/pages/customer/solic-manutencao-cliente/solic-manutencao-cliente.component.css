@@ -1,18 +1,3 @@
-main {
-    width: 100%;
-}
-
-#container {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: auto;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.055);
-    padding: 1%;
-    border-radius: 10px;
-}
-
 #title-container {
     color: white;
     font-family: "Rubik", sans-serif;
@@ -27,23 +12,6 @@ main {
     align-items: center;
     margin: -0.5rem;
 }
-
-#manutencao {
-    font-size: 5.2rem;
-}
-
-#de {
-    font-size: 3rem;
-    font-family: "Rubik", sans-serif;
-    rotate: 270deg;
-    width: auto;
-}
-
-#equipamentos {
-    font-size: 4rem;
-}
-
-
 h1 {
     font-size: 2.5rem;
     font-family: "Rubik", sans-serif;

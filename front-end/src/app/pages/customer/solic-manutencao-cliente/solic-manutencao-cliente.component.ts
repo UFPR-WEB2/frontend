@@ -17,9 +17,13 @@ import { DatePipe } from '@angular/common';
 })
 export class SolicManutencaoClienteComponent {
   solicForm: FormGroup;
-
+  usuarioLogado: any;
   protected novo: any
 
+  ngOnInit() {
+    this.recuperarUsuarioLogado();
+  }
+  
   constructor(private fb: FormBuilder, private router: Router, private servicoStorage: ServicoStorageService, private datePipe: DatePipe) {
     this.solicForm = this.fb.group({
       equipmentDescription: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(200)]],
@@ -38,6 +42,13 @@ export class SolicManutencaoClienteComponent {
     return this.solicForm.get('defectDescription');
   }
 
+  recuperarUsuarioLogado() {
+    const usuario = localStorage.getItem('usuarioLogado');
+    if (usuario) {
+      this.usuarioLogado = JSON.parse(usuario);
+    }
+  }
+
   onSubmit() {
     if (this.solicForm.valid) {
       console.log('Formulário válido:', this.solicForm.value);
@@ -47,7 +58,7 @@ export class SolicManutencaoClienteComponent {
       const dataAtual = new Date();
       const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
       const id = Math.floor(Math.random() * 20000);
-      this.novo = { id: `${id}`, data: dataFormatada, descricaoEquipamento: descEquipamento, descricaoErro: descErro, status: 'ABERTA', categoria: category, cliente: 'João', funcionario: 'Maria' };
+      this.novo = { id: `${id}`, data: dataFormatada, descricaoEquipamento: descEquipamento, descricaoErro: descErro, status: 'ABERTA', categoria: category, cliente: this.usuarioLogado.nome, funcionario: 'Maria' };
       this.servicoStorage.addServico(this.novo)
       this.router.navigate(['/cliente/home'])
     } else {
