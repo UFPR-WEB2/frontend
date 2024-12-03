@@ -20,10 +20,6 @@ export class AppComponent {
   servicos : any[] = []
   constructor(private router: Router, private servicoStorage : ServicoStorageService) { }
 
-  ngOnInit(): void {
-    this.servicos = this.servicoStorage.getServicos();
-  }
-
   goToLogin() {
     this.router.navigate(['/login']);
   }

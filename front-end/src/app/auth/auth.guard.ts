@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const usuarioLogado = localStorage.getItem('user');
+  const usuarioLogado = sessionStorage.getItem('user');
   let url = state.url;
   if (usuarioLogado) {
     const usuario = JSON.parse(usuarioLogado);

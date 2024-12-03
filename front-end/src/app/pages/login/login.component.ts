@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.servicoStorage.initializePerfis();
   }
 
   goToRegister() {
@@ -55,7 +54,7 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         const authResponse = response.body;
         if (authResponse) {
-          localStorage.setItem('user', JSON.stringify({
+          sessionStorage.setItem('user', JSON.stringify({
             name: authResponse.name,
             email: authResponse.emai,
             role:authResponse.role
