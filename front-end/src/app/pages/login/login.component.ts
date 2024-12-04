@@ -57,9 +57,9 @@ export class LoginComponent implements OnInit {
         if (authResponse) {
           localStorage.setItem('user', JSON.stringify({
             name: authResponse.name,
-            email: authResponse.email
+            email: authResponse.emai,
+            role:authResponse.role
           }));
-          localStorage.setItem('role', authResponse.role);
 
           if (authResponse.role === 'CUSTOMER') {
             this.goToHomeCliente();

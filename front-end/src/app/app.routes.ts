@@ -6,11 +6,11 @@ export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
   { path: 'login/register', loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent) },
   { path: 'login/password-request', loadComponent: () => import('./pages/login/password-request/password-request.component').then(m => m.PasswordRequestComponent) },
-  { path: 'cliente/home', loadComponent: () => import('./pages/customer/home-cliente/home-cliente.component').then(m => m.HomeClienteComponent) },
-  { path: 'cliente/home/solicitarManutencao', loadComponent: () => import('./pages/customer/solic-manutencao-cliente/solic-manutencao-cliente.component').then(m => m.SolicManutencaoClienteComponent) },
-  { path: 'cliente/home/orcamento/:id', loadComponent: () => import('./pages/customer/orcamento-cliente/orcamento-cliente.component').then(m => m.OrcamentoClienteComponent) },
-  { path: 'cliente/home/pagamento/:id', loadComponent: () => import('./pages/customer/payment/payment.component').then(m => m.PaymentComponent) },
-  { path: 'cliente/home/servico/:id', loadComponent: () => import('./pages/customer/view-solicitacao/view-solicitacao.component').then(m => m.ViewSolicitacaoComponent) },
+  { path: 'cliente/home', loadComponent: () => import('./pages/customer/home-cliente/home-cliente.component').then(m => m.HomeClienteComponent), canActivate: [authGuard], data: { role: ['CUSTOMER'] } },
+  { path: 'cliente/home/solicitarManutencao', loadComponent: () => import('./pages/customer/solic-manutencao-cliente/solic-manutencao-cliente.component').then(m => m.SolicManutencaoClienteComponent), canActivate: [authGuard], data: { role: ['CUSTOMER'] } },
+  { path: 'cliente/home/orcamento/:id', loadComponent: () => import('./pages/customer/orcamento-cliente/orcamento-cliente.component').then(m => m.OrcamentoClienteComponent), canActivate: [authGuard], data: { role: ['CUSTOMER'] } },
+  { path: 'cliente/home/pagamento/:id', loadComponent: () => import('./pages/customer/payment/payment.component').then(m => m.PaymentComponent), canActivate: [authGuard], data: { role: ['CUSTOMER'] } },
+  { path: 'cliente/home/servico/:id', loadComponent: () => import('./pages/customer/view-solicitacao/view-solicitacao.component').then(m => m.ViewSolicitacaoComponent), canActivate: [authGuard], data: { role: ['CUSTOMER'] } },
 
   {
     path: 'funcionario/home',
