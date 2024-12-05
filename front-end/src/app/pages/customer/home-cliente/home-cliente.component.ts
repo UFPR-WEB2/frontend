@@ -5,6 +5,7 @@ import { HeaderClienteComponent } from '../../../material/header-cliente/header-
 import { NavbarClienteComponent } from '../../../material/navbar-cliente/navbar-cliente.component';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../../../services/api/auth.service';
 
 @Component({
   selector: 'app-home-cliente',
@@ -18,15 +19,22 @@ export class HomeClienteComponent {
   servicos: any[] = [];
   usuarioLogado: any;
 
-  constructor(private servicoStorage: ServicoStorageService, private router: Router, private datePipe: DatePipe) { }
+  constructor(private servicoStorage: ServicoStorageService, private router: Router, private datePipe: DatePipe, private authService : AuthService) { }
 
   ngOnInit(): void {
-    this.recuperarUsuarioLogado();
-    this.servicos = this.servicoStorage.getServicos().filter(s => s.cliente === this.usuarioLogado.nome);
+    //this.recuperarUsuarioLogado();
+    this.authService.getSession().subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (error) => {
+        console.error("Erro ao obter sessão:", error);
+      }
+    });
   }
 
   recuperarUsuarioLogado() {
-    const usuario = localStorage.getItem('usuarioLogado');
+    const usuario = sessionStorage.getItem('user');
     if (usuario) {
       this.usuarioLogado = JSON.parse(usuario); 
     }
