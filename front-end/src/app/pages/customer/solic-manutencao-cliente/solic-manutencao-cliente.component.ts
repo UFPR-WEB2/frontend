@@ -6,11 +6,12 @@ import { NavbarClienteComponent } from '../../../material/navbar-cliente/navbar-
 import { Router } from '@angular/router';
 import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../../../services/api/auth.service';
 
 @Component({
   selector: 'app-solic-manutencao-cliente',
   standalone: true,
-  imports: [HeaderClienteComponent, NavbarClienteComponent, ReactiveFormsModule, CommonModule],
+  imports: [HeaderClienteComponent, ReactiveFormsModule, CommonModule],
   providers: [DatePipe],
   templateUrl: './solic-manutencao-cliente.component.html',
   styleUrl: './solic-manutencao-cliente.component.css'
@@ -19,16 +20,24 @@ export class SolicManutencaoClienteComponent {
   solicForm: FormGroup;
   usuarioLogado: any;
   protected novo: any
-
-  ngOnInit() {
-    this.recuperarUsuarioLogado();
-  }
   
-  constructor(private fb: FormBuilder, private router: Router, private servicoStorage: ServicoStorageService, private datePipe: DatePipe) {
+  constructor(private fb: FormBuilder, private router: Router, private servicoStorage: ServicoStorageService, private datePipe: DatePipe, private authService : AuthService) {
     this.solicForm = this.fb.group({
       equipmentDescription: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(200)]],
       defectDescription: ['', [Validators.required, Validators.minLength(30), Validators.maxLength(500)]],
       equipmentCategory: ['', [Validators.required]]
+    });
+  }
+
+  ngOnInit() {
+    this.recuperarUsuarioLogado();
+    this.authService.getSession().subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (error) => {
+        console.error("Erro ao obter sessão:", error);
+      }
     });
   }
 

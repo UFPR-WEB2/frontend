@@ -20,11 +20,13 @@ export class AuthService {
 
     const credentialsJson = JSON.stringify(credentials);
 
-    return this.http.post<any>(`${this.apiUrl}/login`, credentialsJson, { headers, observe: 'response' });
+    return this.http.post<any>(`${this.apiUrl}/login`, credentialsJson, { headers, observe: 'response', withCredentials: true });
+
   }
 
   getSession(): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/getSession`, {}, { observe: 'response' });
+    return this.http.post(`${this.apiUrl}/getSession`, {}, { observe: 'response', withCredentials: true });
+  
   }
 
   requestPasswordReset(request: PasswordResetRequest): Observable<any> {
