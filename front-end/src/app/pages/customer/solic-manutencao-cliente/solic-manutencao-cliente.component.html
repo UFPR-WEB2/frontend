@@ -19,15 +19,13 @@
                     A descrição do equipamento deve ter no máximo 200 caracteres.
                 </small>
                 <label for="equipmentCategory">Categoria do equipamento</label>
-                <select id="equipmentCategory" name="equipmentCategory" class="dropdown"
-                    formControlName="equipmentCategory">
+                <select id="equipmentCategory" name="equipmentCategory" class="dropdown" formControlName="equipmentCategory">
                     <option value="" disabled selected>Selecione uma categoria</option>
-                    <option value="eletrico">Desktop</option>
-                    <option value="hidraulico">Notebook</option>
-                    <option value="mecanico">Impressora</option>
-                    <option value="mecanico">Mouse</option>
-                    <option value="outros">Teclado</option>
+                    <option *ngFor="let categoria of categorias" [value]="categoria.nomeCategoria">
+                        {{ categoria.nomeCategoria }}
+                    </option>
                 </select>
+                
                 <small class="text-danger"
                     *ngIf="equipmentCategory?.hasError('required') && equipmentCategory?.touched">
                     Categoria é obrigatório.

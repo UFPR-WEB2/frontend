@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/api/auth.service';
 import { MaintenceRequest } from '../../../models/maintence-request.model';
 import { StatusEnum } from '../../../config/status';
 import { MaintenanceService } from '../../../services/api/maintenance.service';
+import { CrudCategoriaService } from '../../../services/api/crud-categoria.service';
 
 @Component({
   selector: 'app-solic-manutencao-cliente',
@@ -20,9 +21,10 @@ import { MaintenanceService } from '../../../services/api/maintenance.service';
 export class SolicManutencaoClienteComponent {
   solicForm: FormGroup;
   usuarioLogado: any;
+  categorias : any;
   protected novo: any
   
-  constructor(private fb: FormBuilder, private router: Router, private authService : AuthService, private maintenanceService : MaintenanceService) {
+  constructor(private fb: FormBuilder, private router: Router, private authService : AuthService, private maintenanceService : MaintenanceService,private categoriaService :CrudCategoriaService) {
     this.solicForm = this.fb.group({
       equipmentDescription: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(200)]],
       defectDescription: ['', [Validators.required, Validators.minLength(30), Validators.maxLength(500)]],
@@ -38,6 +40,21 @@ export class SolicManutencaoClienteComponent {
   }
   get defectDescription() {
     return this.solicForm.get('defectDescription');
+  }
+
+  ngOnInit(): void {
+    this.loadCategorias();
+  }
+
+  loadCategorias(): void {
+    this.categoriaService.getCategorias().subscribe(
+      (data) => {
+        this.categorias = data;  
+      },
+      (error) => {
+        console.error('Erro ao carregar categorias', error);
+      }
+    );
   }
 
   onSubmit() {

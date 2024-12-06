@@ -16,25 +16,25 @@ export const routes: Routes = [
     path: 'funcionario/home',
     loadComponent: () => import('./pages/employee/home-funcionario/home-funcionario.component').then(m => m.HomeFuncionarioComponent),
     canActivate: [authGuard],
-    data: { role: ['funcionario'] }
+    data: { role: ['EMPLOYEE'] }
   },
   {
     path: 'funcionario/home/efetuar-orcamento/:id',
     loadComponent: () => import('./pages/employee/efetuar-orcamento/efetuar-orcamento.component').then(m => m.EfetuarOrcamentoComponent),
     canActivate: [authGuard],
-    data: { role: ['funcionario'] }
+    data: { role: ['EMPLOYEE'] }
   },
   {
     path: 'funcionario/home/efetuar-manutencao/:id',
     loadComponent: () => import('./pages/employee/efetuar-manutencao/efetuar-manutencao.component').then(m => m.EfetuarManutencaoComponent),
     canActivate: [authGuard],
-    data: { role: ['funcionario'] }
+    data: { role: ['EMPLOYEE'] }
   },
   {
     path: 'funcionario/home/visualizacao-solicitacoes',
     loadComponent: () => import('./pages/employee/visualizacao-solicitacoes/visualizacao-solicitacoes.component').then(m => m.VisualizacaoSolicitacoesComponent),
     canActivate: [authGuard],
-    data: { role: ['funcionario'] }
+    data: { role: ['EMPLOYEE'] }
   },
   {
     path: 'funcionario/home/crud-funcionario',
@@ -44,19 +44,19 @@ export const routes: Routes = [
     path: 'funcionario/home/crud-categoria',
     loadComponent: () => import('./pages/employee/crud-categoria/crud-categoria.component').then(m => m.CrudCategoriaComponent),
     canActivate: [authGuard],
-    data: { role: ['funcionario'] }
+    data: { role: ['EMPLOYEE'] }
   },
   {
     path: 'funcionario/home/relatorio-receitas',
     loadComponent: () => import('./pages/employee/relatorio-receitas/relatorio-receitas.component').then(m => m.RelatorioReceitasComponent),
     canActivate: [authGuard],
-    data: { role: ['funcionario'] }
+    data: { role: ['EMPLOYEE'] }
   },
   {
     path: 'funcionario/home/relatorio-categorias',
     loadComponent: () => import('./pages/employee/relatorio-categorias/relatorio-categorias.component').then(m => m.RelatorioCategoriasComponent),
     canActivate: [authGuard],
-    data: { role: ['funcionario'] }
+    data: { role: ['EMPLOYEE'] }
   },
   { path: '**', redirectTo: '' }
 ];

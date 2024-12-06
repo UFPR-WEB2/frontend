@@ -24,7 +24,7 @@ export class MaintenanceService {
 
     createMaintenance(maintenceRequest: MaintenceRequest): Observable<any> {
         console.log("API URL:", this.apiUrl);
-    
+        console.log(maintenceRequest)
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
