@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
-import { NavbarClienteComponent } from '../../../material/navbar-cliente/navbar-cliente.component';
 import { Router } from '@angular/router';
-import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../../../services/api/auth.service';
+import { MaintenceRequest } from '../../../models/maintence-request.model';
+import { StatusEnum } from '../../../config/status';
+import { MaintenanceService } from '../../../services/api/maintenance.service';
 
 @Component({
   selector: 'app-solic-manutencao-cliente',
@@ -21,23 +22,11 @@ export class SolicManutencaoClienteComponent {
   usuarioLogado: any;
   protected novo: any
   
-  constructor(private fb: FormBuilder, private router: Router, private servicoStorage: ServicoStorageService, private datePipe: DatePipe, private authService : AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private authService : AuthService, private maintenanceService : MaintenanceService) {
     this.solicForm = this.fb.group({
       equipmentDescription: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(200)]],
       defectDescription: ['', [Validators.required, Validators.minLength(30), Validators.maxLength(500)]],
       equipmentCategory: ['', [Validators.required]]
-    });
-  }
-
-  ngOnInit() {
-    this.recuperarUsuarioLogado();
-    this.authService.getSession().subscribe({
-      next: (response) => {
-        console.log(response);
-      },
-      error: (error) => {
-        console.error("Erro ao obter sessão:", error);
-      }
     });
   }
 
@@ -51,27 +40,22 @@ export class SolicManutencaoClienteComponent {
     return this.solicForm.get('defectDescription');
   }
 
-  recuperarUsuarioLogado() {
-    const usuario = localStorage.getItem('usuarioLogado');
-    if (usuario) {
-      this.usuarioLogado = JSON.parse(usuario);
-    }
-  }
-
   onSubmit() {
     if (this.solicForm.valid) {
-      console.log('Formulário válido:', this.solicForm.value);
-      const descEquipamento = this.equipmentDescription?.value;
-      const descErro = this.defectDescription?.value;
-      const category = this.equipmentCategory?.value;
-      const dataAtual = new Date();
-      const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
-      const id = Math.floor(Math.random() * 20000);
-      this.novo = { id: `${id}`, data: dataFormatada, descricaoEquipamento: descEquipamento, descricaoErro: descErro, status: 'ABERTA', categoria: category, cliente: this.usuarioLogado.nome, funcionario: 'Maria' };
-      this.servicoStorage.addServico(this.novo)
+      const newRequest: MaintenceRequest = {
+        descricaoEquipamento: this.equipmentDescription?.value,
+        descricaoDefeito: this.defectDescription?.value,
+        nomeCategoria: this.equipmentCategory?.value,
+        status: StatusEnum.ABERTA,
+      };
+      //this.maintenanceService.createMaintenance(newRequest);
+      this.maintenanceService.createMaintenance(newRequest).subscribe({
+        next: (response) => console.log('Requisição bem-sucedida:', response),
+        error: (error) => console.error('Erro ao criar manutenção:', error),
+      });
+      
       this.router.navigate(['/cliente/home'])
     } else {
-      console.log('Formulário inválido');
       this.solicForm.markAllAsTouched();
     }
   }

@@ -1,0 +1,10 @@
+export enum StatusEnum {
+    ABERTA = 'ABERTA',
+    ORCADA = 'ORCADA',
+    REJEITADA = 'REJEITADA',
+    APROVADA = 'APROVADA',
+    REDIRECIONADA = 'REDIRECIONADA',
+    ARRUMADA = 'ARRUMADA',
+    PAGA = 'PAGA',
+    FINALIZADA = 'FINALIZADA'
+  }

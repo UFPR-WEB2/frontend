@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/api/auth.service';
 
 @Component({
   selector: 'app-header-cliente',
@@ -10,28 +11,23 @@ import { Router } from '@angular/router';
 })
 export class HeaderClienteComponent {
   @Input() titulo: string = 'Manutenção de Equipamentos';
-  @Input() nomeCliente: string = 'Nome do Cliente';
-  @Input() emailCliente: string = 'emailDoCliente@gmail.com';
-
+  nomeCliente: string = '';
+  emailCliente: string = '';
   usuarioLogado: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    this.recuperarUsuarioLogado();
-  }
-
-  recuperarUsuarioLogado() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      this.usuarioLogado = JSON.parse(user);
-      this.nomeCliente = this.usuarioLogado.name;
-      this.emailCliente = this.usuarioLogado.email;
-    }
-    const role = localStorage.getItem('role');
-    if (role) {
-      console.log('Role do usuário:', role);
-    }
+    this.authService.getSession().subscribe({
+      next: (response: any) => {
+        this.usuarioLogado = response.body;
+        this.nomeCliente = this.usuarioLogado?.name || 'Usuário Desconhecido';
+        this.emailCliente = this.usuarioLogado?.emai || 'Email não disponível';
+      },
+      error: (error) => {
+        console.error('Erro ao obter sessão:', error);
+      }
+    });
   }
 
   goToMenu() {
