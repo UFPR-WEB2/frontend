@@ -16,13 +16,14 @@ export class Categoria {
 @Injectable({
   providedIn: 'root',
 })
+
 export class CrudCategoriaService {
   private apiUrl = `${environment.apiUrl}/category`;
 
   constructor(private http: HttpClient) {}
 
   createCategoria(categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(this.apiUrl, categoria);
+    return this.http.post<Categoria>(this.apiUrl, categoria, {withCredentials: true});
   }
 
   getCategorias(): Observable<Categoria[]> {
@@ -34,11 +35,11 @@ export class CrudCategoriaService {
   }
 
   updateCategoria(id: number, categoria: Categoria): Observable<Categoria> {
-    return this.http.put<Categoria>(`${this.apiUrl}/${id}`, categoria);
+    return this.http.put<Categoria>(`${this.apiUrl}/${id}`, categoria, {withCredentials: true});
   }
 
   deleteCategoria(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`,  {withCredentials: true});
   }
 }
 
