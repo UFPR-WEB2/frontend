@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { EmployeeService, Employee} from '../../../services/api/employee.service';
 
 @Component({
   selector: 'app-crud-funcionario',
@@ -14,7 +15,7 @@ import { RouterModule } from '@angular/router';
 export class CrudFuncionarioComponent implements OnInit {
   @ViewChild('formFuncionario') formFuncionario!: NgForm;
 
-  funcionarios: any[] = [];
+  funcionarios: Employee[] = [];
 
   modalEditar = false;
   modalExcluir = false;
@@ -25,9 +26,8 @@ export class CrudFuncionarioComponent implements OnInit {
     nome: '',
     senha: '',
     email: '',
-    nascimento: '',
-    funcao: 'funcionario',
-    status: 'ativo',
+    dataNascimento: '',
+    ativo: 'ativo',
   };
 
   pessoaEditar = {
@@ -35,19 +35,21 @@ export class CrudFuncionarioComponent implements OnInit {
     nome: '',
     senha: '',
     email: '',
-    nascimento: '',
-    funcao: 'funcionario',
-    status: 'ativo',
+    dataNascimento: '',
+    ativo: 'ativo',
   };
 
-  constructor(private servicoStorageService: ServicoStorageService) {
-    this.funcionarios = this.servicoStorageService.getPerfis();
+  constructor(private employeeService: EmployeeService) {
   }
 
   atualizarListaFuncionarios() {
-    const perfis = this.servicoStorageService.getPerfis();
-    this.funcionarios = perfis.filter(
-      (perfil) => perfil.funcao === 'funcionario'
+    this.employeeService.listarFuncionarios().subscribe(
+      (data) => {
+        this.funcionarios = data;
+      },
+      (error) => {
+        console.error('Erro ao carregar Funcionarios', error);
+      }
     );
   }
 
@@ -57,16 +59,22 @@ export class CrudFuncionarioComponent implements OnInit {
 
   inserir() {
     if (this.formFuncionario.valid) {
-      this.servicoStorageService.addCliente(this.pessoa);
-      this.atualizarListaFuncionarios();
+      this.employeeService.cadastrarFuncionario(this.pessoa).subscribe(() => {
+        this.atualizarListaFuncionarios();
+        },
+        (error) => {
+          if(error.status === 409) {
+            alert('Email já cadastrado.');
+          }
+        }
+      );
       this.pessoa = {
         id: new Date().getTime(),
         nome: '',
         senha: '',
         email: '',
-        nascimento: '',
-        funcao: 'funcionario',
-        status: 'ativo',
+        dataNascimento: '',
+        ativo: 'ativo',
       };
       this.formFuncionario.resetForm();
     }
@@ -88,10 +96,19 @@ export class CrudFuncionarioComponent implements OnInit {
 
   confirmarExcluirFuncionario() {
     if (this.pessoaParaExcluir) {
-      this.servicoStorageService.deleteCliente(this.pessoaParaExcluir.id);
-      this.atualizarListaFuncionarios();
-      this.fecharModalExcluir();
+      this.employeeService.deletarFuncionario(this.pessoaParaExcluir.id).subscribe(
+        () => {
+          this.atualizarListaFuncionarios();
+          this.fecharModalExcluir();
+        },
+        (error) => {
+          if(error.status === 403) {
+            alert('Não é possível excluir si mesmo.');
+          }
+        }
+      );
     }
+    
   }
 
   abrirModalEditar(funcionario: any) {
@@ -106,27 +123,25 @@ export class CrudFuncionarioComponent implements OnInit {
       nome: '',
       senha: '',
       email: '',
-      nascimento: '',
-      funcao: 'funcionario',
-      status: 'ativo',
+      dataNascimento: '',
+      ativo: 'ativo',
     };
   }
 
   atualizarFuncionario() {
-    this.servicoStorageService.updateCliente(
+    this.employeeService.atualizarFuncionario(
       this.pessoaEditar.id,
       this.pessoaEditar
-    );
-    console.log(this.pessoa);
-    this.atualizarListaFuncionarios();
+    ).subscribe(() => {
+      this.atualizarListaFuncionarios();
+    });
     this.pessoa = {
       id: new Date().getTime(),
       nome: '',
       senha: '',
       email: '',
-      nascimento: '',
-      funcao: 'funcionario',
-      status: 'ativo',
+      dataNascimento: '',
+      ativo: 'ativo',
     };
     this.modalEditar = false;
   }

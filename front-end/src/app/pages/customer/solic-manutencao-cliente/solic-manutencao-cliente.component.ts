@@ -27,7 +27,7 @@ export class SolicManutencaoClienteComponent {
   constructor(private fb: FormBuilder, private router: Router, private authService : AuthService, private maintenanceService : MaintenanceService,private categoriaService :CrudCategoriaService) {
     this.solicForm = this.fb.group({
       equipmentDescription: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(200)]],
-      defectDescription: ['', [Validators.required, Validators.minLength(30), Validators.maxLength(500)]],
+      defectDescription: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(30)]],
       equipmentCategory: ['', [Validators.required]]
     });
   }

@@ -6,7 +6,7 @@
         <div id="employee-inputs">
           <input type="text" name="nome" [(ngModel)]="pessoa.nome" #nome="ngModel" id="employee-name"
             class="employee-input" placeholder="Novo funcionário">
-          <input type="date" name="nascimento" [(ngModel)]="pessoa.nascimento" #nascimento="ngModel" id="employee-date"
+          <input type="date" name="nascimento" [(ngModel)]="pessoa.dataNascimento" #nascimento="ngModel" id="employee-date"
             class="employee-input" placeholder="Data de Nascimento">
           <input type="email" name="email" [(ngModel)]="pessoa.email" #email="ngModel" id="employee-email"
             class="employee-input" placeholder="Email">
@@ -21,7 +21,7 @@
         <li *ngFor="let funcionario of funcionarios; index as i" class="employee-item">
           <span>
             <span>{{ funcionario.nome }}</span>
-            <span>{{ funcionario.nascimento | date: 'dd/MM/yyyy' }}</span>
+            <span>{{ funcionario.dataNascimento | date: 'dd/MM/yyyy' }}</span>
             <span>{{ funcionario.email }}</span>
           </span>
           <div>
@@ -43,8 +43,8 @@
     </div>
     <input type="text" [(ngModel)]="pessoaEditar.nome" id="edit-employee-name" placeholder="Nome"
       value="{{pessoaEditar.nome}}">
-    <input type="date" [(ngModel)]="pessoaEditar.nascimento" id="edit-employee-date" placeholder="Data"
-      value="{{pessoaEditar.nascimento}}">
+    <input type="date" [(ngModel)]="pessoaEditar.dataNascimento" id="edit-employee-date" placeholder="Data"
+      value="{{pessoaEditar.dataNascimento}}">
     <input type="email" [(ngModel)]="pessoaEditar.email" id="edit-employee-email" placeholder="Email"
       value="{{pessoaEditar.email}}">
     <input type="password" [(ngModel)]="pessoaEditar.senha" id="edit-employee-password" placeholder="Senha"

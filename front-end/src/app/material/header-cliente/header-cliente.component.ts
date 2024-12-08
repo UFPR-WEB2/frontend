@@ -22,7 +22,7 @@ export class HeaderClienteComponent {
       next: (response: any) => {
         this.usuarioLogado = response.body;
         this.nomeCliente = this.usuarioLogado?.name || 'Usuário Desconhecido';
-        this.emailCliente = this.usuarioLogado?.emai || 'Email não disponível';
+        this.emailCliente = this.usuarioLogado?.email || 'Email não disponível';
       },
       error: (error) => {
         console.error('Erro ao obter sessão:', error);

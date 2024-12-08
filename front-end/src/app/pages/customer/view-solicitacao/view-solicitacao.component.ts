@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { CommonModule } from '@angular/common';
+import { MaintenanceService, MaintenanceResponse } from '../../../services/api/maintenance.service';
 @Component({
   selector: 'app-view-solicitacao',
   standalone: true,
@@ -13,15 +14,19 @@ import { CommonModule } from '@angular/common';
 })
 export class ViewSolicitacaoComponent {
   item: any;
-  servicos: any[] = [];
+  servicos: MaintenanceResponse[] = [];
 
-  constructor(private servicoStorage: ServicoStorageService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private maintenanceService: MaintenanceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.servicos = this.servicoStorage.getServicos();
-    const id = this.route.snapshot.paramMap.get('id');
-    const escolhido = this.servicos.filter(s => s.id === id);
-    this.item = escolhido[0];
-    console.log(escolhido);
+    this.maintenanceService.getMaintenanceRecords().subscribe(
+      (data) => {
+        this.servicos = data;
+        console.log("data: " + data);
+      },
+      (error) => {
+        console.error('Erro ao carregar solicitações', error);
+      }
+    );
   }
 }
