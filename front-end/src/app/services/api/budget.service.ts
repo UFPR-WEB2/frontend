@@ -22,12 +22,24 @@ export class BudgetService {
     return this.http.get<IBudgetResponse>(`${this.apiUrl}/${id}`);
   }
 
+  getBudgetByMaintenanceId(maintenanceId: number): Observable<IBudgetResponse> {
+    return this.http.get<IBudgetResponse>(
+      `${this.apiUrl}/manutencao/${maintenanceId}`
+    );
+  }
+
   getAllBudgets(): Observable<IBudgetResponse[]> {
     return this.http.get<IBudgetResponse[]>(this.apiUrl);
   }
 
-  updateBudget(id: number, budgetRequest: IBudgetRequest): Observable<IBudgetResponse> {
-    return this.http.put<IBudgetResponse>(`${this.apiUrl}/${id}`, budgetRequest);
+  updateBudget(
+    id: number,
+    budgetRequest: IBudgetRequest
+  ): Observable<IBudgetResponse> {
+    return this.http.put<IBudgetResponse>(
+      `${this.apiUrl}/${id}`,
+      budgetRequest
+    );
   }
 
   deleteBudget(id: number): Observable<void> {

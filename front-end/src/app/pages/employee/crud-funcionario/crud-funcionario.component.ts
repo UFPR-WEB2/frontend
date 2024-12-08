@@ -3,7 +3,10 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { EmployeeService, Employee} from '../../../services/api/employee.service';
+import {
+  EmployeeService,
+  Employee,
+} from '../../../services/api/employee.service';
 
 @Component({
   selector: 'app-crud-funcionario',
@@ -39,8 +42,7 @@ export class CrudFuncionarioComponent implements OnInit {
     ativo: 'ativo',
   };
 
-  constructor(private employeeService: EmployeeService) {
-  }
+  constructor(private employeeService: EmployeeService) {}
 
   atualizarListaFuncionarios() {
     this.employeeService.listarFuncionarios().subscribe(
@@ -59,11 +61,13 @@ export class CrudFuncionarioComponent implements OnInit {
 
   inserir() {
     if (this.formFuncionario.valid) {
-      this.employeeService.cadastrarFuncionario(this.pessoa).subscribe(() => {
-        this.atualizarListaFuncionarios();
+      this.employeeService.cadastrarFuncionario(this.pessoa).subscribe(
+        () => {
+          this.atualizarListaFuncionarios();
         },
         (error) => {
-          if(error.status === 409) {
+          if (error.status === 409) {
+            console.log(error);
             alert('Email já cadastrado.');
           }
         }
@@ -96,19 +100,20 @@ export class CrudFuncionarioComponent implements OnInit {
 
   confirmarExcluirFuncionario() {
     if (this.pessoaParaExcluir) {
-      this.employeeService.deletarFuncionario(this.pessoaParaExcluir.id).subscribe(
-        () => {
-          this.atualizarListaFuncionarios();
-          this.fecharModalExcluir();
-        },
-        (error) => {
-          if(error.status === 403) {
-            alert('Não é possível excluir si mesmo.');
+      this.employeeService
+        .deletarFuncionario(this.pessoaParaExcluir.id)
+        .subscribe(
+          () => {
+            this.atualizarListaFuncionarios();
+            this.fecharModalExcluir();
+          },
+          (error) => {
+            if (error.status === 403) {
+              alert('Não é possível excluir si mesmo.');
+            }
           }
-        }
-      );
+        );
     }
-    
   }
 
   abrirModalEditar(funcionario: any) {
@@ -129,12 +134,11 @@ export class CrudFuncionarioComponent implements OnInit {
   }
 
   atualizarFuncionario() {
-    this.employeeService.atualizarFuncionario(
-      this.pessoaEditar.id,
-      this.pessoaEditar
-    ).subscribe(() => {
-      this.atualizarListaFuncionarios();
-    });
+    this.employeeService
+      .atualizarFuncionario(this.pessoaEditar.id, this.pessoaEditar)
+      .subscribe(() => {
+        this.atualizarListaFuncionarios();
+      });
     this.pessoa = {
       id: new Date().getTime(),
       nome: '',
