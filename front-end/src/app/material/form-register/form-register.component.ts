@@ -25,13 +25,17 @@ import { ICustomer } from '../../models/customer.model'; // Ajuste o caminho con
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './form-register.component.html',
   styleUrl: './form-register.component.css',
-  providers: [CustomerService]
+  providers: [CustomerService],
 })
 export class FormRegisterComponent {
   registerForm: FormGroup;
-  statusMessage: string = ''; 
-  isSuccess: boolean = false; 
-  constructor(private fb: FormBuilder, private router: Router, private customerService: CustomerService) {
+  statusMessage: string = '';
+  isSuccess: boolean = false;
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private customerService: CustomerService
+  ) {
     this.registerForm = this.fb.group({
       name: [
         '',
@@ -135,17 +139,17 @@ export class FormRegisterComponent {
         complemento: formValues.complemento || '',
       };
 
-      this.customerService.cadastrarCliente(cliente).subscribe(
-        (response) => {
+      this.customerService.cadastrarCliente(cliente).subscribe({
+        next: (response) => {
           this.statusMessage = 'Cliente cadastrado com sucesso!';
           this.isSuccess = true;
           this.goToLogin();
         },
-        (error) => {
+        error: (error) => {
           this.statusMessage = error;
-          this.isSuccess = false; 
-        }
-      );
+          this.isSuccess = false;
+        },
+      });
     } else {
       this.registerForm.markAllAsTouched();
       this.statusMessage = 'Por favor, preencha todos os campos corretamente.';
