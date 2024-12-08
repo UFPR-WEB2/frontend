@@ -6,16 +6,17 @@ import { IBudgetRequest } from '../../models/budget-request.model';
 import { IBudgetResponse } from '../../models/budget-response.model';
 import { environment } from '../../environments/environment';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class BudgetService {
-  private apiUrl = `${environment.apiUrl}/orcamento`;
+  private apiUrl = `${environment.apiUrl}/orcamentos`;
 
   constructor(private http: HttpClient) {}
 
   createBudget(budgetRequest: IBudgetRequest): Observable<IBudgetResponse> {
-    return this.http.post<IBudgetResponse>(this.apiUrl, budgetRequest);
+    return this.http.post<IBudgetResponse>(this.apiUrl, budgetRequest, { withCredentials: true });
   }
 
   getBudgetById(id: number): Observable<IBudgetResponse> {
@@ -42,7 +43,19 @@ export class BudgetService {
     );
   }
 
-  deleteBudget(id: number): Observable<void> {
+  deleteBudget(id: number | undefined): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  approveBudget(id: number | undefined): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/aprovar/${id}`, {}, { withCredentials: true });
+  }
+
+  rejectBudget(id: number | null): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/rejeitar/${id}`, {}, { withCredentials: true });
+  }
+
+  redeemBudget(id: number | undefined): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/resgatar/${id}`, {}, { withCredentials: true });
   }
 }

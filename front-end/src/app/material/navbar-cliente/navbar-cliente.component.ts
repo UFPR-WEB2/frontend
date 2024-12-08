@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar-cliente',
@@ -15,5 +14,12 @@ export class NavbarClienteComponent {
     { nome: 'Solicitar Manutenção', link: '/cliente/home/solicitarManutencao' }
   ];
 
-  estados = ['Orçada', 'Aprovada', 'Rejeitada', 'Arrumada', 'Outros estados'];
+  estados = ['Todos', 'Orçada', 'Aprovada', 'Rejeitada', 'Arrumada', 'Outros estados'];
+
+  @Output() estadoSelecionado = new EventEmitter<string>();
+
+  onEstadoChange(event: Event) {
+    const valor = (event.target as HTMLSelectElement).value;
+    this.estadoSelecionado.emit(valor);
+  }
 }

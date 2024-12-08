@@ -45,11 +45,11 @@ export class MaintenanceService {
 
     constructor(private http: HttpClient) { }
 
-    getMaintenanceRecords(): Observable<MaintenanceResponse[]> {
+    getMaintenanceRecords(filter?: string): Observable<MaintenanceResponse[]> {
         return this.http.get<MaintenanceResponse[]>(`${this.apiUrl}/records`, {withCredentials: true} );
     }
 
-    getMaintenanceRecordById(id: number): Observable<MaintenanceResponse> {
+    getMaintenanceRecordById(id: number | null): Observable<MaintenanceResponse> {
         return this.http.get<MaintenanceResponse>(`${this.apiUrl}/records/${id}`, {withCredentials: true} );
     }
 
@@ -67,7 +67,6 @@ export class MaintenanceService {
             })
         );
     }
-    
 
     updateMaintenanceRecord(id: number, record: any): Observable<any> {
         return this.http.put<any>(`${this.apiUrl}/records/${id}`, record, {withCredentials: true});
@@ -76,4 +75,10 @@ export class MaintenanceService {
     deleteMaintenanceRecord(id: number): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/records/${id}`, {withCredentials: true});
     }
+
+    getOpenMaintenances(): Observable<MaintenanceResponse[]> {
+        return this.http.get<MaintenanceResponse[]>(`${this.apiUrl}/emAberto`, {withCredentials: true});
+    }
+
+    
 }

@@ -7,7 +7,7 @@
   </ul>
 
   <h2>Filtros</h2>
-  <select id="estado">
+  <select id="estado" (change)="onEstadoChange($event)">
     <option *ngFor="let estado of estados" [value]="estado.toLowerCase()">{{ estado }}</option>
   </select>
 </div>
