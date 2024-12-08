@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { NavbarClienteComponent } from '../../../material/navbar-cliente/navbar-cliente.component';
 import { Router } from '@angular/router';
@@ -23,7 +22,6 @@ export class HomeClienteComponent implements OnInit {
 
   constructor(
     private maintenanceService: MaintenanceService,
-    private servicoStorage: ServicoStorageService,
     private router: Router,
     private datePipe: DatePipe
   ) {}
@@ -31,6 +29,7 @@ export class HomeClienteComponent implements OnInit {
   ngOnInit(): void {
     this.maintenanceService.getMaintenanceRecords().subscribe({
       next: (data) => {
+        console.log(data)
         this.servicos = data.map((servico) => {
           return {
             ...servico,
@@ -45,7 +44,6 @@ export class HomeClienteComponent implements OnInit {
               undefined,
           };
         });
-        console.log('Serviços carregados:', data);
       },
       error: (error) => {
         console.error('Erro ao carregar solicitações', error);

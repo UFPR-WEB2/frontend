@@ -49,8 +49,8 @@ export class MaintenanceService {
         return this.http.get<MaintenanceResponse[]>(`${this.apiUrl}/records`, {withCredentials: true} );
     }
 
-    getMaintenanceRecordById(id: number): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/records/${id}`);
+    getMaintenanceRecordById(id: number): Observable<MaintenanceResponse> {
+        return this.http.get<MaintenanceResponse>(`${this.apiUrl}/records/${id}`, {withCredentials: true} );
     }
 
     createMaintenance(maintenceRequest: MaintenceRequest): Observable<any> {
