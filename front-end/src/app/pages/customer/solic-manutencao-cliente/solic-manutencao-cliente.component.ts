@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { Router } from '@angular/router';
@@ -16,19 +24,39 @@ import { CrudCategoriaService } from '../../../services/api/crud-categoria.servi
   imports: [HeaderClienteComponent, ReactiveFormsModule, CommonModule],
   providers: [DatePipe],
   templateUrl: './solic-manutencao-cliente.component.html',
-  styleUrl: './solic-manutencao-cliente.component.css'
+  styleUrl: './solic-manutencao-cliente.component.css',
 })
 export class SolicManutencaoClienteComponent {
   solicForm: FormGroup;
   usuarioLogado: any;
-  categorias : any;
-  protected novo: any
-  
-  constructor(private fb: FormBuilder, private router: Router, private authService : AuthService, private maintenanceService : MaintenanceService,private categoriaService :CrudCategoriaService) {
+  categorias: any;
+  protected novo: any;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private maintenanceService: MaintenanceService,
+    private categoriaService: CrudCategoriaService
+  ) {
     this.solicForm = this.fb.group({
-      equipmentDescription: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(200)]],
-      defectDescription: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(30)]],
-      equipmentCategory: ['', [Validators.required]]
+      equipmentDescription: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(15),
+          Validators.maxLength(200),
+        ],
+      ],
+      defectDescription: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(0),
+          Validators.maxLength(30),
+        ],
+      ],
+      equipmentCategory: ['', [Validators.required]],
     });
   }
 
@@ -47,14 +75,14 @@ export class SolicManutencaoClienteComponent {
   }
 
   loadCategorias(): void {
-    this.categoriaService.getCategorias().subscribe(
-      (data) => {
-        this.categorias = data;  
+    this.categoriaService.getCategorias().subscribe({
+      next: (data) => {
+        this.categorias = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao carregar categorias', error);
-      }
-    );
+      },
+    });
   }
 
   onSubmit() {
@@ -70,8 +98,8 @@ export class SolicManutencaoClienteComponent {
         next: (response) => console.log('Requisição bem-sucedida:', response),
         error: (error) => console.error('Erro ao criar manutenção:', error),
       });
-      
-      this.router.navigate(['/cliente/home'])
+
+      this.router.navigate(['/cliente/home']);
     } else {
       this.solicForm.markAllAsTouched();
     }

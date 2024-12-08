@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/api/auth.service';
-import { ServicoStorageService } from '../../services/servico-storage.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonComponent } from '../../material';
@@ -20,8 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private servicoStorage: ServicoStorageService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -56,7 +54,7 @@ export class LoginComponent implements OnInit {
         if (authResponse) {
           sessionStorage.setItem('user', JSON.stringify({
             name: authResponse.name,
-            email: authResponse.emai,
+            email: authResponse.email,
             role:authResponse.role
           }));
 

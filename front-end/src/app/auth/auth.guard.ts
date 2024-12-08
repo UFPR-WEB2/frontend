@@ -1,7 +1,7 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/api/auth.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
@@ -16,24 +16,33 @@ export const authGuard: CanActivateFn = (route, state) => {
 
         if (usuarioLogado) {
           // Verifica se a role do usuário está permitida
-          if (route.data?.['role'] && route.data?.['role'].indexOf(role) === -1) {
-            router.navigate(['/login'], { queryParams: { error: "Proibido o acesso a " + url } });
+          if (
+            route.data?.['role'] &&
+            route.data?.['role'].indexOf(role) === -1
+          ) {
+            router.navigate(['/login'], {
+              queryParams: { error: 'Proibido o acesso a ' + url },
+            });
             observer.next(false);
           } else {
-            observer.next(true); 
+            observer.next(true);
           }
         } else {
-          router.navigate(['/login'], { queryParams: { error: "Deve fazer o login antes de acessar " + url } });
+          router.navigate(['/login'], {
+            queryParams: {
+              error: 'Deve fazer o login antes de acessar ' + url,
+            },
+          });
           observer.next(false);
         }
       },
       error: (error) => {
         console.error('Erro ao obter sessão:', error);
         router.navigate(['/login'], {
-          queryParams: { error: "Deve fazer o login antes de acessar " + url }
+          queryParams: { error: 'Deve fazer o login antes de acessar ' + url },
         });
         observer.next(false);
-      }
+      },
     });
   });
 };
