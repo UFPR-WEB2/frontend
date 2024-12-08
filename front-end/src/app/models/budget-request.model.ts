@@ -1,5 +1,5 @@
 export interface IBudgetRequest {
   precoOrcado: number;
-  descricao: string;
+  descricao?: string;
   maintenanceId: number;
 }

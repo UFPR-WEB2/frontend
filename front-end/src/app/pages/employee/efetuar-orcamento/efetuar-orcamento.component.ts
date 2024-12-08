@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { DatePipe } from '@angular/common';
+import { BudgetService } from '../../../services/api/budget.service';
 
 @Component({
   selector: 'app-efetuar-orcamento',
@@ -27,7 +28,8 @@ export class EfetuarOrcamentoComponent {
     private servicoStorage: ServicoStorageService,
     private route: ActivatedRoute,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private budgetService: BudgetService
   ) {}
 
   ngOnInit() {
@@ -86,16 +88,25 @@ export class EfetuarOrcamentoComponent {
       if (this.valor) {
         const valorSemMascara = parseFloat(this.valor.replace('R$ ', '').replace(',', '.'));
         if (valorSemMascara >= 0) {
-          const dataAtual = new Date();
-          const dataFormatada = this.datePipe.transform(dataAtual, 'd/M/yy HH:mm');
-          const dadosAtualizados = {
-            status: 'ORÇADA',
-            preco: valorSemMascara,
-            dataOrcamento: dataFormatada
-          };
-          window.alert('Serviço orçado');
-          this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
-          this.router.navigate(['/funcionario/home']);
+          const id = this.route.snapshot.paramMap.get('id');
+          if (id) {
+            const budgetRequest = {
+              precoOrcado: valorSemMascara,
+              maintenanceId: Number(id)
+            };
+  
+            this.budgetService.createBudget(budgetRequest).subscribe({
+              next: (response) => {
+                window.alert('Orçamento criado com sucesso!');
+                this.router.navigate(['/funcionario/home']);
+              },
+              error: (err) => {
+                console.error('Erro ao criar orçamento', err);
+              }
+            });
+          } else {
+            console.error('ID não encontrado na URL');
+          }
         } else {
           console.error("Valor não pode ser negativo");
         }
@@ -106,4 +117,5 @@ export class EfetuarOrcamentoComponent {
       console.error("Formulário inválido");
     }
   }
+  
 }

@@ -17,12 +17,11 @@
         <tbody>
           <tr *ngFor="let servico of servicosFiltrados">
             <td class="item">{{ servico.id }}</td>
-            <td class="item">{{ servico.data }}</td>
-            <td class="item">{{ servico.descricaoErro | slice:0:30 }}</td>
-            <td class="item">{{ servico.status }}</td>
+            <td class="item">{{ servico.dataCriacao }}</td>
+            <td class="item">{{ servico.descricaoDefeito | slice:0:30 }}</td>
+            <td class="item">{{ servico.nomeStatus }}</td>
             <td class="item">
-              <button *ngIf="servico.status === 'ABERTA'" (click)="Efetuaorcamento(servico.id)">Efetuar
-                Orçamento</button>
+              <button *ngIf="servico.nomeStatus === 'ABERTA'" (click)="Efetuaorcamento(servico.id)">Efetuar Orçamento</button>
             </td>
           </tr>
         </tbody>

@@ -7,19 +7,19 @@
             <div id="informacoes" *ngIf="item">
                 <div class="item-orcamento">
                     <h3>Descrição do Equipamento:</h3>
-                    <p>{{item.descricaoEquipamento}}</p>
+                    <p>{{item.maintenanceDetails.descricaoEquipamento}}</p>
                 </div>
                 <div class="item-orcamento">
                     <h3>Categoria:</h3>
-                    <p>{{item.categoria}}</p>
+                    <p>{{item.maintenanceDetails.nomeCategoria}}</p>
                 </div>
                 <div class="item-orcamento">
                     <h3>Defeito:</h3>
-                    <p>{{item.descricaoErro}}</p>
+                    <p>{{item.maintenanceDetails.descricaoDefeito}}</p>
                 </div>
                 <div class="item-orcamento" id="price">
                     <h3>Preço Orçado:</h3>
-                    <p>{{item.preco}}</p>
+                    <p>{{item.precoOrcado}}</p>
                 </div>
             </div>
             <button (click)="aprovarServico()">Aprovar Serviço</button>

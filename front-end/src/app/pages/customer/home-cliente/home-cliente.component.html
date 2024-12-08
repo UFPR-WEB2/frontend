@@ -1,6 +1,6 @@
 <app-header-cliente></app-header-cliente>
 <div id="principal">
-  <app-navbar-cliente></app-navbar-cliente>
+  <app-navbar-cliente (estadoSelecionado)="filtrarPorEstado($event)"></app-navbar-cliente>
   <main>
     <h3>Minhas solicitações</h3>
     <div class="tabela">
@@ -25,21 +25,16 @@
                 <button *ngSwitchCase="'ABERTA'" (click)="visualizarServico(servico.id)">
                   Visualizar Serviço
                 </button>
-                
                 <button *ngSwitchCase="'ORCADA'" (click)="mostrarOrcamento(servico.id)">
                   Aprovar/Rejeitar Serviço
                 </button>
-                
                 <button *ngSwitchCase="'REJEITADA'" (click)="resgatarServico(servico.id)">
                   Resgatar Serviço
                 </button>
-                
                 <button *ngSwitchCase="'ARRUMADA'" (click)="pagarServico(servico.id)">
                   Pagar Serviço
                 </button>
-                
                 <span *ngSwitchCase="'APROVADA'"></span>
-                
                 <button *ngSwitchDefault (click)="visualizarServico(servico.id)">
                   Visualizar Serviço
                 </button>

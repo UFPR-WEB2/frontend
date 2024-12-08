@@ -4,6 +4,7 @@ import { ServicoStorageService } from '../../../services/servico-storage.service
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { NavbarFuncionarioComponent } from '../../../material/navbar-funcionario/navbar-funcionario.component';
 import { Router } from '@angular/router';
+import { MaintenanceService } from '../../../services/api/maintenance.service';
 
 @Component({
   selector: 'app-home-funcionario',
@@ -17,7 +18,7 @@ export class HomeFuncionarioComponent {
   servicosFiltrados: any[] = [];
   usuarioLogado: any;
 
-  constructor(private servicoStorage: ServicoStorageService, private router: Router) { }
+  constructor(private servicoStorage: ServicoStorageService, private router: Router, private maintenanceService: MaintenanceService) { }
 
   recuperarUsuarioLogado() {
     const usuario = localStorage.getItem('usuarioLogado');
@@ -28,8 +29,19 @@ export class HomeFuncionarioComponent {
 
   ngOnInit(): void {
     this.recuperarUsuarioLogado();
-    this.servicos = this.servicoStorage.getServicos().filter(s => s.funcionario === this.usuarioLogado.nome && s.status === 'ABERTA');
-    this.servicosFiltrados = this.servicos;
+    this.carregarServicosAberto();
+  }
+
+  carregarServicosAberto() {
+    this.maintenanceService.getOpenMaintenances().subscribe({
+      next: (data) => {
+        this.servicos = data;
+        this.servicosFiltrados = this.servicos;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar serviços:', error);
+      },
+    });
   }
 
   Efetuaorcamento(id: string) {
