@@ -27,7 +27,6 @@ export class ViewSolicitacaoComponent {
     private maintenanceService: MaintenanceService,
     private budgetService: BudgetService,
     private route: ActivatedRoute,
-    private router: Router,
     private datePipe: DatePipe
   ) {}
 

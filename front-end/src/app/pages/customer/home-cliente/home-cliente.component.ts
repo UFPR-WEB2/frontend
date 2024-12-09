@@ -37,22 +37,35 @@ export class HomeClienteComponent implements OnInit {
     this.maintenanceService.getMaintenanceRecords().subscribe({
       next: (data) => {
         this.servicos = data
-          .filter((servico) => !estado || 
-                                servico.nomeStatus === (estado.toUpperCase()) || 
-                                estado === 'todos' ||
-                                (estado === "outros estados" && servico.nomeStatus !== "ORÇADA" && servico.nomeStatus !== "APROVADA" && servico.nomeStatus !== "REJEITADA" && servico.nomeStatus !== "ARRUMADA"))
+          .filter(
+            (servico) =>
+              !estado ||
+              servico.nomeStatus === estado.toUpperCase() ||
+              estado === 'todos' ||
+              (estado === 'outros estados' &&
+                servico.nomeStatus !== 'ORÇADA' &&
+                servico.nomeStatus !== 'APROVADA' &&
+                servico.nomeStatus !== 'REJEITADA' &&
+                servico.nomeStatus !== 'ARRUMADA')
+          )
           .map((servico) => {
             return {
               ...servico,
               dataConserto:
-                this.datePipe.transform(servico.dataConserto, 'dd/MM/yyyy') ||
-                undefined,
+                this.datePipe.transform(
+                  servico.dataConserto,
+                  'dd/MM/yyyy HH:mm:ss'
+                ) || undefined,
               dataCriacao:
-                this.datePipe.transform(servico.dataCriacao, 'dd/MM/yyyy') ||
-                undefined,
+                this.datePipe.transform(
+                  servico.dataCriacao,
+                  'dd/MM/yyyy HH:mm:ss'
+                ) || undefined,
               dataFinalizacao:
-                this.datePipe.transform(servico.dataFinalizacao, 'dd/MM/yyyy') ||
-                undefined,
+                this.datePipe.transform(
+                  servico.dataFinalizacao,
+                  'dd/MM/yyyy HH:mm:ss'
+                ) || undefined,
             };
           });
         console.log('Serviços carregados:', this.servicos);
@@ -65,7 +78,7 @@ export class HomeClienteComponent implements OnInit {
 
   filtrarPorEstado(estadoSelecionado: string) {
     console.log('Estado selecionado:', estadoSelecionado);
-    this.carregarServicos(estadoSelecionado);  
+    this.carregarServicos(estadoSelecionado);
   }
 
   mostrarOrcamento(id: number | undefined) {
