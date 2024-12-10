@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { DatePipe } from '@angular/common';
+import { RepairService } from '../../../services/api/repair.service';
+import { IRepair } from '../../../models/repair.model';
 
 @Component({
   selector: 'app-efetuar-manutencao',
@@ -28,7 +30,7 @@ export class EfetuarManutencaoComponent {
   mostrarComboBox: boolean = false;
   descricaoManutencao: string = '';
   orientacoesCliente: string = '';
-  funcionarioSelecionado: string = ''; // Variável para armazenar o funcionário selecionado
+  funcionarioSelecionado: string = '';
   id: number | null = null;
   servico: MaintenanceResponse | null = null;
 
@@ -37,11 +39,22 @@ export class EfetuarManutencaoComponent {
     private router: Router,
     private datePipe: DatePipe,
     private maintenanceService: MaintenanceService,
-    private authService: AuthService
+    private authService: AuthService,
+    private repairService : RepairService
   ) {}
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.authService.getSession().subscribe({
+      next: (response) => {
+        console.log('Sessão do usuário:', response);
+        this.funcionarioSelecionado = response.id;
+        response.role = response.role;
+      },
+      error: (err) => {
+        console.error('Erro ao recuperar sessão:', err);
+      },
+    });
     this.maintenanceService.getMaintenanceById(this.id).subscribe({
       next: (data) => {
         this.servico = {
@@ -91,35 +104,30 @@ export class EfetuarManutencaoComponent {
     }*/
   }
 
-  registrarManutencao() {
-    if (this.servico) {
-      let funcionario;
-      this.authService.getSession().subscribe({
-        next: (response: any) => {
-          funcionario = response.body;
-          console.log('Funcionário logado:', funcionario);
-        },
-        error: (error) => {
-          console.error('Erro ao obter sessão:', error);
-        },
-      })
-        
-      this.servico.orientacaoCliente = this.orientacoesCliente;
-      this.servico.descricaoConserto = this.descricaoManutencao;
-      this.servico.nomeFuncionario;
-      /*
-      //ABCDE
-      this.maintenanceService.performMaintenance(this.servico).subscribe({
-        next: (data) => {
-          this.router.navigate(['/funcionario/home']);
-        },
-        error: (error) => {
-          console.error('Erro ao registrar manutenção:', error);
-        },
-      });*/
-      this.router.navigate(['/funcionario/home']);
+
+    registrarManutencao() {
+      if (this.servico && this.descricaoManutencao && this.orientacoesCliente) {
+        const repairData: IRepair = {
+          idManutencao: Number(this.id),
+          descricaoConserto: this.descricaoManutencao,
+          orientacaoCliente: this.orientacoesCliente,
+        };
+    
+        this.repairService.createRepair(repairData).subscribe({
+          next: () => {
+            window.alert('Manutenção registrada com sucesso!');
+            this.router.navigate(['/funcionario/home']);
+          },
+          error: (err) => {
+            console.error('Erro ao registrar manutenção:', err);
+            window.alert('Erro ao registrar manutenção.');
+          },
+        });
+      } else {
+        window.alert('Por favor, preencha todos os campos.');
+      }
     }
-  }
+    
 
   onSubmit() {
     /*

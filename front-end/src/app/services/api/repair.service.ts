@@ -21,7 +21,8 @@ export class RepairService {
   }
 
   createRepair(repair: IRepair): Observable<IRepair> {
-    return this.http.post<IRepair>(this.apiUrl, repair);
+    console.log(this.apiUrl)
+    return this.http.post<IRepair>(this.apiUrl, repair, {withCredentials: true});
   }
 
   updateRepair(id: number, repair: IRepair): Observable<IRepair> {
