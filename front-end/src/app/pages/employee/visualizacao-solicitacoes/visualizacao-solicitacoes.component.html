@@ -42,7 +42,7 @@
                 (click)="efetuarManutencao(servico.id)">Efetuar
                 Manutenção</button>
               <button *ngIf=" servico.nomeStatus?.toUpperCase() === 'PAGA'"
-                (click)="finalizarSolicitacao(servico.id)">Finalizar
+                (click)="openFinalizarServicoModal(servico.id)">Finalizar
                 serviço</button>
             </td>
           </tr>
@@ -51,4 +51,14 @@
       </table>
     </div>
   </main>
+  <div *ngIf="finalizarServicoModal" id="finalizar-servico-modal" class="modal" (click)="closeFinalizarServicoModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div>
+        <h2>Deseja FINALIZAR o serviço {{[idServicoModal]}}?</h2>
+        <span class="close-button" (click)="closeFinalizarServicoModal()">&times;</span>
+      </div>
+      <button (click)="(finalizarSolicitacao(idServicoModal))" class="buttons">Finalizar</button>
+      <button (click)="closeFinalizarServicoModal()" class="buttons">Cancelar</button>
+    </div>
+  </div>
 </div>

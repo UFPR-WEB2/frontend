@@ -5,8 +5,6 @@
   box-sizing: border-box;
 }
 
-
-
 body {
   --bg-color: radial-gradient(circle at center, var(--gray), var(--black) 60%);
   background: var(--bg-color);
@@ -114,7 +112,6 @@ main .tabela #table-user th,
   min-height: 50px;
 }
 
-
 main .tabela #table-user tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -128,7 +125,7 @@ button {
   background-clip: padding-box;
   background: linear-gradient(135deg, orange, red);
   border: 1px solid transparent;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
   box-sizing: border-box;
   color: #fff;
@@ -140,7 +137,7 @@ button {
   line-height: 1.25;
   margin: 0;
   min-height: 3rem;
-  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
   position: relative;
   text-decoration: none;
   transition: all 250ms;
@@ -165,7 +162,7 @@ button:hover {
 
 button:active {
   background-color: #c85000;
-  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
   transform: translateY(0);
 }
 
@@ -191,7 +188,6 @@ button:active {
 
 .arrumada {
   background: blue;
-
 }
 
 .paga {
@@ -199,5 +195,91 @@ button:active {
 }
 
 .finalizada {
-  color: green;
+  background-color: green;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-content h2,
+.close-button {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.close-button {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.buttons {
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, orange, red);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+}
+
+.modal-content input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 200px;
+  margin-right: 1rem;
+  width: 40%;
+  border-radius: 0.5rem;
+  width: 100%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }

@@ -23,16 +23,16 @@ import { IRepair } from '../../../models/repair.model';
   providers: [DatePipe],
 })
 export class EfetuarManutencaoComponent {
-  item: any;
   funcionarios: any[] = []; // Lista de funcionários
   cliente: any;
-  mostrarFormulario: boolean = false;
   mostrarComboBox: boolean = false;
   descricaoManutencao: string = '';
   orientacoesCliente: string = '';
   funcionarioSelecionado: string = '';
   id: number | null = null;
   servico: MaintenanceResponse | null = null;
+
+  maintenanceModal: Boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -76,14 +76,20 @@ export class EfetuarManutencaoComponent {
     });
   }
 
-  efetuarManutencao() {
-    this.mostrarFormulario = true;
+  openMaintenanceModal() {
+    this.maintenanceModal = true;
     this.mostrarComboBox = false;
+  }
+
+  closeMaintenanceModal() {
+    this.maintenanceModal = false;
+    this.descricaoManutencao = '';
+    this.orientacoesCliente = '';
   }
 
   mostrarRedirecionamento() {
     this.mostrarComboBox = true;
-    this.mostrarFormulario = false;
+    this.maintenanceModal = false;
   }
 
   redirecionar() {
@@ -105,6 +111,7 @@ export class EfetuarManutencaoComponent {
   }
 
   registrarManutencao() {
+    // ABCDE - APLICAR VALIDAÇÃO
     if (this.servico && this.descricaoManutencao && this.orientacoesCliente) {
       const repairData: IRepair = {
         idManutencao: Number(this.id),
@@ -125,26 +132,6 @@ export class EfetuarManutencaoComponent {
     } else {
       window.alert('Por favor, preencha todos os campos.');
     }
-  }
-
-  onSubmit() {
-    /*
-    if (!this.descricaoManutencao || !this.orientacoesCliente) {
-      window.alert('Por favor, preencha todos os campos antes de enviar.');
-      return;
-    }
-    const confirmacao = window.confirm('Você tem certeza que deseja efetuar essa manutenção?');
-    if (confirmacao) {
-      const dadosAtualizados = {
-        status: 'AGUARDANDO PAGAMENTO',
-        funcionarioFinalizacao: this.usuarioLogado.nome,
-        orientacoesCliente: this.orientacoesCliente,
-        descricaoManutencao: this.descricaoManutencao
-      };
-
-      window.alert('Serviço efetuado com sucesso!');
-      this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
-      this.router.navigate(['/funcionario/home']);
-      }*/
+    this.maintenanceModal = false;
   }
 }
