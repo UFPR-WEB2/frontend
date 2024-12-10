@@ -3,71 +3,73 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { DatePipe } from '@angular/common';
 import { BudgetService } from '../../../services/api/budget.service';
+import {
+  MaintenanceService,
+  MaintenanceResponse,
+} from '../../../services/api/maintenance.service';
 
 @Component({
   selector: 'app-efetuar-orcamento',
   standalone: true,
   imports: [HeaderClienteComponent, CommonModule, FormsModule],
   templateUrl: './efetuar-orcamento.component.html',
-  styleUrls: ['./efetuar-orcamento.component.css'],// Correção aqui
-  providers: [DatePipe] // Adicione esta linha
+  styleUrls: ['./efetuar-orcamento.component.css'],
+  providers: [DatePipe] 
 })
 export class EfetuarOrcamentoComponent {
+  id: number | null = null;
   item: any;
   servicos: any[] = [];
   perfis: any[] = [];
-  cliente: any;
   valor: string = '';
-  usuarioLogado: any;
+  servico: MaintenanceResponse | undefined;
+  erro: string | null = null;
 
   constructor(
-    private servicoStorage: ServicoStorageService,
     private route: ActivatedRoute,
     private router: Router,
     private datePipe: DatePipe,
-    private budgetService: BudgetService
+    private budgetService: BudgetService,
+    private maintenanceService: MaintenanceService,
+
   ) {}
 
   ngOnInit() {
-    this.recuperarUsuarioLogado();
-    
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.servicos = this.servicoStorage.getServicos();
-      const escolhido = this.servicos.find(s => s.id === id);
-      this.item = escolhido || null;
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.maintenanceService.getMaintenanceById(this.id).subscribe({
+      next: (data) => {
+        this.servico = {
+          ...data
+        };
+        console.log(this.servico)
+      },
+      error: (error) => {
+        this.erro = error.message;
+        console.log('Erro ao carregar solicitação', error);
+      },
+    });
 
-      if (this.item) {
-        this.perfis = this.servicoStorage.getPerfis();
-        const clienteCriador = this.perfis.find(p => p.nome === this.item.cliente);
-        this.cliente = clienteCriador;
-      } else {
-        console.error('Serviço não encontrado');
-      }
-    } else {
-      console.error('ID do serviço não fornecido');
-    }
-  }
-
-  recuperarUsuarioLogado() {
-    const usuario = localStorage.getItem('usuarioLogado');
-    if (usuario) {
-      this.usuarioLogado = JSON.parse(usuario);
-    }
-  }
+}
 
   onValueChange(value: string) {
-    const parsedValue = parseFloat(value.replace('R$ ', '').replace(',', '.'));
-    this.valor = isNaN(parsedValue) ? '' : parsedValue.toString();
+    let formattedValue = value.replace('R$ ', '').replace(/\D/g, '');
+    if (formattedValue.length > 2) {
+      formattedValue = formattedValue.slice(0, -2) + ',' + formattedValue.slice(-2);
+    }
+
+    if (formattedValue) {
+      this.valor = `R$ ${formattedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`; 
+    } else {
+      this.valor = '';
+    }
   }
 
   formatarValor() {
     if (this.valor) {
-      this.valor = `R$ ${parseFloat(this.valor).toFixed(2).replace('.', ',')}`;
+      this.valor = `R$ ${parseFloat(this.valor.replace('R$ ', '').replace(',', '.')).toFixed(2).replace('.', ',')}`;
     }
   }
 
@@ -117,5 +119,4 @@ export class EfetuarOrcamentoComponent {
       console.error("Formulário inválido");
     }
   }
-  
 }

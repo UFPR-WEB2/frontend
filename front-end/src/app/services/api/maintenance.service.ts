@@ -16,6 +16,7 @@ export class MaintenanceResponse {
   id?: number;
   nomeCategoria?: string;
   nomeCliente?: string;
+  emailCliente?: string;
   nomeFuncionario?: string;
   orientacaoCliente?: string;
   nomeStatus?: string;
@@ -30,6 +31,7 @@ export class MaintenanceResponse {
     id?: number,
     nomeCategoria?: string,
     nomeCliente?: string,
+    emailCliente?:string,
     nomeFuncionario?: string,
     orientacaoCliente?: string,
     status?: string
@@ -43,6 +45,7 @@ export class MaintenanceResponse {
     this.id = id;
     this.nomeCategoria = nomeCategoria;
     this.nomeCliente = nomeCliente;
+    this.emailCliente = emailCliente;
     this.nomeFuncionario = nomeFuncionario;
     this.orientacaoCliente = orientacaoCliente;
     this.nomeStatus = status;
