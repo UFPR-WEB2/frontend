@@ -25,10 +25,14 @@
 
         <div id="dados-cliente">
           <div class="item-orcamento">
-            <h3>Nome cliente:</h3>
-            <p>{{servico.nomeCliente}}</p>
+              <h3>Nome cliente:</h3>
+              <p>{{servico.nomeCliente}}</p>
           </div>
-        </div>
+          <div class="item-orcamento">
+              <h3>E-mail cliente:</h3>
+              <p>{{servico.emailCliente}}</p>
+          </div>
+      </div>
       </div>
 
       <button *ngIf="!mostrarFormulario && !mostrarComboBox" id="button-conserto" class="first_button"
