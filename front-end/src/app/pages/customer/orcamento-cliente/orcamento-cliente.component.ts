@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { BudgetService } from '../../../services/api/budget.service';
 import { MaintenanceService } from '../../../services/api/maintenance.service';
+import { MatDialog } from '@angular/material/dialog'; // Importação do MatDialog
+import { ApprovalModalComponent } from '../../../modal/approval-modal/approval-modal.component';
 @Component({
   selector: 'app-orcamento-cliente',
   standalone: true,
@@ -16,19 +18,20 @@ export class OrcamentoClienteComponent {
   id: number | null = null;
 
   constructor(
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
     private budgetService: BudgetService,
-    private maintenanceService: MaintenanceService
-  ) {}
+    private maintenanceService: MaintenanceService,
+  ) { }
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-  
+
     if (this.id) {
       this.budgetService.getBudgetByMaintenanceId(this.id).subscribe({
         next: (budgetResponse) => {
-          this.item = budgetResponse; 
+          this.item = budgetResponse;
 
           this.maintenanceService.getMaintenanceRecordById(this.id).subscribe({
             next: (maintenanceResponse) => {
@@ -48,7 +51,22 @@ export class OrcamentoClienteComponent {
       console.error('ID do orçamento não fornecido');
     }
   }
-  
+
+  openApprovalModal() {
+    const dialogRef = this.dialog.open(ApprovalModalComponent, {
+      width: '400px',
+      disableClose: true, // Impede fechar ao clicar fora
+      panelClass: 'custom-modal',
+      data: { precoOrcado: this.item?.precoOrcado },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.aprovarServico();
+      }
+    });
+  }
+
 
   aprovarServico() {
     if (this.id) {
@@ -67,10 +85,9 @@ export class OrcamentoClienteComponent {
   rejeitarServico() {
     const motivo = prompt('Digite o motivo da rejeição:');
     if (this.id && motivo) {
-      // Caso queira armazenar o motivo antes de rejeitar, primeiro faz o update:
       const updateRequest = {
         precoOrcado: this.item?.precoOrcado,
-        descricao: `Rejeitado: ${motivo}`,  // Usando o campo descricao para armazenar o motivo.
+        descricao: `Rejeitado: ${motivo}`,
         maintenanceId: this.item?.maintenanceId
       };
 

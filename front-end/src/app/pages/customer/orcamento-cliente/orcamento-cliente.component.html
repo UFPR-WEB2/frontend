@@ -19,10 +19,10 @@
                 </div>
                 <div class="item-orcamento" id="price">
                     <h3>Preço Orçado:</h3>
-                    <p>{{item.precoOrcado}}</p>
+                    <p>R${{item.precoOrcado}}</p>
                 </div>
             </div>
-            <button (click)="aprovarServico()">Aprovar Serviço</button>
+            <button (click)="openApprovalModal()">Aprovar Serviço</button>
             <button (click)="rejeitarServico()">Rejeitar Serviço</button>
             <button onclick="history.back()">Voltar</button>
         </div>
