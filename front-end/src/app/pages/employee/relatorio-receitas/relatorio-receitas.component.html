@@ -33,10 +33,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let receita of receitasFiltradas">
-                <td>{{ receita.data }}</td>
-                <td>R$ {{ receita.valor | number:'1.2-2' }}</td>
-              </tr>
+              <tr *ngFor="let lucro of lucroPorDia">
+                <td>{{ lucro.dia }}</td>
+                <td>{{ lucro.lucro | currency:'BRL':'symbol':'1.2-2' }}</td>
+              </tr>              
             </tbody>
           </table>
         </div>
