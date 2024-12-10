@@ -60,7 +60,7 @@ export class HomeClienteComponent implements OnInit {
               servico.nomeStatus === estado.toUpperCase() ||
               estado === 'todos' ||
               (estado === 'outros estados' &&
-                servico.nomeStatus !== 'ORÇADA' &&
+                servico.nomeStatus !== 'ORCADA' &&
                 servico.nomeStatus !== 'APROVADA' &&
                 servico.nomeStatus !== 'REJEITADA' &&
                 servico.nomeStatus !== 'ARRUMADA')
@@ -85,10 +85,8 @@ export class HomeClienteComponent implements OnInit {
                 ) || undefined,
             };
           });
-        console.log('Serviços carregados:', this.servicos);
       },
       error: (error) => {
-        console.error('Erro ao carregar solicitações', error);
       },
     });
   }
