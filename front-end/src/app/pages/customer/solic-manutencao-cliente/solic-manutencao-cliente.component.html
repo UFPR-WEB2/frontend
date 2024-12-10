@@ -41,12 +41,12 @@
                     *ngIf="defectDescription?.hasError('minlength') && defectDescription?.touched">
                     A descrição do defeito deve ter pelo menos 0 caracteres.
                 </small>
-                <small class="text-danger" *ngIf="equipmentDescription?.hasError('maxlength')">
+                <small class="text-danger" *ngIf="defectDescription?.hasError('maxlength')">
                     A descrição do defeito deve ter no máximo 30 caracteres.
                 </small>
                 <input type="hidden" id="request-date" name="request-date" value="">
                 <input type="hidden" id="request-status" name="request-status" value="ABERTA">
-                <button type="submit">Enviar</button>
+                <button>Enviar</button>
             </form>
             <button onclick="history.back()" id="btn-voltar">Voltar</button>
         </div>
