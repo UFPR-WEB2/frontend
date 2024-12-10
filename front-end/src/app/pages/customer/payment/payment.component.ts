@@ -30,7 +30,7 @@ export class PaymentComponent {
     private datePipe: DatePipe,
     private router: Router
   ) {}
-
+  /*
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if (this.id) {
@@ -50,6 +50,42 @@ export class PaymentComponent {
       });
     }
   }
+  */
+  ngOnInit() {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.id !== null) {  // Verifique se id não é null
+      this.budgetService.getBudgetByMaintenanceId(this.id).subscribe({
+        next: (data) => {
+          this.budget = data;  // Supondo que o orçamento esteja vindo na resposta
+        },
+        error: (error) => {
+          this.erro = error.message;
+          console.log('Erro ao carregar orçamento', error);
+        }
+      });
+    } else {
+      console.error('ID inválido');
+    }
+  
+    if (this.id) {
+      this.maintenanceService.getMaintenanceRecordById(this.id).subscribe({
+        next: (data) => {
+          this.servico = {
+            ...data,
+            dataConserto: this.datePipe.transform(data.dataConserto, 'dd/MM/yyyy') || undefined,
+            dataCriacao: this.datePipe.transform(data.dataCriacao, 'dd/MM/yyyy') || undefined,
+            dataFinalizacao: this.datePipe.transform(data.dataFinalizacao, 'dd/MM/yyyy') || undefined,
+          };
+        },
+        error: (error) => {
+          this.erro = error.message;
+          console.log('Erro ao carregar solicitação', error);
+        },
+      });
+    }
+  }
+  
+  
 
   efetuarPagamento() {
     if (this.servico && this.budget) {
