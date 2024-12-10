@@ -1,7 +1,7 @@
+import { MaintenceRequest } from './../../models/maintence-request.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { MaintenceRequest } from '../../models/maintence-request.model';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 
@@ -75,6 +75,12 @@ export class MaintenanceService {
     });
   }
 
+  getMaintenanceById(id: number | null): Observable<MaintenanceResponse> {
+    return this.http.get<MaintenanceResponse>(`${this.apiUrl}/${id}`, {
+      withCredentials: true,
+    });
+  }
+
   createMaintenance(maintenceRequest: MaintenceRequest): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -115,21 +121,36 @@ export class MaintenanceService {
     });
   }
 
+  //ABCDE
+  // Aqui falta: passar um dto correto que satisfaça a funcao correta do back.
+  // Precisa salvar: responsavel pela manutencao, data e hora, descricao do conserto e orientacao ao cliente
   performMaintenance(id: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/perform/${id}`, {}, {
-      withCredentials: true,
-    });
+    return this.http.put<any>(
+      `${this.apiUrl}/perform/${id}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   finishMaintenance(id: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/finish/${id}`, {}, {
-      withCredentials: true,
-    });
+    return this.http.put<any>(
+      `${this.apiUrl}/finish/${id}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   payMaintenance(id: number): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/pay/${id}`, {}, {
-      withCredentials: true,
-    });
+    return this.http.put<any>(
+      `${this.apiUrl}/pay/${id}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
   }
 }

@@ -7,9 +7,8 @@
 }
 
 #container {
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
-
 
 p {
   word-break: break-all;
@@ -110,9 +109,7 @@ h3 {
   resize: none;
 }
 
-
 select {
-
   /* styling */
   background-color: white;
   border: thin solid black;
@@ -132,37 +129,22 @@ select {
   -moz-appearance: none;
 }
 
-
 select.classic {
-  background-image:
-    linear-gradient(45deg, transparent 50%, white 50%),
+  background-image: linear-gradient(45deg, transparent 50%, white 50%),
     linear-gradient(135deg, white 50%, transparent 50%),
     linear-gradient(to right, orange, red);
-  background-position:
-    calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px),
-    100% 0;
-  background-size:
-    5px 5px,
-    5px 5px,
-    2.5em 2.5em;
+  background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px), 100% 0;
+  background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
   background-repeat: no-repeat;
 }
 
 select.classic:focus {
-  background-image:
-
-    linear-gradient(45deg, white 50%, transparent 50%),
+  background-image: linear-gradient(45deg, white 50%, transparent 50%),
     linear-gradient(135deg, transparent 50%, white 50%),
     linear-gradient(to right, orange, red);
-  background-position:
-    calc(100% - 15px) 1em,
-    calc(100% - 20px) 1em,
-    100% 0;
-  background-size:
-    5px 5px,
-    5px 5px,
-    2.5em 2.5em;
+  background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, 100% 0;
+  background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
   background-repeat: no-repeat;
   border-color: grey;
   outline: 0;
