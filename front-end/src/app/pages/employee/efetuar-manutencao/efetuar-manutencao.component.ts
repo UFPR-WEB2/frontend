@@ -40,7 +40,7 @@ export class EfetuarManutencaoComponent {
     private datePipe: DatePipe,
     private maintenanceService: MaintenanceService,
     private authService: AuthService,
-    private repairService : RepairService
+    private repairService: RepairService
   ) {}
 
   ngOnInit() {
@@ -104,30 +104,28 @@ export class EfetuarManutencaoComponent {
     }*/
   }
 
+  registrarManutencao() {
+    if (this.servico && this.descricaoManutencao && this.orientacoesCliente) {
+      const repairData: IRepair = {
+        idManutencao: Number(this.id),
+        descricaoConserto: this.descricaoManutencao,
+        orientacaoCliente: this.orientacoesCliente,
+      };
 
-    registrarManutencao() {
-      if (this.servico && this.descricaoManutencao && this.orientacoesCliente) {
-        const repairData: IRepair = {
-          idManutencao: Number(this.id),
-          descricaoConserto: this.descricaoManutencao,
-          orientacaoCliente: this.orientacoesCliente,
-        };
-    
-        this.repairService.createRepair(repairData).subscribe({
-          next: () => {
-            window.alert('Manutenção registrada com sucesso!');
-            this.router.navigate(['/funcionario/home']);
-          },
-          error: (err) => {
-            console.error('Erro ao registrar manutenção:', err);
-            window.alert('Erro ao registrar manutenção.');
-          },
-        });
-      } else {
-        window.alert('Por favor, preencha todos os campos.');
-      }
+      this.repairService.createRepair(repairData).subscribe({
+        next: () => {
+          window.alert('Manutenção registrada com sucesso!');
+          this.router.navigate(['/funcionario/home']);
+        },
+        error: (err) => {
+          console.error('Erro ao registrar manutenção:', err);
+          window.alert('Erro ao registrar manutenção.');
+        },
+      });
+    } else {
+      window.alert('Por favor, preencha todos os campos.');
     }
-    
+  }
 
   onSubmit() {
     /*

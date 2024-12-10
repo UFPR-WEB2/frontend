@@ -9,11 +9,17 @@ import {
 } from '../../../services/api/maintenance.service';
 
 import { BudgetService } from '../../../services/api/budget.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home-cliente',
   standalone: true,
-  imports: [HeaderClienteComponent, NavbarClienteComponent, CommonModule],
+  imports: [
+    HeaderClienteComponent,
+    NavbarClienteComponent,
+    CommonModule,
+    FormsModule,
+  ],
   providers: [DatePipe],
   templateUrl: './home-cliente.component.html',
   styleUrls: ['./home-cliente.component.css'],
@@ -21,6 +27,8 @@ import { BudgetService } from '../../../services/api/budget.service';
 export class HomeClienteComponent implements OnInit {
   servicos: MaintenanceResponse[] = [];
   usuarioLogado: any;
+  resgatarModal: Boolean = false;
+  resgatarModalId: number | undefined;
 
   constructor(
     private maintenanceService: MaintenanceService,
@@ -31,6 +39,15 @@ export class HomeClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarServicos();
+  }
+
+  openResgatarModal(id: number | undefined) {
+    this.resgatarModal = true;
+    this.resgatarModalId = id;
+  }
+
+  closeResgatarModal() {
+    this.resgatarModal = false;
   }
 
   carregarServicos(estado?: string) {
@@ -99,6 +116,7 @@ export class HomeClienteComponent implements OnInit {
         console.error('Erro ao resgatar serviço', error);
       },
     });
+    this.resgatarModal = false;
   }
 
   pagarServico(id: number | undefined) {

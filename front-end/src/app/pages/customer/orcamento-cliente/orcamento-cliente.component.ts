@@ -69,6 +69,7 @@ export class OrcamentoClienteComponent {
 
   closeRejectModal() {
     this.rejectModal = false;
+    this.rejectReason = '';
   }
 
   aprovarServico() {

@@ -35,7 +35,6 @@ export class SolicManutencaoClienteComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService,
     private maintenanceService: MaintenanceService,
     private categoriaService: CrudCategoriaService
   ) {

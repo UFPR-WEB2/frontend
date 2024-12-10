@@ -28,7 +28,7 @@
                 <button *ngSwitchCase="'ORCADA'" (click)="mostrarOrcamento(servico.id)">
                   Aprovar/Rejeitar Serviço
                 </button>
-                <button *ngSwitchCase="'REJEITADA'" (click)="resgatarServico(servico.id)">
+                <button *ngSwitchCase="'REJEITADA'" (click)="openResgatarModal(servico.id)">
                   Resgatar Serviço
                 </button>
                 <button *ngSwitchCase="'ARRUMADA'" (click)="pagarServico(servico.id)">
@@ -45,4 +45,15 @@
       </table>
     </div>
   </main>
+  <div *ngIf="resgatarModal" id="resgatar-modal" class="modal">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div>
+        <h2>Deseja RESGATAR o serviço {{resgatarModalId}}?</h2>
+        <span class="close-button" (click)="closeResgatarModal()">&times;</span>
+      </div>
+      <button (click)="resgatarServico(resgatarModalId)" class="buttons">Resgatar</button>
+      
+      <button (click)="closeResgatarModal()" class="buttons">Cancelar</button>
+    </div>
+  </div>
 </div>

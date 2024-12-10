@@ -40,19 +40,15 @@
     </div>
     <div *ngIf="rejectModal" id="reject-modal" class="modal" (click)="closeRejectModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
-          <div>
-            <h2>Deseja REJEITAR o orçamento no valor de R${{ item?.precoOrcado }}?</h2>
-            <span class="close-button" (click)="closeRejectModal()">&times;</span>
-          </div>
-          <input
-            [(ngModel)]="rejectReason"
-            id="reject-reason"
-            placeholder="Digite o motivo da rejeição (opcional)"
-            type="text"
-          />
-          <button (click)="rejeitarServico()" class="buttons">Rejeitar</button>
-          <button (click)="closeRejectModal()" class="buttons">Cancelar</button>
+            <div>
+                <h2>Deseja REJEITAR o orçamento no valor de R${{ item?.precoOrcado }}?</h2>
+                <span class="close-button" (click)="closeRejectModal()">&times;</span>
+            </div>
+            <input [(ngModel)]="rejectReason" id="reject-reason" placeholder="Digite o motivo da rejeição (opcional)"
+                type="text" />
+            <button (click)="rejeitarServico()" class="buttons">Rejeitar</button>
+            <button (click)="closeRejectModal()" class="buttons">Cancelar</button>
         </div>
-      </div>
-      
+    </div>
+
 </div>
