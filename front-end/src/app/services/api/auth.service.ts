@@ -10,6 +10,7 @@ import { PasswordResetRequest } from '../../models/password-request.model';
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;
+  private passwordUrl = `${environment.apiUrl}/cliente`;
 
   constructor(private http: HttpClient) {}
 
@@ -26,10 +27,10 @@ export class AuthService {
 
   getSession(): Observable<any> {
     return this.http.post(`${this.apiUrl}/getSession`, {}, { observe: 'response', withCredentials: true });
-  
+
   }
 
   requestPasswordReset(request: PasswordResetRequest): Observable<any> {
-    return this.http.post(`${this.apiUrl}/password-reset`, request);
+    return this.http.post(`${this.passwordUrl}/password-reset`, request);
   }
 }
