@@ -1,29 +1,52 @@
 <app-header-cliente></app-header-cliente>
 <div id="principal">
-    <main>
-        <div id="container">
-            <h1>Pagamento</h1>
-            <h1>Detalhes da Solicitação</h1>
-            <div id="informacoes" *ngIf="item">
-                <div class="item-orcamento">
-                    <h3>Descrição do Equipamento:</h3>
-                    <p>{{item.descricaoEquipamento}}</p>
-                </div>
-                <div class="item-orcamento">
-                    <h3>Categoria:</h3>
-                    <p>{{item.categoria}}</p>
-                </div>
-                <div class="item-orcamento">
-                    <h3>Defeito:</h3>
-                    <p>{{item.descricaoErro}}</p>
-                </div>
-                <div class="item-orcamento" id="price">
-                    <h3>Total a pagar:</h3>
-                    <p>{{item.preco}}</p>
-                </div>
+  <main>
+    <div id="container">
+      <h1>Pagamento</h1>
+      <h1>Detalhes da Solicitação</h1>
+      <div id="informacoes" *ngIf="servico">
+        <div class="linha-dupla">
+            <div class="item-orcamento">
+                <h3>Status Atual:</h3>
+                <p>{{servico.nomeStatus}}</p>
             </div>
-            <button (click)="efetuarPagamento()">Pagar</button>
-            <button onclick="history.back()" id="btn-voltar">Voltar</button>
+            <div class="item-orcamento">
+                <h3>Categoria:</h3>
+                <p>{{servico.nomeCategoria}}</p>
+            </div>
+            <div *ngIf="budget?.precoOrcado" class="item-orcamento">
+                <h3>Preço Orçado:</h3>
+                <p>{{budget?.precoOrcado}}</p>
+            </div>
         </div>
-    </main>
+        <div class="item-orcamento">
+            <h3>Descrição do Equipamento:</h3>
+            <p>{{servico.descricaoEquipamento}}</p>
+        </div>
+
+        <div *ngIf="erro" class="item-orcamento" id="descricao-erro" style=" height: 15dvh;">
+            <h3>Defeito:</h3>
+            <p>{{erro}}</p>
+        </div>
+
+        <h3 id="title-lista-historico">Histórico da Solicitação:</h3>
+        <div id="lista-historico">
+            <ul>
+                <li *ngIf="servico.dataCriacao">Criação: {{servico.dataCriacao}}</li>
+                <li *ngIf="budget?.precoOrcado">Orçamento: R$ {{budget?.precoOrcado}} - {{servico.nomeFuncionario ?? "Ainda não definido"}}</li>
+                <li *ngIf="budget?.dataRecuperacao">Recuperação: {{budget?.dataRecuperacao}} -
+                    {{servico.nomeFuncionario ?? "Ainda não definido"}}</li>
+                <li *ngIf="servico.dataConserto">Conserto: {{servico.dataConserto}} -
+                    {{servico.nomeFuncionario ?? "Ainda não definido"}}</li>
+                <li *ngIf="servico.dataFinalizacao">Finalização: {{servico.dataFinalizacao}} -
+                    {{servico.nomeFuncionario ?? "Ainda não definido"}}</li>
+                <li *ngIf="budget?.dataRejeicao">Rejeição: {{budget?.dataRejeicao}} - {{servico.nomeFuncionario ?? "Ainda não definido"}}
+                </li>
+            </ul>
+        </div>
+    </div>
+      <button (click)="efetuarPagamento()">Pagar</button>
+      <button onclick="history.back()">Voltar</button>
+    </div>
+  </main>
 </div>
