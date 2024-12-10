@@ -20,6 +20,7 @@ export class MaintenanceResponse {
   nomeFuncionario?: string;
   orientacaoCliente?: string;
   nomeStatus?: string;
+  valorConserto?: number;
 
   constructor(
     dataConserto?: string,
@@ -34,7 +35,8 @@ export class MaintenanceResponse {
     emailCliente?:string,
     nomeFuncionario?: string,
     orientacaoCliente?: string,
-    status?: string
+    status?: string,
+    valorConserto?: number
   ) {
     this.dataConserto = dataConserto;
     this.dataCriacao = dataCriacao;
@@ -49,6 +51,7 @@ export class MaintenanceResponse {
     this.nomeFuncionario = nomeFuncionario;
     this.orientacaoCliente = orientacaoCliente;
     this.nomeStatus = status;
+    this.valorConserto = valorConserto;
   }
 }
 
@@ -62,6 +65,12 @@ export class MaintenanceService {
 
   getAllMaintenance(): Observable<MaintenanceResponse[]> {
     return this.http.get<MaintenanceResponse[]>(this.apiUrl, {
+      withCredentials: true,
+    });
+  }
+
+  getFinishedMaintenance(): Observable<MaintenanceResponse[]> {
+    return this.http.get<MaintenanceResponse[]>(`${this.apiUrl}/finalizadas`, {
       withCredentials: true,
     });
   }

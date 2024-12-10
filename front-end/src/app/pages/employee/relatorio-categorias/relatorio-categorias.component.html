@@ -17,14 +17,14 @@
           <table id="report-table">
             <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
               <tr>
-                <th>Data</th>
+                <th>Categoria</th>
                 <th>Receita</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let receita of receitasFiltradas">
                 <td>{{ receita.categoria }}</td>
-                <td>R$ {{ receita.valor | number:'1.2-2' }}</td>
+                <td>{{ receita.valor | currency:'BRL' }}</td>
               </tr>
             </tbody>
           </table>

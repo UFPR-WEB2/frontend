@@ -1,20 +1,59 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { MaintenanceService, MaintenanceResponse } from '../../../services/api/maintenance.service';
 
 @Component({
-  selector: 'app-relatorio-receitas',
+  selector: 'app-relatorio-categorias',
   standalone: true,
   imports: [RouterOutlet, CommonModule, FormsModule],
   templateUrl: './relatorio-categorias.component.html',
-  styleUrl: './relatorio-categorias.component.css',
+  styleUrls: ['./relatorio-categorias.component.css'],
 })
-export class RelatorioCategoriasComponent {
+export class RelatorioCategoriasComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private maintenanceService: MaintenanceService) { }
+
+  startDate: string = '';
+  endDate: string = '';
+  
+  // Aqui armazenaremos a estrutura de receitas por categoria.
+  receitas: { categoria: string, valor: number }[] = [];
+  receitasFiltradas: { categoria: string, valor: number }[] = [];
+
+  ngOnInit(): void {
+    // Ao iniciar o componente, buscamos os dados do serviço.
+    this.getAllReceitasPorCategoria();
+  }
+
+  getAllReceitasPorCategoria() {
+    // Supondo que maintenanceService.getFinishedMaintenance() retorna o mesmo array de MaintenanceResponse
+    // usado anteriormente. Iremos então agrupar por categoria.
+    this.maintenanceService.getFinishedMaintenance().subscribe(
+      (data: MaintenanceResponse[]) => {
+        // Agrupar receitas por categoria
+        const receitasPorCategoriaMap: { [key: string]: number } = {};
+
+        data.forEach((r) => {
+          if (r.nomeCategoria && r.valorConserto) {
+            if (!receitasPorCategoriaMap[r.nomeCategoria]) {
+              receitasPorCategoriaMap[r.nomeCategoria] = 0;
+            }
+            receitasPorCategoriaMap[r.nomeCategoria] += r.valorConserto;
+          }
+        });
+
+        // Converter o objeto em array
+        this.receitas = Object.entries(receitasPorCategoriaMap).map(([categoria, valor]) => ({ categoria, valor }));
+        this.receitasFiltradas = [...this.receitas];
+      },
+      (error) => {
+        console.error('Erro ao carregar Receitas', error);
+      }
+    );
+  }
 
   goToRelatorioReceitas() {
     this.router.navigate(['/funcionario/home/relatorio-receitas']);
@@ -27,20 +66,6 @@ export class RelatorioCategoriasComponent {
   goToHomeFuncionario() {
     this.router.navigate(['/funcionario/home']);
   }
-
-
-  startDate: string = '';
-  endDate: string = '';
-  receitas = [
-    { categoria: 'Desktop', data: '06/08/2024', valor: 3000.00 },
-    { categoria: 'Notebook', data: '07/08/2024', valor: 2500.00 },
-    { categoria: 'Impressora', data: '08/08/2024', valor: 2000.00 },
-    { categoria: 'Mouse', data: '09/08/2024', valor: 1900.00 },
-    { categoria: 'Teclado', data: '10/08/2024', valor: 2010.00 },
-  ];
-
-  receitasFiltradas = this.receitas;
-
 
   calcularTotal() {
     return this.receitasFiltradas.reduce((total, receita) => total + receita.valor, 0);
@@ -61,12 +86,20 @@ export class RelatorioCategoriasComponent {
 
     let y = 25;
     this.receitasFiltradas.forEach(receita => {
-      doc.text(`${receita.categoria} - ${receita.data}: R$ ${receita.valor}`, 10, y);
+      const valorFormatado = receita.valor.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      });
+      doc.text(`${receita.categoria}: ${valorFormatado}`, 10, y);
       y += 10;
     });
 
     doc.setFont('helvetica', 'bold');
-    doc.text(`Total: R$ ${this.calcularTotal()}`, 10, y + 10);
+    const totalFormatado = this.calcularTotal().toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+    doc.text(`Total: ${totalFormatado}`, 10, y + 10);
 
     const currentDate = new Date();
     const dateString = currentDate.toLocaleDateString('pt-BR');
@@ -75,10 +108,10 @@ export class RelatorioCategoriasComponent {
 
     const pageCount = doc.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
-        doc.setPage(i);
-        doc.setFontSize(10);
-        doc.setTextColor(150);
-        doc.text('Página ' + String(i) + ' de ' + String(pageCount), 180, 290, { align: 'right' });
+      doc.setPage(i);
+      doc.setFontSize(10);
+      doc.setTextColor(150);
+      doc.text('Página ' + String(i) + ' de ' + String(pageCount), 180, 290, { align: 'right' });
     }
 
     doc.save('relatorio_receitas_categorias.pdf');
