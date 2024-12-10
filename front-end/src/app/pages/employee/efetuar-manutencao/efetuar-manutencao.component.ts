@@ -132,5 +132,6 @@ export class EfetuarManutencaoComponent {
     } else {
       window.alert('Por favor, preencha todos os campos.');
     }
+    this.maintenanceModal = false;
   }
 }

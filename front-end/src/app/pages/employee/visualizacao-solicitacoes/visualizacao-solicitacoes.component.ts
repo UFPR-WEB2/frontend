@@ -8,15 +8,18 @@ import {
   MaintenanceResponse,
   MaintenanceService,
 } from '../../../services/api/maintenance.service';
-import { BudgetService } from '../../../services/api/budget.service';
-import { authGuard } from '../../../auth/auth.guard';
 import { AuthService } from '../../../services/api/auth.service';
-import { Employee } from '../../../services/api/employee.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-visualizacao-solicitacoes',
   standalone: true,
-  imports: [HeaderClienteComponent, NavbarFuncionarioComponent, CommonModule],
+  imports: [
+    HeaderClienteComponent,
+    NavbarFuncionarioComponent,
+    CommonModule,
+    FormsModule,
+  ],
   templateUrl: './visualizacao-solicitacoes.component.html',
   styleUrls: ['./visualizacao-solicitacoes.component.css'],
   providers: [DatePipe],
@@ -24,10 +27,11 @@ import { Employee } from '../../../services/api/employee.service';
 export class VisualizacaoSolicitacoesComponent {
   servicos: MaintenanceResponse[] = [];
   servicosFiltrados: MaintenanceResponse[] = [];
+  finalizarServicoModal: boolean = false;
+  idServicoModal: number | undefined;
 
   constructor(
     private maintenanceService: MaintenanceService,
-    private budgetService: BudgetService,
     private router: Router,
     private datePipe: DatePipe,
     private authService: AuthService
@@ -73,6 +77,16 @@ export class VisualizacaoSolicitacoesComponent {
     });
   }
 
+  openFinalizarServicoModal(id: number | undefined) {
+    this.idServicoModal = id;
+    this.finalizarServicoModal = true;
+  }
+
+  closeFinalizarServicoModal() {
+    this.finalizarServicoModal = false;
+    this.idServicoModal = undefined;
+  }
+
   efetuarManutencao(id: number | undefined) {
     if (id === undefined) return;
     this.router.navigate([`funcionario/home/efetuar-manutencao/${id}`]);
@@ -85,20 +99,17 @@ export class VisualizacaoSolicitacoesComponent {
 
   finalizarSolicitacao(id: number | undefined) {
     if (id === undefined) return;
-    const confirmacao = window.confirm(
-      'Você tem certeza que deseja finalizar este serviço?'
-    );
-    if (confirmacao) {
-      this.maintenanceService.finishMaintenance(id).subscribe({
-        next: (response) => {
-          console.log('Serviço finalizado:', response);
-          this.carregarServicos();
-        },
-        error: (error) => {
-          console.error('Erro ao finalizar serviço:', error);
-        },
-      });
-    }
+    this.maintenanceService.finishMaintenance(id).subscribe({
+      next: (response) => {
+        console.log('Serviço finalizado:', response);
+        this.carregarServicos();
+      },
+      error: (error) => {
+        console.error('Erro ao finalizar serviço:', error);
+      },
+    });
+    this.idServicoModal = undefined;
+    this.finalizarServicoModal = false;
   }
 
   ngOnInit(): void {
