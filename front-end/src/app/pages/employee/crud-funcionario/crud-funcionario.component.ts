@@ -1,6 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
@@ -45,14 +44,14 @@ export class CrudFuncionarioComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
 
   atualizarListaFuncionarios() {
-    this.employeeService.listarFuncionarios().subscribe(
-      (data) => {
+    this.employeeService.listarFuncionarios().subscribe({
+      next: (data) => {
         this.funcionarios = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao carregar Funcionarios', error);
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {
@@ -61,17 +60,17 @@ export class CrudFuncionarioComponent implements OnInit {
 
   inserir() {
     if (this.formFuncionario.valid) {
-      this.employeeService.cadastrarFuncionario(this.pessoa).subscribe(
-        () => {
+      this.employeeService.cadastrarFuncionario(this.pessoa).subscribe({
+        next: () => {
           this.atualizarListaFuncionarios();
         },
-        (error) => {
+        error: (error) => {
           if (error.status === 409) {
             console.log(error);
             alert('Email já cadastrado.');
           }
-        }
-      );
+        },
+      });
       this.pessoa = {
         id: new Date().getTime(),
         nome: '',
@@ -102,17 +101,17 @@ export class CrudFuncionarioComponent implements OnInit {
     if (this.pessoaParaExcluir) {
       this.employeeService
         .deletarFuncionario(this.pessoaParaExcluir.id)
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.atualizarListaFuncionarios();
             this.fecharModalExcluir();
           },
-          (error) => {
+          error: (error) => {
             if (error.status === 403) {
               alert('Não é possível excluir si mesmo.');
             }
-          }
-        );
+          },
+        });
     }
   }
 
@@ -136,8 +135,10 @@ export class CrudFuncionarioComponent implements OnInit {
   atualizarFuncionario() {
     this.employeeService
       .atualizarFuncionario(this.pessoaEditar.id, this.pessoaEditar)
-      .subscribe(() => {
-        this.atualizarListaFuncionarios();
+      .subscribe({
+        next: () => {
+          this.atualizarListaFuncionarios();
+        },
       });
     this.pessoa = {
       id: new Date().getTime(),
