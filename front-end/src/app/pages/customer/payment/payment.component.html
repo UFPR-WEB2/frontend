@@ -3,50 +3,70 @@
     <main>
         <div id="container">
             <h1>Pagamento</h1>
-            <h1>Detalhes da Solicitação</h1>
-            <div id="informacoes" *ngIf="servico">
-                <div class="linha-dupla">
-                    <div class="item-orcamento">
-                        <h3>Status Atual:</h3>
-                        <p>{{servico.nomeStatus}}</p>
+            <div id="informacoes">
+                <button (click)="alternarInformacoes()">{{valorAlternado}}</button>
+                <div id="informacoes-atuais" *ngIf="mostrarInformacoesAtuais">
+                    <div class="linha-dupla">
+                        <div class="item-orcamento">
+                            <h3>Status Atual:</h3>
+                            <p>{{servico?.nomeStatus}}</p>
+                        </div>
+                        <div *ngIf="budget?.precoOrcado" class="item-orcamento">
+                            <h3>Preço Orçado:</h3>
+                            <p>{{budget?.precoOrcado}}</p>
+                        </div>
                     </div>
                     <div class="item-orcamento">
                         <h3>Categoria:</h3>
-                        <p>{{servico.nomeCategoria}}</p>
+                        <p>{{servico?.nomeCategoria}}</p>
                     </div>
-                    <div *ngIf="budget?.precoOrcado" class="item-orcamento">
-                        <h3>Preço Orçado:</h3>
-                        <p>{{budget?.precoOrcado}}</p>
+                    <div class="item-orcamento">
+                        <h3>Descrição do Equipamento:</h3>
+                        <p>{{servico?.descricaoEquipamento}}</p>
                     </div>
-                </div>
-                <div class="item-orcamento">
-                    <h3>Descrição do Equipamento:</h3>
-                    <p>{{servico.descricaoEquipamento}}</p>
+                    <div class="item-orcamento">
+                        <h3>Descrição do Defeito:</h3>
+                        <p>{{servico?.descricaoDefeito}}</p>
+                    </div>
                 </div>
 
-                <div *ngIf="erro" class="item-orcamento" id="descricao-erro" style=" height: 15dvh;">
-                    <h3>Defeito:</h3>
-                    <p>{{erro}}</p>
+                <!-- Outras informações (invisível inicialmente) -->
+                <div id="outras-informacoes" *ngIf="!mostrarInformacoesAtuais">
+                    <div class="linha-dupla">
+                        <div class="item-orcamento">
+                            <h3>Status Atual:</h3>
+                            <p>{{servico?.nomeStatus}}</p>
+                        </div>
+                        <div *ngIf="budget?.precoOrcado" class="item-orcamento">
+                            <h3>Preço Orçado:</h3>
+                            <p>{{budget?.precoOrcado}}</p>
+                        </div>
+                    </div>
+                    <div class="item-orcamento">
+                        <h3>Descrição do conserto:</h3>
+                        <p>{{servico?.descricaoConserto}}</p>
+                    </div>
+                    <div class="item-orcamento">
+                        <h3>Recomendações do conserto:</h3>
+                        <p>{{servico?.orientacaoCliente}}</p>
+                    </div>
                 </div>
+                
+                
 
                 <h3 id="title-lista-historico">Histórico da Solicitação:</h3>
                 <div id="lista-historico">
                     <ul>
-                        <li *ngIf="servico.dataCriacao">Criação: {{servico.dataCriacao}}</li>
-                        <li *ngIf="budget?.precoOrcado">Orçamento: R$ {{budget?.precoOrcado}} -
-                            {{servico.nomeFuncionario ?? "Ainda não definido"}}</li>
-                        <li *ngIf="budget?.dataRecuperacao">Recuperação: {{budget?.dataRecuperacao}} -
-                            {{servico.nomeFuncionario ?? "Ainda não definido"}}</li>
-                        <li *ngIf="servico.dataConserto">Conserto: {{servico.dataConserto}} -
-                            {{servico.nomeFuncionario ?? "Ainda não definido"}}</li>
-                        <li *ngIf="servico.dataFinalizacao">Finalização: {{servico.dataFinalizacao}} -
-                            {{servico.nomeFuncionario ?? "Ainda não definido"}}</li>
-                        <li *ngIf="budget?.dataRejeicao">Rejeição: {{budget?.dataRejeicao}} - {{servico.nomeFuncionario
-                            ?? "Ainda não definido"}}
-                        </li>
+                        <li *ngIf="servico?.dataCriacao">Criação: {{servico?.dataCriacao}}</li>
+                        <li *ngIf="budget?.precoOrcado">Orçamento: {{budget?.dataOrcamento}} - {{budget?.precoOrcado}} - {{servico?.nomeFuncionario ?? "Ainda não definido"}}</li>
+                        <li *ngIf="budget?.dataRecuperacao">Recuperação: {{budget?.dataRecuperacao}} - {{servico?.nomeFuncionario ?? "Ainda não definido"}}</li>
+                        <li *ngIf="servico?.dataConserto">Conserto: {{servico?.dataConserto}} - {{servico?.nomeFuncionario ?? "Ainda não definido"}}</li>
+                        <li *ngIf="servico?.dataFinalizacao">Finalização: {{servico?.dataFinalizacao}} - {{servico?.nomeFuncionario ?? "Ainda não definido"}}</li>
+                        <li *ngIf="budget?.dataRejeicao">Rejeição: {{budget?.dataRejeicao}} - {{servico?.nomeFuncionario ?? "Ainda não definido"}}</li>
                     </ul>
                 </div>
             </div>
+
             <button (click)="efetuarPagamento()">Pagar</button>
             <button onclick="history.back()">Voltar</button>
         </div>

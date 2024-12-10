@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, CurrencyPipe  } from '@angular/common';
 import { BudgetService } from '../../../services/api/budget.service';
 import {
   MaintenanceService,
@@ -13,7 +13,7 @@ import { IBudgetResponse } from '../../../models/budget-response.model';
   selector: 'app-payment',
   standalone: true,
   imports: [HeaderClienteComponent, CommonModule],
-  providers: [DatePipe],
+  providers: [DatePipe, CurrencyPipe],
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
@@ -21,42 +21,29 @@ export class PaymentComponent {
   id: number | null = null;
   erro: string | null = null;
   servico: MaintenanceResponse | undefined;
-  budget: IBudgetResponse | undefined;
+  budget: any;
+  mostrarInformacoesAtuais: boolean = true;
+  valorAlternado: string = "Informações do Conserto";
 
   constructor(
     private maintenanceService: MaintenanceService,
     private budgetService: BudgetService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private currencyPipe: CurrencyPipe
   ) {}
-  /*
-  ngOnInit() {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.id) {
-      this.maintenanceService.getMaintenanceRecordById(this.id).subscribe({
-        next: (data) => {
-          this.servico = {
-            ...data,
-            dataConserto: this.datePipe.transform(data.dataConserto, 'dd/MM/yyyy') || undefined,
-            dataCriacao: this.datePipe.transform(data.dataCriacao, 'dd/MM/yyyy') || undefined,
-            dataFinalizacao: this.datePipe.transform(data.dataFinalizacao, 'dd/MM/yyyy') || undefined,
-          };
-        },
-        error: (error) => {
-          this.erro = error.message;
-          console.log('Erro ao carregar solicitação', error);
-        },
-      });
-    }
-  }
-  */
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if (this.id !== null) {  // Verifique se id não é null
       this.budgetService.getBudgetByMaintenanceId(this.id).subscribe({
         next: (data) => {
-          this.budget = data;  // Supondo que o orçamento esteja vindo na resposta
+          this.budget = {
+            ...data,
+            dataRecuperacao: this.datePipe.transform(data.dataRecuperacao, 'dd/MM/yyyy') || undefined,
+            dataOrcamento: this.datePipe.transform(data.dataOrcamento, 'dd/MM/yyyy') || undefined,
+            precoOrcado: this.currencyPipe.transform(data.precoOrcado, 'BRL', 'symbol') || undefined,
+          };  
         },
         error: (error) => {
           this.erro = error.message;
@@ -70,6 +57,7 @@ export class PaymentComponent {
     if (this.id) {
       this.maintenanceService.getMaintenanceRecordById(this.id).subscribe({
         next: (data) => {
+          console.log(data)
           this.servico = {
             ...data,
             dataConserto: this.datePipe.transform(data.dataConserto, 'dd/MM/yyyy') || undefined,
@@ -84,8 +72,10 @@ export class PaymentComponent {
       });
     }
   }
-  
-  
+  alternarInformacoes() {
+    this.mostrarInformacoesAtuais = !this.mostrarInformacoesAtuais;
+    this.valorAlternado = this.mostrarInformacoesAtuais  ? "Informações do Conserto" : "Informações da solicitação"; 
+  }
 
   efetuarPagamento() {
     if (this.servico && this.budget) {
