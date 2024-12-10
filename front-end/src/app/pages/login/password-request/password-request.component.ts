@@ -1,3 +1,5 @@
+// frontend/src/app/pages/login/password-request/password-request.component.ts
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/api/auth.service';
@@ -17,7 +19,6 @@ import { CommonModule } from '@angular/common';
 export class PasswordRequestComponent {
   email: string = '';
   message: string = '';
-  error: string = '';
 
   constructor(
     private authService: AuthService,
@@ -26,21 +27,21 @@ export class PasswordRequestComponent {
 
   onRequestPassword(): void {
     if (!this.email) {
-      this.error = 'Por favor, insira um e-mail válido.';
-      this.message = '';
       return;
     }
 
+    this.message = 'Se o email fornecido estiver cadastrado, você receberá um email com a nova senha.';
+
     this.authService.requestPasswordReset({ email: this.email }).subscribe({
       next: (response) => {
-        this.message = 'Uma nova senha foi enviada para seu email.';
-        this.error = '';
+        console.log('Requisição de recuperação de senha enviada:', response);
       },
       error: (err) => {
-        this.error = 'Erro ao tentar recuperar a senha. Por favor, tente novamente.';
-        this.message = '';
+        console.error('Erro ao enviar requisição de recuperação de senha:', err);
       }
     });
+
+    this.email = '';
   }
 
   goToLogin(): void {
