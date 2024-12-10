@@ -4,13 +4,13 @@
     <div id="container">
       <h1>Efetuar Manutenção</h1>
       <div id="informacoes" *ngIf="servico">
-        <h2 style="padding-bottom: 1dvh;">Detalhes da Solicitação</h2>
+        <h2>Detalhes da Solicitação</h2>
 
         <div class="item-orcamento">
           <h3>Descrição do Equipamento:</h3>
           <p>{{servico.descricaoEquipamento}}</p>
         </div>
-        
+
         <div class="item-orcamento">
           <h3>Categoria:</h3>
           <p>{{servico.nomeCategoria}}</p>
@@ -21,36 +21,24 @@
           <p>{{servico.descricaoDefeito}}</p>
         </div>
 
-        <h2 style="padding-bottom: 1dvh;">Dados do cliente</h2>
+        <h2>Dados do cliente</h2>
 
         <div id="dados-cliente">
           <div class="item-orcamento">
-              <h3>Nome cliente:</h3>
-              <p>{{servico.nomeCliente}}</p>
+            <h3>Nome cliente:</h3>
+            <p>{{servico.nomeCliente}}</p>
           </div>
           <div class="item-orcamento">
-              <h3>E-mail cliente:</h3>
-              <p>{{servico.emailCliente}}</p>
+            <h3>E-mail cliente:</h3>
+            <p>{{servico.emailCliente}}</p>
           </div>
-      </div>
+        </div>
       </div>
 
-      <button *ngIf="!mostrarFormulario && !mostrarComboBox" id="button-conserto" class="first_button"
-        (click)="efetuarManutencao()">Efetuar
+      <button *ngIf="!mostrarComboBox" id="button-conserto" class="first_button"
+        (click)="openMaintenanceModal()">Efetuar
         Manutenção</button>
-      <button *ngIf="!mostrarFormulario && !mostrarComboBox" (click)="mostrarRedirecionamento()">Redirecionar</button>
-
-      <div *ngIf="mostrarFormulario" class="item-form">
-        <div>
-          <h3>Descrição da Manutenção</h3>
-          <textarea [(ngModel)]="descricaoManutencao" placeholder="Digite a descrição da manutenção"></textarea>
-        </div>
-        <div>
-          <h3>Orientações para o Cliente</h3>
-          <textarea [(ngModel)]="orientacoesCliente" placeholder="Digite as orientações para o cliente"></textarea>
-        </div>
-        <button (click)="registrarManutencao()">Registrar Manutenção</button>
-      </div>
+      <button *ngIf="!mostrarComboBox" (click)="mostrarRedirecionamento()">Redirecionar</button>
 
       <!-- ComboBox para Redirecionamento de Funcionário -->
       <div *ngIf="mostrarComboBox" class="item-form">
@@ -68,4 +56,18 @@
       <button onclick="history.back()">Voltar</button>
     </div>
   </main>
+  <div *ngIf="maintenanceModal" id="maintenance-modal" class="modal" (click)="closeMaintenanceModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div>
+        <h2>Deseja efetuar a manutenção {{servico?.id}}?</h2>
+        <span class="close-button" (click)="closeMaintenanceModal()">&times;</span>
+      </div>
+      <input [(ngModel)]="descricaoManutencao" id="maintenance-description"
+        placeholder="Descrição da manutenção" type="text" />
+      <input [(ngModel)]="orientacoesCliente" id="orientacao-cliente"
+        placeholder="Orientações para o cliente" type="text" />
+      <button (click)="registrarManutencao()" class="buttons">Efetuar Manutenção</button>
+      <button (click)="closeMaintenanceModal()" class="buttons">Cancelar</button>
+    </div>
+  </div>
 </div>
