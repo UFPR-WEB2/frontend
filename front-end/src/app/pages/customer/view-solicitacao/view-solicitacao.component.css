@@ -1,3 +1,23 @@
+#principal {
+    padding: 1rem;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#container {
+    width: 90%;
+    max-width: 800px;
+    background-color: #222;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 #container h1 {
     font-size: 2.5rem;
     font-family: "Rubik", sans-serif;
@@ -15,76 +35,72 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin: 0.5rem 0;
+    width: 100%;
+    border: none;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+#container button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(255, 69, 0, 0.6);
 }
 
 #informacoes {
     width: 100%;
-    height: 63dvh;
-    text-align: left;
+    margin: 1rem 0;
     color: white;
-    font-size: large;
-    overflow-y: auto;
+    text-align: left;
 }
 
 #informacoes .item-orcamento {
-    padding-top: 1dvh;
-    height: 12dvh;
+    margin-bottom: 1rem;
+}
+
+#informacoes .item-orcamento h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 #informacoes .item-orcamento p {
-    font-size: medium;
-    max-width: 100%;
-    margin: 0;
-    text-align: justify;
-    word-wrap: break-word; 
-    overflow-wrap: break-word; 
-    white-space: normal; 
+    margin: 0.3rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
-.linha-dupla {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 0;
-}
-#informacoes .linha-dupla .item-orcamento {
-    padding-top: 0dvh;
-    height: 6dvh;
-}
-
-
-#price {
-    text-align: right;
+#descricao-erro {
+    background-color: rgba(255, 0, 0, 0.1);
+    border-left: 4px solid red;
+    padding: 0.5rem;
 }
 
 #title-lista-historico {
-    padding-top: 1dvh;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-bottom: 2px solid white;
+    padding-bottom: 0.3rem;
 }
 
-#lista-historico {
-    padding-top: 1dvh;
-    height: 25dvh;
-    overflow-y: auto;
-}
-
-ul {
+#lista-historico ul {
     list-style-type: none;
     padding: 0;
-    margin: 0;
-    padding-top: 0.5dvh;
+    margin: 1rem 0 0;
 }
 
-li {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s;
+#lista-historico li {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+#price {
+    text-align: right;
+    font-size: large;
+}
+
+.linha-dupla{
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-li:hover {
-    background-color: #eaeaea50;
+    justify-content: space-between;
 }
