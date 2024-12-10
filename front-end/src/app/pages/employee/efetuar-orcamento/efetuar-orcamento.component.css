@@ -1,11 +1,9 @@
 #container h1 {
   font-size: 2.5rem;
-  font-family: "Rubik", sans-serif;
   font-weight: 700;
   color: white;
   margin-bottom: 1rem;
   box-sizing: border-box;
-
 }
 
 p {

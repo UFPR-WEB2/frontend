@@ -25,6 +25,7 @@ body {
 	background: var(--bg-color);
 	width: 100vw;
 	min-height: 100dvh;
+    font-family: sans-serif;
 }
 
 #container {

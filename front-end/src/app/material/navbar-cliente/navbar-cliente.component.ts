@@ -14,7 +14,7 @@ export class NavbarClienteComponent {
     { nome: 'Solicitar Manutenção', link: '/cliente/home/solicitarManutencao' }
   ];
 
-  estados = ['Todos', 'Orçada', 'Aprovada', 'Rejeitada', 'Arrumada', 'Outros estados'];
+  estados = ['Todos', 'Orcada', 'Aprovada', 'Rejeitada', 'Arrumada', 'Outros estados'];
 
   @Output() estadoSelecionado = new EventEmitter<string>();
 

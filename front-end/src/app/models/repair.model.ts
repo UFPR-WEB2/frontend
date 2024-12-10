@@ -1,6 +1,5 @@
 export interface IRepair {
-  id: number;
-  data_conserto: string; 
-  descricao_conserto: string;
-  orientacao_cliente: string;
+  idManutencao?: number;
+  descricaoConserto: string;
+  orientacaoCliente: string;
 }

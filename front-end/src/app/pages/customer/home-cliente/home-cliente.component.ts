@@ -9,11 +9,17 @@ import {
 } from '../../../services/api/maintenance.service';
 
 import { BudgetService } from '../../../services/api/budget.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home-cliente',
   standalone: true,
-  imports: [HeaderClienteComponent, NavbarClienteComponent, CommonModule],
+  imports: [
+    HeaderClienteComponent,
+    NavbarClienteComponent,
+    CommonModule,
+    FormsModule,
+  ],
   providers: [DatePipe],
   templateUrl: './home-cliente.component.html',
   styleUrls: ['./home-cliente.component.css'],
@@ -21,6 +27,8 @@ import { BudgetService } from '../../../services/api/budget.service';
 export class HomeClienteComponent implements OnInit {
   servicos: MaintenanceResponse[] = [];
   usuarioLogado: any;
+  resgatarModal: Boolean = false;
+  resgatarModalId: number | undefined;
 
   constructor(
     private maintenanceService: MaintenanceService,
@@ -33,39 +41,59 @@ export class HomeClienteComponent implements OnInit {
     this.carregarServicos();
   }
 
+  openResgatarModal(id: number | undefined) {
+    this.resgatarModal = true;
+    this.resgatarModalId = id;
+  }
+
+  closeResgatarModal() {
+    this.resgatarModal = false;
+  }
+
   carregarServicos(estado?: string) {
     this.maintenanceService.getMaintenanceRecords().subscribe({
       next: (data) => {
         this.servicos = data
-          .filter((servico) => !estado || 
-                                servico.nomeStatus === (estado.toUpperCase()) || 
-                                estado === 'todos' ||
-                                (estado === "outros estados" && servico.nomeStatus !== "ORÇADA" && servico.nomeStatus !== "APROVADA" && servico.nomeStatus !== "REJEITADA" && servico.nomeStatus !== "ARRUMADA"))
+          .filter(
+            (servico) =>
+              !estado ||
+              servico.nomeStatus === estado.toUpperCase() ||
+              estado === 'todos' ||
+              (estado === 'outros estados' &&
+                servico.nomeStatus !== 'ORCADA' &&
+                servico.nomeStatus !== 'APROVADA' &&
+                servico.nomeStatus !== 'REJEITADA' &&
+                servico.nomeStatus !== 'ARRUMADA')
+          )
           .map((servico) => {
             return {
               ...servico,
               dataConserto:
-                this.datePipe.transform(servico.dataConserto, 'dd/MM/yyyy') ||
-                undefined,
+                this.datePipe.transform(
+                  servico.dataConserto,
+                  'dd/MM/yyyy HH:mm:ss'
+                ) || undefined,
               dataCriacao:
-                this.datePipe.transform(servico.dataCriacao, 'dd/MM/yyyy') ||
-                undefined,
+                this.datePipe.transform(
+                  servico.dataCriacao,
+                  'dd/MM/yyyy HH:mm:ss'
+                ) || undefined,
               dataFinalizacao:
-                this.datePipe.transform(servico.dataFinalizacao, 'dd/MM/yyyy') ||
-                undefined,
+                this.datePipe.transform(
+                  servico.dataFinalizacao,
+                  'dd/MM/yyyy HH:mm:ss'
+                ) || undefined,
             };
           });
-        console.log('Serviços carregados:', this.servicos);
       },
       error: (error) => {
-        console.error('Erro ao carregar solicitações', error);
       },
     });
   }
 
   filtrarPorEstado(estadoSelecionado: string) {
     console.log('Estado selecionado:', estadoSelecionado);
-    this.carregarServicos(estadoSelecionado);  
+    this.carregarServicos(estadoSelecionado);
   }
 
   mostrarOrcamento(id: number | undefined) {
@@ -86,6 +114,7 @@ export class HomeClienteComponent implements OnInit {
         console.error('Erro ao resgatar serviço', error);
       },
     });
+    this.resgatarModal = false;
   }
 
   pagarServico(id: number | undefined) {

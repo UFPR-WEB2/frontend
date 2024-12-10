@@ -4,16 +4,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { BudgetService } from '../../../services/api/budget.service';
 import { MaintenanceService } from '../../../services/api/maintenance.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-orcamento-cliente',
   standalone: true,
-  imports: [HeaderClienteComponent, CommonModule],
+  imports: [HeaderClienteComponent, CommonModule, FormsModule],
   templateUrl: './orcamento-cliente.component.html',
-  styleUrls: ['./orcamento-cliente.component.css']
+  styleUrls: ['./orcamento-cliente.component.css'],
 })
 export class OrcamentoClienteComponent {
   item: any;
   id: number | null = null;
+  approvalModal: Boolean = false;
+  rejectModal: Boolean = false;
+  rejectReason: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -24,11 +28,11 @@ export class OrcamentoClienteComponent {
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-  
+
     if (this.id) {
       this.budgetService.getBudgetByMaintenanceId(this.id).subscribe({
         next: (budgetResponse) => {
-          this.item = budgetResponse; 
+          this.item = budgetResponse;
 
           this.maintenanceService.getMaintenanceRecordById(this.id).subscribe({
             next: (maintenanceResponse) => {
@@ -37,18 +41,36 @@ export class OrcamentoClienteComponent {
             },
             error: (err) => {
               console.error('Erro ao obter serviço:', err);
-            }
+            },
           });
         },
         error: (err) => {
           console.error('Erro ao obter orçamento:', err);
-        }
+        },
       });
     } else {
       console.error('ID do orçamento não fornecido');
     }
   }
-  
+
+  openApprovalModal() {
+    this.approvalModal = true;
+    this.rejectModal = false;
+  }
+
+  openRejectModal() {
+    this.rejectModal = true;
+    this.approvalModal = false;
+  }
+
+  closeApprovalModal() {
+    this.approvalModal = false;
+  }
+
+  closeRejectModal() {
+    this.rejectModal = false;
+    this.rejectReason = '';
+  }
 
   aprovarServico() {
     if (this.id) {
@@ -59,46 +81,34 @@ export class OrcamentoClienteComponent {
         },
         error: (err) => {
           console.error('Erro ao aprovar orçamento:', err);
-        }
+        },
       });
     }
   }
 
   rejeitarServico() {
-    const motivo = prompt('Digite o motivo da rejeição:');
-    if (this.id && motivo) {
-      // Caso queira armazenar o motivo antes de rejeitar, primeiro faz o update:
+    if (this.id) {
       const updateRequest = {
         precoOrcado: this.item?.precoOrcado,
-        descricao: `Rejeitado: ${motivo}`,  // Usando o campo descricao para armazenar o motivo.
-        maintenanceId: this.item?.maintenanceId
+        descricao: this.rejectReason ? `Rejeitado: ${this.rejectReason}` : 'Rejeitado sem motivo',
+        maintenanceId: this.item?.maintenanceId,
       };
 
       this.budgetService.updateBudget(this.id, updateRequest).subscribe({
         next: () => {
           this.budgetService.rejectBudget(this.id).subscribe({
             next: () => {
-              alert('Serviço Rejeitado');
+              this.closeRejectModal();
               this.router.navigate(['/cliente/home']);
             },
             error: (err) => {
               console.error('Erro ao rejeitar orçamento:', err);
-            }
+            },
           });
         },
         error: (err) => {
           console.error('Erro ao atualizar orçamento antes da rejeição:', err);
-        }
-      });
-    } else if (this.id && !motivo) {
-      this.budgetService.rejectBudget(this.id).subscribe({
-        next: () => {
-          alert('Serviço Rejeitado sem motivo especificado');
-          this.router.navigate(['/cliente/home']);
         },
-        error: (err) => {
-          console.error('Erro ao rejeitar orçamento:', err);
-        }
       });
     }
   }

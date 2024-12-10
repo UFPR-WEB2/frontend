@@ -17,28 +17,32 @@
         <tbody>
           <tr *ngFor="let servico of servicosFiltrados">
             <td class="item">{{ servico.id }}</td>
-            <td class="item">{{ servico.data }}</td>
-            <td class="item">{{ servico.descricaoErro | slice: 0: 30 }}</td>
+            <td class="item">{{ servico.dataCriacao }}</td>
+            <td class="item">{{ servico.descricaoDefeito| slice: 0: 30 }}</td>
             <td class="item" [ngClass]="{
-                  'aberta': servico.status === 'ABERTA',
-                  'orcada': servico.status === 'ORÇADA',
-                  'rejeitada': servico.status === 'REJEITADA',
-                  'aprovada': servico.status === 'APROVADA',
-                  'redirecionada': servico.status === 'REDIRECIONADA',
-                  'arrumada': servico.status === 'ARRUMADA',
-                  'paga': servico.status === 'PAGA',
-                  'finalizada': servico.status === 'FINALIZADA'
+                  'aberta':  servico.nomeStatus?.toUpperCase() === 'ABERTA',
+                  'orcada':  servico.nomeStatus?.toUpperCase() === 'ORÇADA',
+                  'rejeitada':  servico.nomeStatus?.toUpperCase() === 'REJEITADA',
+                  'aprovada':  servico.nomeStatus?.toUpperCase() === 'APROVADA',
+                  'redirecionada':  servico.nomeStatus?.toUpperCase() === 'REDIRECIONADA',
+                  'arrumada':  servico.nomeStatus?.toUpperCase() === 'ARRUMADA',
+                  'paga':  servico.nomeStatus?.toUpperCase() === 'PAGA',
+                  'finalizada':  servico.nomeStatus?.toUpperCase() === 'FINALIZADA'
                 }">
-              {{ servico.status }}
+              {{servico.nomeStatus?.toUpperCase() }}
             </td>
-            <td class="item" >
-              <button *ngIf=" servico.status==='ABERTA'" (click)=" Efetuaorcamento(servico.id)">Efetuar
-              Orçamento</button>
-              <button *ngIf="servico.status === 'APROVADA'" (click)="efetuarManutencao(servico.id)">Efetuar
+            <td class="item">
+              <button *ngIf="servico.nomeStatus?.toUpperCase()==='ABERTA'"
+                (click)=" efetuarOrcamento(servico.id)">Efetuar
+                Orçamento</button>
+              <button *ngIf=" servico.nomeStatus?.toUpperCase() === 'APROVADA'"
+                (click)="efetuarManutencao(servico.id)">Efetuar
                 Manutenção</button>
-              <button *ngIf="servico.status === 'REDIRECIONADA'" (click)="efetuarManutencao(servico.id)">Efetuar
+              <button *ngIf=" servico.nomeStatus?.toUpperCase() === 'REDIRECIONADA'"
+                (click)="efetuarManutencao(servico.id)">Efetuar
                 Manutenção</button>
-              <button *ngIf="servico.status === 'PAGA'" (click)="finalizarSolicitacao(servico.id)">Finalizar
+              <button *ngIf=" servico.nomeStatus?.toUpperCase() === 'PAGA'"
+                (click)="openFinalizarServicoModal(servico.id)">Finalizar
                 serviço</button>
             </td>
           </tr>
@@ -47,4 +51,14 @@
       </table>
     </div>
   </main>
+  <div *ngIf="finalizarServicoModal" id="finalizar-servico-modal" class="modal" (click)="closeFinalizarServicoModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div>
+        <h2>Deseja FINALIZAR o serviço {{[idServicoModal]}}?</h2>
+        <span class="close-button" (click)="closeFinalizarServicoModal()">&times;</span>
+      </div>
+      <button (click)="(finalizarSolicitacao(idServicoModal))" class="buttons">Finalizar</button>
+      <button (click)="closeFinalizarServicoModal()" class="buttons">Cancelar</button>
+    </div>
+  </div>
 </div>

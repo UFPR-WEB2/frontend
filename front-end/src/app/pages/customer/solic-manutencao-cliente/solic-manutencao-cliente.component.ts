@@ -35,12 +35,11 @@ export class SolicManutencaoClienteComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService,
     private maintenanceService: MaintenanceService,
     private categoriaService: CrudCategoriaService
   ) {
     this.solicForm = this.fb.group({
-      equipmentDescription: [
+      defectDescription: [
         '',
         [
           Validators.required,
@@ -48,11 +47,11 @@ export class SolicManutencaoClienteComponent {
           Validators.maxLength(200),
         ],
       ],
-      defectDescription: [
+      equipmentDescription: [
         '',
         [
           Validators.required,
-          Validators.minLength(0),
+          Validators.minLength(3),
           Validators.maxLength(30),
         ],
       ],
@@ -93,13 +92,10 @@ export class SolicManutencaoClienteComponent {
         nomeCategoria: this.equipmentCategory?.value,
         status: StatusEnum.ABERTA,
       };
-      //this.maintenanceService.createMaintenance(newRequest);
       this.maintenanceService.createMaintenance(newRequest).subscribe({
-        next: (response) => console.log('Requisição bem-sucedida:', response),
+        next: (response) => this.router.navigate(['/cliente/home']),
         error: (error) => console.error('Erro ao criar manutenção:', error),
       });
-
-      this.router.navigate(['/cliente/home']);
     } else {
       this.solicForm.markAllAsTouched();
     }
