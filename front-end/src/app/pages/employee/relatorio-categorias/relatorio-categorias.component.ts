@@ -102,12 +102,12 @@ export class RelatorioCategoriasComponent implements OnInit {
     const timeString = currentDate.toLocaleTimeString('pt-BR');
     doc.text(`Gerado em: ${dateString} às ${timeString}`, 10, y + 20);
 
-    const totalPages = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= totalPages; i++) {
+    const pageCount = doc.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
       doc.setFontSize(10);
       doc.setTextColor(150);
-      doc.text('Página ' + String(i) + ' de ' + String(totalPages), 180, 290, { align: 'right' });
+      doc.text('Página ' + String(i) + ' de ' + String(pageCount), 180, 290, { align: 'right' });
     }
 
     doc.save('relatorio_receitas_categorias.pdf');
