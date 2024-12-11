@@ -14,12 +14,14 @@
         <option value="todas">Todas</option>
       </select>
     </div>
-  
+
     <div *ngIf="filtroSelecionado === 'periodo'">
       <label for="dataInicio">Data Início:</label>
-      <input type="date" id="dataInicio" [(ngModel)]="dataInicio" (change)="aplicarFiltro()">
-  
+      <input type="date" id="dataInicio" [(ngModel)]="dataInicio">
+
       <label for="dataFim">Data Fim:</label>
-      <input type="date" id="dataFim" [(ngModel)]="dataFim" (change)="aplicarFiltro()">
+      <input type="date" id="dataFim" [(ngModel)]="dataFim">
+
+      <button class="btn-aplicar-filtro" (click)="aplicarFiltro()">Aplicar Filtro</button>
     </div>
   </div>
