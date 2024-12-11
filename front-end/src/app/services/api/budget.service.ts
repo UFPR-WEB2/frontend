@@ -51,8 +51,8 @@ export class BudgetService {
     return this.http.put<void>(`${this.apiUrl}/aprovar/${id}`, {}, { withCredentials: true });
   }
 
-  rejectBudget(id: number | null): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/rejeitar/${id}`, {}, { withCredentials: true });
+  rejectBudget(id: number | null, updateRequest: any): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/rejeitar/${id}`, updateRequest, { withCredentials: true });
   }
 
   redeemBudget(id: number | undefined): Observable<void> {

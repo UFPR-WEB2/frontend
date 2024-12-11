@@ -89,25 +89,16 @@ export class OrcamentoClienteComponent {
   rejeitarServico() {
     if (this.id) {
       const updateRequest = {
-        precoOrcado: this.item?.precoOrcado,
         descricao: this.rejectReason ? `Rejeitado: ${this.rejectReason}` : 'Rejeitado sem motivo',
-        maintenanceId: this.item?.maintenanceId,
       };
 
-      this.budgetService.updateBudget(this.id, updateRequest).subscribe({
+      this.budgetService.rejectBudget(this.id, updateRequest).subscribe({
         next: () => {
-          this.budgetService.rejectBudget(this.id).subscribe({
-            next: () => {
-              this.closeRejectModal();
-              this.router.navigate(['/cliente/home']);
-            },
-            error: (err) => {
-              console.error('Erro ao rejeitar orçamento:', err);
-            },
-          });
+          this.closeRejectModal();
+          this.router.navigate(['/cliente/home']);
         },
         error: (err) => {
-          console.error('Erro ao atualizar orçamento antes da rejeição:', err);
+          console.error('Erro ao rejeitar orçamento:', err);
         },
       });
     }
