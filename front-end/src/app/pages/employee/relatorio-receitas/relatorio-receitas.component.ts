@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { MaintenanceService, MaintenanceResponse } from '../../../services/api/maintenance.service';	
+import { MaintenanceService, MaintenanceResponse } from '../../../services/api/maintenance.service';
 
 @Component({
   selector: 'app-relatorio-receitas',
@@ -56,9 +56,9 @@ export class RelatorioReceitasComponent implements OnInit {
     const lucroPorDiaMap = receitas.reduce((acc, receita) => {
       if (receita.dataFinalizacao && receita.valorConserto) {
 
-        const [datePart] = receita.dataFinalizacao.split('T'); 
-        const [ano, mes, dia] = datePart.split('-'); 
-        const dataSimplificada = `${dia}/${mes}/${ano}`; 
+        const [datePart] = receita.dataFinalizacao.split('T');
+        const [ano, mes, dia] = datePart.split('-');
+        const dataSimplificada = `${dia}/${mes}/${ano}`;
 
         if (!acc[dataSimplificada]) {
           acc[dataSimplificada] = 0;
@@ -76,7 +76,7 @@ export class RelatorioReceitasComponent implements OnInit {
 
   filtrarReceitas(event: Event) {
     event.preventDefault();
-  
+
     const start = this.startDate ? new Date(this.startDate) : null;
     const end = this.endDate ? new Date(this.endDate) : null;
 
@@ -146,12 +146,12 @@ export class RelatorioReceitasComponent implements OnInit {
     const timeString = currentDate.toLocaleTimeString('pt-BR');
     doc.text(`Gerado em: ${dateString} às ${timeString}`, 10, y + 20);
 
-    const pageCount = doc.getNumberOfPages();
-    for (let i = 1; i <= pageCount; i++) {
+    const totalPages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
       doc.setFontSize(10);
       doc.setTextColor(150);
-      doc.text('Página ' + String(i) + ' de ' + String(pageCount), 180, 290, { align: 'right' });
+      doc.text('Página ' + String(i) + ' de ' + String(totalPages), 180, 290, { align: 'right' });
     }
 
     doc.save('relatorio_receitas.pdf');

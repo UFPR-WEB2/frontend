@@ -18,22 +18,18 @@ export class RelatorioCategoriasComponent implements OnInit {
 
   startDate: string = '';
   endDate: string = '';
-  
-  // Aqui armazenaremos a estrutura de receitas por categoria.
+
   receitas: { categoria: string, valor: number }[] = [];
   receitasFiltradas: { categoria: string, valor: number }[] = [];
 
   ngOnInit(): void {
-    // Ao iniciar o componente, buscamos os dados do serviço.
     this.getAllReceitasPorCategoria();
   }
 
   getAllReceitasPorCategoria() {
-    // Supondo que maintenanceService.getFinishedMaintenance() retorna o mesmo array de MaintenanceResponse
-    // usado anteriormente. Iremos então agrupar por categoria.
     this.maintenanceService.getFinishedMaintenance().subscribe(
       (data: MaintenanceResponse[]) => {
-        // Agrupar receitas por categoria
+
         const receitasPorCategoriaMap: { [key: string]: number } = {};
 
         data.forEach((r) => {
@@ -106,12 +102,12 @@ export class RelatorioCategoriasComponent implements OnInit {
     const timeString = currentDate.toLocaleTimeString('pt-BR');
     doc.text(`Gerado em: ${dateString} às ${timeString}`, 10, y + 20);
 
-    const pageCount = doc.getNumberOfPages();
-    for (let i = 1; i <= pageCount; i++) {
+    const totalPages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
       doc.setFontSize(10);
       doc.setTextColor(150);
-      doc.text('Página ' + String(i) + ' de ' + String(pageCount), 180, 290, { align: 'right' });
+      doc.text('Página ' + String(i) + ' de ' + String(totalPages), 180, 290, { align: 'right' });
     }
 
     doc.save('relatorio_receitas_categorias.pdf');
