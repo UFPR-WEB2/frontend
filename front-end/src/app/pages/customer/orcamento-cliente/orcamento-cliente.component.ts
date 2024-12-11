@@ -35,6 +35,7 @@ export class OrcamentoClienteComponent {
         next: (budgetResponse) => {
           this.item = budgetResponse;
           this.id_budget = budgetResponse.id;
+          console.log(budgetResponse)
           this.maintenanceService.getMaintenanceRecordById(this.id).subscribe({
             next: (maintenanceResponse) => {
               this.item.maintenanceDetails = maintenanceResponse;
