@@ -18,6 +18,7 @@ export class OrcamentoClienteComponent {
   approvalModal: Boolean = false;
   rejectModal: Boolean = false;
   rejectReason: string = '';
+  id_budget: number| null  = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,12 +29,12 @@ export class OrcamentoClienteComponent {
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-
+  
     if (this.id) {
       this.budgetService.getBudgetByMaintenanceId(this.id).subscribe({
         next: (budgetResponse) => {
           this.item = budgetResponse;
-
+          this.id_budget = budgetResponse.id;
           this.maintenanceService.getMaintenanceRecordById(this.id).subscribe({
             next: (maintenanceResponse) => {
               this.item.maintenanceDetails = maintenanceResponse;
@@ -94,9 +95,9 @@ export class OrcamentoClienteComponent {
         maintenanceId: this.item?.maintenanceId,
       };
 
-      this.budgetService.updateBudget(this.id, updateRequest).subscribe({
+      this.budgetService.updateBudget(this.item.id, updateRequest).subscribe({
         next: () => {
-          this.budgetService.rejectBudget(this.id).subscribe({
+          this.budgetService.rejectBudget(this.item.id).subscribe({
             next: () => {
               this.closeRejectModal();
               this.router.navigate(['/cliente/home']);
