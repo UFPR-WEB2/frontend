@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { Router } from '@angular/router';
@@ -24,11 +24,14 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./visualizacao-solicitacoes.component.css'],
   providers: [DatePipe],
 })
-export class VisualizacaoSolicitacoesComponent {
+export class VisualizacaoSolicitacoesComponent implements OnInit {
   servicos: MaintenanceResponse[] = [];
   servicosFiltrados: MaintenanceResponse[] = [];
   finalizarServicoModal: boolean = false;
   idServicoModal: number | undefined;
+
+  sortColumn: string = '';
+  isAscending: boolean = true;
 
   constructor(
     private maintenanceService: MaintenanceService,
@@ -74,6 +77,9 @@ export class VisualizacaoSolicitacoesComponent {
           },
         });
       },
+      error: (error) => {
+        console.error('Erro ao carregar serviços:', error);
+      },
     });
   }
 
@@ -118,17 +124,25 @@ export class VisualizacaoSolicitacoesComponent {
   }
 
   converterParaData(dataString: string): Date {
-    const partes = dataString.split(' ');
+    const partes = dataString.split(' - ');
     const [dia, mes, ano] = partes[0].split('/');
     const [hora, minuto] = partes[1].split(':');
 
     return new Date(
-      Number('20' + ano),
+      Number(ano),
       Number(mes) - 1,
       Number(dia),
       Number(hora),
       Number(minuto)
     );
+  }
+
+  formatConverter(dateStr: string): string {
+    const date = new Date(dateStr);
+    const dia = String(date.getDate()).padStart(2, '0');
+    const mes = String(date.getMonth() + 1).padStart(2, '0');
+    const ano = String(date.getFullYear()).slice(-2);
+    return `${dia}/${mes}/20${ano}`;
   }
 
   onFiltroAplicado(event: any) {
@@ -140,8 +154,21 @@ export class VisualizacaoSolicitacoesComponent {
         return dataServico.toDateString() === hoje.toDateString();
       });
     } else if (event.filtro === 'periodo') {
-      const dataInicio = this.converterParaData(event.dataInicio);
-      const dataFim = this.converterParaData(event.dataFim);
+      if (!event.dataInicio || !event.dataFim) {
+
+        this.servicosFiltrados = this.servicos;
+        return;
+      }
+
+      const dataInicioFormatted = this.formatConverter(event.dataInicio);
+      const dataFimFormatted = this.formatConverter(event.dataFim);
+
+      const dataInicioStr = `${dataInicioFormatted} - 00:00`;
+      const dataFimStr = `${dataFimFormatted} - 23:59`;
+
+      const dataInicio = this.converterParaData(dataInicioStr);
+      const dataFim = this.converterParaData(dataFimStr);
+
       this.servicosFiltrados = this.servicos.filter((servico) => {
         const dataServico = this.converterParaData(servico.dataCriacao || '');
         return dataServico >= dataInicio && dataServico <= dataFim;
@@ -149,5 +176,40 @@ export class VisualizacaoSolicitacoesComponent {
     } else {
       this.servicosFiltrados = this.servicos;
     }
+  }
+
+  sortData(column: string) {
+    if (this.sortColumn === column) {
+      this.isAscending = !this.isAscending;
+    } else {
+      this.sortColumn = column;
+      this.isAscending = true;
+    }
+
+    this.servicosFiltrados.sort((a, b) => {
+      let aValue = this.getPropertyValue(a, column);
+      let bValue = this.getPropertyValue(b, column);
+
+      if (this.isDate(aValue) && this.isDate(bValue)) {
+        aValue = new Date(aValue).getTime();
+        bValue = new Date(bValue).getTime();
+      }
+
+      if (aValue < bValue) {
+        return this.isAscending ? -1 : 1;
+      } else if (aValue > bValue) {
+        return this.isAscending ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  getPropertyValue(obj: any, key: string) {
+    return obj[key];
+  }
+
+  isDate(value: any): boolean {
+    return !isNaN(Date.parse(value));
   }
 }

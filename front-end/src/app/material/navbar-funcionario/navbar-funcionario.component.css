@@ -63,3 +63,62 @@ h3 {
   display: block;
   text-align: center;
 }
+
+.container-lateral input[type="date"] {
+  width: 90%;
+  margin: 1dvh auto;
+  padding: 0.5dvh;
+  background-color: #333;
+  color: white;
+  border: 1px solid #FF6700;
+  border-radius: 0.5dvh;
+  display: block;
+  text-align: center;
+  font-size: 1em;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.container-lateral input[type="date"]::-webkit-inner-spin-button,
+.container-lateral input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.container-lateral input[type="date"]:focus {
+  border-color: #FF6700;
+  box-shadow: 0 0 5px rgba(255, 103, 0, 0.5);
+}
+
+.container-lateral label {
+  display: block;
+  margin-top: 1dvh;
+  margin-bottom: 0.5dvh;
+  color: #FF6700;
+  font-weight: bold;
+}
+
+.container-lateral input[type="date"]::placeholder {
+  color: #ccc;
+}
+
+.btn-aplicar-filtro {
+  width: 90%;
+  margin: 2dvh auto;
+  padding: 0.5dvh;
+  background: linear-gradient(135deg, orange, red);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5dvh;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  display: block;
+}
+
+.btn-aplicar-filtro:hover {
+  background-color: #e65c00;
+}

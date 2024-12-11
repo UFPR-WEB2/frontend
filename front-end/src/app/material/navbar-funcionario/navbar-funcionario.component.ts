@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './navbar-funcionario.component.css'
 })
 export class NavbarFuncionarioComponent {
-  
+
   funcionalidades = [
     { nome: 'HOME', link: '/funcionario/home' },
     { nome: 'Visualizar solicitações', link: '/funcionario/home/visualizacao-solicitacoes' },
@@ -35,4 +35,6 @@ export class NavbarFuncionarioComponent {
       dataFim: this.dataFim
     });
   }
+
+
 }
