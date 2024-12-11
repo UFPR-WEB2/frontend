@@ -44,14 +44,15 @@
       <div *ngIf="mostrarComboBox" class="item-form">
         <div>
           <h3>Escolher Funcionário para Redirecionamento</h3>
-          <select [(ngModel)]="funcionarioSelecionado" class="classic">
-            <option *ngFor="let funcionario of funcionarios" [value]="funcionario.nome">
+          <select [(ngModel)]="funcionarioSelecionado" id="funcionario" class="classic">
+            <option *ngFor="let funcionario of funcionarios" [value]="funcionario.id">
               {{ funcionario.nome }}
             </option>
           </select>
         </div>
         <button (click)="redirecionar()">Confirmar Redirecionamento</button>
       </div>
+
 
       <button onclick="history.back()">Voltar</button>
     </div>
@@ -62,10 +63,10 @@
         <h2>Deseja efetuar a manutenção {{servico?.id}}?</h2>
         <span class="close-button" (click)="closeMaintenanceModal()">&times;</span>
       </div>
-      <input [(ngModel)]="descricaoManutencao" id="maintenance-description"
-        placeholder="Descrição da manutenção" type="text" />
-      <input [(ngModel)]="orientacoesCliente" id="orientacao-cliente"
-        placeholder="Orientações para o cliente" type="text" />
+      <input [(ngModel)]="descricaoManutencao" id="maintenance-description" placeholder="Descrição da manutenção"
+        type="text" />
+      <input [(ngModel)]="orientacoesCliente" id="orientacao-cliente" placeholder="Orientações para o cliente"
+        type="text" />
       <button (click)="registrarManutencao()" class="buttons">Efetuar Manutenção</button>
       <button (click)="closeMaintenanceModal()" class="buttons">Cancelar</button>
     </div>

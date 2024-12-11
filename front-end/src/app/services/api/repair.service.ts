@@ -32,4 +32,9 @@ export class RepairService {
   deleteRepair(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  redirectMaintenance(id: number, idFuncionario: number): Observable<any> {
+    const url = `${environment.apiUrl}/responsavel/${id}/${idFuncionario}/trocar`;
+    return this.http.post<any>(url, null, { withCredentials: true });
+  }
 }

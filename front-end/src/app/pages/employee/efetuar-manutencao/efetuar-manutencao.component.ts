@@ -8,11 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { ServicoStorageService } from '../../../services/servico-storage.service';
 import { HeaderClienteComponent } from '../../../material/header-cliente/header-cliente.component';
 import { DatePipe } from '@angular/common';
 import { RepairService } from '../../../services/api/repair.service';
 import { IRepair } from '../../../models/repair.model';
+import { EmployeeService, Employee } from '../../../services/api/employee.service';
 
 @Component({
   selector: 'app-efetuar-manutencao',
@@ -23,7 +23,7 @@ import { IRepair } from '../../../models/repair.model';
   providers: [DatePipe],
 })
 export class EfetuarManutencaoComponent {
-  funcionarios: any[] = []; // Lista de funcionários
+  funcionarios: any[] = [];
   cliente: any;
   mostrarComboBox: boolean = false;
   descricaoManutencao: string = '';
@@ -31,6 +31,7 @@ export class EfetuarManutencaoComponent {
   funcionarioSelecionado: string = '';
   id: number | null = null;
   servico: MaintenanceResponse | null = null;
+  funcionario_id : number | null = null;
 
   maintenanceModal: Boolean = false;
 
@@ -40,19 +41,34 @@ export class EfetuarManutencaoComponent {
     private datePipe: DatePipe,
     private maintenanceService: MaintenanceService,
     private authService: AuthService,
-    private repairService: RepairService
+    private repairService: RepairService,
+    private employeeService: EmployeeService
   ) {}
 
   ngOnInit() {
+
+
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.authService.getSession().subscribe({
       next: (response) => {
-        console.log('Sessão do usuário:', response);
         this.funcionarioSelecionado = response.id;
+        this.funcionario_id = response.body.id;
         response.role = response.role;
       },
       error: (err) => {
         console.error('Erro ao recuperar sessão:', err);
+      },
+    });
+    this.employeeService.listarFuncionarios().subscribe({
+      next: (funcionarios) => {
+        console.log(funcionarios)
+        console.log(Number(this.funcionario_id))
+        this.funcionarios = funcionarios.filter(
+          (funcionario) => funcionario.id !== Number(this.funcionario_id)
+        );
+      },
+      error: (error) => {
+        console.error('Erro ao carregar funcionários:', error);
       },
     });
     this.maintenanceService.getMaintenanceById(this.id).subscribe({
@@ -93,22 +109,26 @@ export class EfetuarManutencaoComponent {
   }
 
   redirecionar() {
-    /*
-    ---------- ISSO AINDA NAO FOI FEITO ---------
-    //ABCDE
-    const confirmacao = window.confirm('Você tem certeza que deseja redirecionar este serviço para outro funcionário?');
-    if (confirmacao && this.funcionarioSelecionado) {
-      const dadosAtualizados = {
-        status: 'REDIRECIONADA',
-        funcionario: this.funcionarioSelecionado
-      };
-      window.alert('Serviço redirecionado com sucesso!');
-      this.servicoStorage.updateServico(this.item.id, dadosAtualizados);
-      this.router.navigate(['/funcionario/home']);
+    if (this.id && this.funcionarioSelecionado) {
+      const idManutencao = this.id;
+      const idFuncionario = Number(this.funcionarioSelecionado);
+      console.log(idManutencao)
+      console.log(idFuncionario)
+      this.repairService.redirectMaintenance(idManutencao, idFuncionario).subscribe({
+        next: (response) => {
+          window.alert('Responsável redirecionado com sucesso!');
+          this.router.navigate(['/funcionario/home']); 
+        },
+        error: (err) => {
+          console.error('Erro ao redirecionar manutenção:', err);
+          window.alert('Erro ao redirecionar manutenção.');
+        },
+      });
     } else {
-      window.alert('Por favor, selecione um funcionário para redirecionar.');
-    }*/
+      window.alert('Por favor, selecione um funcionário.');
+    }
   }
+  
 
   registrarManutencao() {
     // ABCDE - APLICAR VALIDAÇÃO
